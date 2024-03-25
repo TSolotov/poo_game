@@ -6,7 +6,7 @@ public class GameFrame {
     private JFrame jframe;
 
     public GameFrame(GamePanel panel){
-        jframe = new JFrame("Circus");
+        jframe = new JFrame("Circus Charlie");
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.add(panel);
         jframe.setResizable(false);
