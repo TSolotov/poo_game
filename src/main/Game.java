@@ -3,6 +3,7 @@ package main;
 import java.lang.Thread;
 
 import states.GameState;
+import states.Menu;
 import states.CircusPlaying;
 
 import java.awt.Graphics;
@@ -18,6 +19,7 @@ public class Game implements Runnable {
 
     // * Objeto Playing
     private CircusPlaying circusPlaying;
+    private Menu menu;
 
     public Game() {
         init();
@@ -32,6 +34,7 @@ public class Game implements Runnable {
 
     public void init() {
         circusPlaying = new CircusPlaying(this);
+        menu = new Menu(this);
 
     }
 
@@ -97,6 +100,9 @@ public class Game implements Runnable {
             case CIRCUS_PLAYING:
                 circusPlaying.update();
                 break;
+            case MENU:
+                menu.update();
+                break;
 
             default:
                 break;
@@ -108,6 +114,9 @@ public class Game implements Runnable {
         switch (GameState.state) {
             case CIRCUS_PLAYING:
                 circusPlaying.draw(g);
+                break;
+            case MENU:
+                menu.draw(g);
                 break;
 
             default:

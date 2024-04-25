@@ -3,7 +3,7 @@ package utils;
 public class Constants {
 
     // * Contiene todos los paths e información acerca del player 1
-    public static class Player1 {
+    public static class Player1Constants {
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
         public static final int JUMP = 2;
@@ -31,6 +31,16 @@ public class Constants {
             }
 
         }
+    }
+
+    // * Contiene tda la informacion en Menu
+    public static class MenuConstants {
+        public static final String menuAtlas = "resources/menu/bg_";
+
+        public static String[] getPlayer1SpritesInfo() {
+            return new String[] { menuAtlas, "2" };
+        }
+
     }
 
     // * Contiene toda la información de lo que es el frame, la ventana

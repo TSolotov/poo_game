@@ -22,6 +22,6 @@ public class GamePanel extends JPanel {
     // Se encarga del pintado global por así decirlo.
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // game.draw(g);
+        game.draw(g);
     }
 }
