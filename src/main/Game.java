@@ -128,4 +128,8 @@ public class Game implements Runnable {
     public CircusPlaying getPlaying() {
         return circusPlaying;
     }
+
+    public Menu getMenu() {
+        return menu;
+    }
 }

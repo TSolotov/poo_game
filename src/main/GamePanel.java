@@ -3,6 +3,9 @@ package main;
 import static utils.Constants.FrameConstants.*;
 
 import javax.swing.*;
+
+import inputs.KeyInputs;
+
 import java.awt.*;
 
 public class GamePanel extends JPanel {
@@ -13,6 +16,7 @@ public class GamePanel extends JPanel {
         this.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 
         // TODO - Realizar los eventos de teclado
+        addKeyListener(new KeyInputs(this));
     }
 
     public Game getGame() {

@@ -4,6 +4,8 @@ public class Constants {
 
     // * Contiene todos los paths e información acerca del player 1
     public static class Player1Constants {
+        public static final int SPRITE_WIDTH = 64, SPRITE_HEIGHT = 44;
+
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
         public static final int JUMP = 2;

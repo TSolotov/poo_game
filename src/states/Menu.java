@@ -3,6 +3,7 @@ package states;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import utils.LoadSprites;
@@ -13,6 +14,11 @@ import static utils.Constants.FrameConstants.*;
 public class Menu extends State implements StateMethods {
 
     private BufferedImage[] bg_images;
+
+    // Gestiona la selección del menu
+    private int currentOption = 0;
+    private String[] options = { "Play Circus (1 Jugador)", "Play Pong (2 Jugadores)", "TODO - Archivos",
+            "TODO - Configuraciones", "Salir" };
 
     public Menu(Game game) {
         super(game);
@@ -39,13 +45,58 @@ public class Menu extends State implements StateMethods {
         g.drawImage(bg_images[1], (FRAME_WIDTH - bg_images[1].getWidth()) / 2,
                 75, null);
 
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Verdana", Font.BOLD, 22));
-
+        g.setFont(new Font("Verdana", Font.CENTER_BASELINE, 22));
         // TODO - Agregar funcionalidad
-        g.drawString("Play Circus (1 Jugador)", 100, 400);
-        g.drawString("Play Pong (2 Jugadores)", 100, 450);
-        g.drawString("Salir", 100, 500);
+
+        for (int i = 0; i < options.length; i++) {
+            if (i == currentOption)
+                g.setColor(Color.GREEN);
+            else
+                g.setColor(Color.WHITE);
+
+            g.drawString(options[i], 100, 400 + 50 * i);
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent k) {
+        switch (k.getKeyCode()) {
+            case KeyEvent.VK_W:
+                if (currentOption == 0) {
+                    currentOption = options.length - 1;
+                } else {
+                    currentOption--;
+                }
+                break;
+            case KeyEvent.VK_S:
+                if (currentOption == options.length - 1) {
+                    currentOption = 0;
+                } else {
+                    currentOption++;
+                }
+                break;
+
+            case KeyEvent.VK_ENTER:
+                switch (currentOption) {
+                    case 0:
+                        GameState.state = GameState.CIRCUS_PLAYING;
+                        break;
+                    case 1:
+                        GameState.state = GameState.PONG_PLAYING;
+                        break;
+                    default:
+                        System.exit(0);
+                        break;
+                }
+            default:
+                break;
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent k) {
+        System.out.println("Testing");
     }
 
 }
