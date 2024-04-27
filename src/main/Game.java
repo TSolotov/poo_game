@@ -1,12 +1,11 @@
 package main;
 
 import java.lang.Thread;
+import java.awt.Graphics;
 
 import states.GameState;
 import states.Menu;
 import states.CircusPlaying;
-
-import java.awt.Graphics;
 
 import static utils.Constants.FrameConstants.FPS_SET;
 import static utils.Constants.FrameConstants.UPS_SET;
@@ -17,7 +16,7 @@ public class Game implements Runnable {
     // * Variables para el func del Hilo
     private Thread gameThread;
 
-    // * Objeto Playing
+    // * Objeto drawiables
     private CircusPlaying circusPlaying;
     private Menu menu;
 
@@ -49,7 +48,7 @@ public class Game implements Runnable {
     // * 144fps y 240ups
     @Override
     public void run() {
-        // El valor se toma en nanosegundos
+        // * El valor se toma en nanosegundos
         double timePerFrame = 1000000000.0 / FPS_SET; // Frames per second
         double timePerUpdate = 1000000000.0 / UPS_SET; // Update per second
 
@@ -79,7 +78,7 @@ public class Game implements Runnable {
                 deltaF--;
             }
 
-            // Imprime los frames cada segundo "1000 milis"
+            // * Imprime los frames cada segundo "1000 milis - Sin relevancia"
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
                 System.out.println("FPS: " + frames + " | UPS: " + updates);
@@ -122,6 +121,7 @@ public class Game implements Runnable {
             default:
                 break;
         }
+
     }
 
     // * Getters

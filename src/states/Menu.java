@@ -96,7 +96,7 @@ public class Menu extends State implements StateMethods {
 
     @Override
     public void keyReleased(KeyEvent k) {
-        System.out.println("Testing");
+        // ! Innecesario por ahora
     }
 
 }

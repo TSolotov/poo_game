@@ -4,7 +4,7 @@ public class Constants {
 
     // * Contiene todos los paths e información acerca del player 1
     public static class Player1Constants {
-        public static final int SPRITE_WIDTH = 64, SPRITE_HEIGHT = 44;
+        public static final int SPRITE_WIDTH = 64 * 2, SPRITE_HEIGHT = 44 * 2;
 
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
@@ -41,6 +41,15 @@ public class Constants {
 
         public static String[] getPlayer1SpritesInfo() {
             return new String[] { menuAtlas, "2" };
+        }
+
+    }
+
+    public static class CircusConstants {
+        public static final String bgAtlas = "resources/circus/bg/bg_";
+
+        public static String[] getSpritesInfo() {
+            return new String[] { bgAtlas, "4" };
         }
 
     }

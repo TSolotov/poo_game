@@ -5,14 +5,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import states.CircusPlaying;
-import utils.Constants;
 import utils.LoadSprites;
 
 import static utils.Constants.Player1Constants.*;
 
 public class Player1 extends Entity {
     // * Contiene info respecto al estado de juego de circus
-    private CircusPlaying playing;
+    private CircusPlaying circusPlaying;
 
     // * Sprites para las animaciones
     private ArrayList<BufferedImage[]> animations;
@@ -26,13 +25,15 @@ public class Player1 extends Entity {
     private float jumpSpeed = -3.0f;
     private int flipX = 0, flipW = 1;
 
-    public Player1(float x, float y, int width, int heigth, CircusPlaying playing) {
+    public Player1(float x, float y, int width, int heigth, CircusPlaying circusPlaying) {
         super(x, y, width, heigth);
-        this.playing = playing;
+        this.circusPlaying = circusPlaying;
+        this.currentLives = 5;
+
         loadAnimationsSprites();
 
         // TODO - Verificar estas constantes
-        initHitbox(18, 33);
+        initHitbox(width, heigth);
 
     }
 
@@ -59,8 +60,8 @@ public class Player1 extends Entity {
 
     }
 
+    // * Actualiza la posicion en la que se encuentra el plauyer
     private void updatePosition() {
-
         moving = false;
 
         // * Si salta
@@ -81,7 +82,7 @@ public class Player1 extends Entity {
 
         if (left) {
             xSpeed -= walkSpeed;
-            flipX = width - 10;
+            flipX = width - 13;
             flipW = -1;
 
         }
@@ -101,6 +102,7 @@ public class Player1 extends Entity {
         hitbox.x += xSpeed;
     }
 
+    // *
     private void setAnimations() {
         int startAnimation = playerAction;
         walkSpeed = 0.75f;
@@ -126,6 +128,10 @@ public class Player1 extends Entity {
 
     // ! Draw & Update Methods
     public void update() {
+        if (currentLives <= 0) {
+            // TODO - El game over
+        }
+
         updateAnimationTick();
         updatePosition();
         setAnimations();
@@ -133,10 +139,11 @@ public class Player1 extends Entity {
 
     public void draw(Graphics g) {
         // TODO - Ver variables
-        int heightSprite = 44 * 2, widthSprite = 64 * 2;
-        g.drawImage(animations.get(playerAction)[aniIndex], (int) hitbox.getX(), (int) hitbox.getY(),
-                widthSprite * flipW,
-                heightSprite, null);
+        g.drawImage(animations.get(playerAction)[aniIndex], (int) hitbox.getX() + flipX, (int) hitbox.getY(),
+                SPRITE_WIDTH * flipW,
+                SPRITE_HEIGHT, null);
+
+        g.drawRect((int) hitbox.x, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
     // ! Setters y Getters

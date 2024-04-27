@@ -16,7 +16,7 @@ public class LoadSprites {
      */
 
     public static BufferedImage[] getSprites(String[] infoSprites) {
-        System.out.println(infoSprites[0] + " | " + infoSprites[1]);
+        // System.out.println(infoSprites[0] + " | " + infoSprites[1]);
         BufferedImage[] sprites = new BufferedImage[Integer.parseInt(infoSprites[1])];
         for (int i = 0; i < Integer.parseInt(infoSprites[1]); i++) {
             InputStream imageSprite = LoadSprites.class.getResourceAsStream("/" + infoSprites[0] + i + ".png");
