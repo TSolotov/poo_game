@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import states.CircusPlaying;
+import utils.Constants;
+import utils.Helpers;
 import utils.LoadSprites;
 
 import static utils.Constants.Player1Constants.*;
@@ -12,6 +14,7 @@ import static utils.Constants.Player1Constants.*;
 public class Player1 extends Entity {
     // * Contiene info respecto al estado de juego de circus
     private CircusPlaying circusPlaying;
+    private int[][] levelData;
 
     // * Sprites para las animaciones
     private ArrayList<BufferedImage[]> animations;
@@ -22,18 +25,19 @@ public class Player1 extends Entity {
 
     // * Movimiento
     private boolean left, right, jump, moving = false;
-    private float jumpSpeed = -3.0f;
+    private float jumpSpeed = -3.0f, fallSpeedAfterCollision = 0.5f;
     private int flipX = 0, flipW = 1;
 
     public Player1(float x, float y, int width, int heigth, CircusPlaying circusPlaying) {
         super(x, y, width, heigth);
         this.circusPlaying = circusPlaying;
         this.currentLives = 5;
+        this.walkSpeed = 1.0f;
 
         loadAnimationsSprites();
 
         // TODO - Verificar estas constantes
-        initHitbox(width, heigth);
+        initHitbox(REAL_WIDTH, REAL_HEIGHT);
 
     }
 
@@ -44,6 +48,13 @@ public class Player1 extends Entity {
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(RUNNING)));
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(JUMP)));
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(FALLING)));
+    }
+
+    // * Carga el nivel actual
+    public void loadLevelData(int[][] levelData) {
+        this.levelData = levelData;
+        if (!Helpers.IsEntityOnFloor(hitbox, levelData))
+            inAir = true;
     }
 
     // * Controla la animación
@@ -60,16 +71,20 @@ public class Player1 extends Entity {
 
     }
 
+    public void jump() {
+
+    }
+
     // * Actualiza la posicion en la que se encuentra el plauyer
     private void updatePosition() {
         moving = false;
 
         // * Si salta
         if (jump) {
-            if (inAir)
-                return;
-            inAir = true;
-            airSpeed = jumpSpeed;
+            if (!inAir) {
+                inAir = true;
+                airSpeed = jumpSpeed;
+            }
         }
 
         if (!inAir) {
@@ -82,7 +97,7 @@ public class Player1 extends Entity {
 
         if (left) {
             xSpeed -= walkSpeed;
-            flipX = width - 13;
+            flipX = width - 18;
             flipW = -1;
 
         }
@@ -93,19 +108,45 @@ public class Player1 extends Entity {
             flipW = 1;
         }
 
-        updateXPos(xSpeed);
+        if (!inAir) {
+            if (!Helpers.IsEntityOnFloor(hitbox, levelData)) {
+                inAir = true;
+            }
+        }
+
+        if (inAir) {
+            if (Helpers.CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, levelData)) {
+                hitbox.y += airSpeed;
+                airSpeed += Constants.CircusConstants.GRAVITY;
+                updateXPos(xSpeed);
+            } else {
+                hitbox.y = Helpers.getEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+                if (airSpeed > 0) {
+                    inAir = false;
+                    airSpeed = 0;
+                } else {
+                    airSpeed = fallSpeedAfterCollision;
+                }
+                updateXPos(xSpeed);
+            }
+        } else {
+            updateXPos(xSpeed);
+        }
 
         moving = true;
     }
 
     private void updateXPos(float xSpeed) {
-        hitbox.x += xSpeed;
+        if (Helpers.CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelData)) {
+            hitbox.x += xSpeed;
+        } else {
+            hitbox.x = Helpers.getEntityXPosNextToWall(hitbox, xSpeed);
+        }
     }
 
     // *
     private void setAnimations() {
         int startAnimation = playerAction;
-        walkSpeed = 0.75f;
 
         if (moving)
             playerAction = RUNNING;
@@ -137,13 +178,14 @@ public class Player1 extends Entity {
         setAnimations();
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int xLevelOffset) {
         // TODO - Ver variables
-        g.drawImage(animations.get(playerAction)[aniIndex], (int) hitbox.getX() + flipX, (int) hitbox.getY(),
+        g.drawImage(animations.get(playerAction)[aniIndex], (int) (hitbox.x - X_DRAW_OFFSET) - xLevelOffset + flipX,
+                (int) (hitbox.getY() - Y_DRAW_OFFSET),
                 SPRITE_WIDTH * flipW,
                 SPRITE_HEIGHT, null);
 
-        g.drawRect((int) hitbox.x, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
+        g.drawRect((int) hitbox.x - xLevelOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
     // ! Setters y Getters
