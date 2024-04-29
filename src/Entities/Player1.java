@@ -48,6 +48,7 @@ public class Player1 extends Entity {
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(RUNNING)));
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(JUMP)));
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(FALLING)));
+        animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(DEAD)));
     }
 
     // * Carga el nivel actual
@@ -68,10 +69,6 @@ public class Player1 extends Entity {
                 aniIndex = 0;
             }
         }
-
-    }
-
-    public void jump() {
 
     }
 
