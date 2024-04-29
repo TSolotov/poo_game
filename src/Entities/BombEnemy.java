@@ -16,25 +16,28 @@ import static utils.Constants.CircusConstants.TILES_SIZE;
 
 public class BombEnemy extends Enemy {
 
-    protected Rectangle2D.Float jumpBox;
+    private Rectangle2D.Float jumpBox;
 
     private final int RANGE_TO_JUMP = 150;
 
     // * Controlan el salto de la bomba
-    private float jumpSpeed = -3.0f;
-    private boolean jump = false;
+    private float jumpSpeed = -2.25f;
 
     public BombEnemy(float x, float y) {
         super(x, y, EnemyConstants.BOMB_SPRITE_WIDTH, EnemyConstants.BOMB_SPRITE_HEIGHT, LevelsCreation.BOMB);
+
+        this.walkSpeed = 0.8f;
 
         initHitbox(EnemyConstants.BOMB_REAL_WIDTH, EnemyConstants.BOMB_REAL_HEIGHT);
 
         initJumpBox();
     }
 
-    // TODO
-
-    // TODO
+    // * Verifica si la hitbox de salto y la del player intersectan, y salta
+    private void checkIntersectJumpAndHitbox(Player1 player) {
+        if (jumpBox.intersects(player.hitbox))
+            jump = true;
+    }
 
     // * Esta es la hitbox donde el mono saltaría cuando lo detecte
     private void initJumpBox() {
@@ -56,6 +59,7 @@ public class BombEnemy extends Enemy {
     }
 
     public void updateMove(int[][] levelData, Player1 player) {
+        System.out.println(xSpeed + " | In air: " + inAir + " | AirSpeed: " + airSpeed);
         if (firstUpdate)
             firstUpdateCheck(levelData);
 
@@ -66,20 +70,32 @@ public class BombEnemy extends Enemy {
             }
         }
 
+        if (!inAir) {
+            if (!Helpers.IsEntityOnFloor(hitbox, levelData)) {
+                inAir = true;
+            }
+        }
+
         // * Hace caer a los que están en el aire
         if (inAir) {
             updateMovesInAir(levelData);
+            updateXMoves(levelData);
             if (airSpeed < 0)
                 changeAction(Constants.EnemyConstants.BOMB_JUMP);
-            else
+            else {
                 changeAction(Constants.EnemyConstants.BOMB_FALLING);
+            }
         } else {
+            // !
+
+            // !
             switch (enemyAction) {
                 case EnemyConstants.BOMB_FALLING:
                     changeAction(Constants.EnemyConstants.BOMB_RUNNING);
                     break;
                 case EnemyConstants.BOMB_RUNNING:
                     updateXMoves(levelData);
+                    checkIntersectJumpAndHitbox(player);
                     break;
 
             }
@@ -123,8 +139,4 @@ public class BombEnemy extends Enemy {
         g.drawRect((int) jumpBox.x - offeset, (int) jumpBox.y, (int) jumpBox.width, (int) jumpBox.height);
     }
 
-    // ? Getters & Setters
-    public void setJump(boolean jump) {
-        this.jump = jump;
-    }
 }

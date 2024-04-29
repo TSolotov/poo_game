@@ -91,7 +91,7 @@ public class Constants {
     }
 
     public static class CircusConstants {
-        public final static float GRAVITY = 0.0025f;
+        public final static float GRAVITY = 0.025f;
 
         // ! Constantes para la construcción del mapa (Los tiles) - Testing
         public final static int TILE_DEFAULT_SIZE = 32; // px

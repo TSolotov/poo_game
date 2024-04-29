@@ -12,6 +12,8 @@ public class Enemy extends Entity {
     protected boolean firstUpdate = true;
 
     protected int walkDir = Constants.Directions.LEFT;
+    protected float xSpeed = 0;
+    protected boolean jump = false;
 
     // * Va a controlar la vida de los enemigos
     protected boolean active;
@@ -54,25 +56,40 @@ public class Enemy extends Entity {
             hitbox.y += airSpeed;
             airSpeed += Constants.CircusConstants.GRAVITY;
         } else {
-            inAir = false;
+            // inAir = false;
             hitbox.y = Helpers.getEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+            if (inAir) {
+                if (airSpeed > 0) {
+                    inAir = false;
+                    jump = false;
+                    airSpeed = 0;
+                } else {
+                    airSpeed += Constants.CircusConstants.GRAVITY;
+                }
+                hitbox.y += airSpeed;
+            }
         }
     }
 
     // * Actualiza los movimientos en x
     protected void updateXMoves(int[][] levelData) {
-        float xSpeed = 0;
+        // float xSpeed = 0;
+
         if (walkDir == Constants.Directions.LEFT) {
             xSpeed = -walkSpeed;
         } else {
             xSpeed = walkSpeed;
         }
-        if (Helpers.CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelData))
+        if (Helpers.CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, levelData)) {
             if (Helpers.isFloor(hitbox, xSpeed, levelData)) {
                 hitbox.x += xSpeed;
                 return;
             }
-        changeWalkDir();
+            hitbox.x += xSpeed;
+        }
+
+        if (!inAir)
+            changeWalkDir();
     }
 
     protected void changeWalkDir() {
