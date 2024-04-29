@@ -1,5 +1,7 @@
 package Entities;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
 public abstract class Entity {
@@ -29,5 +31,10 @@ public abstract class Entity {
 
     public Rectangle2D.Float getHitbox() {
         return hitbox;
+    }
+
+    protected void drawHitbox(Graphics g, int xLevelOffset) {
+        g.setColor(Color.CYAN);
+        g.drawRect((int) hitbox.x - xLevelOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 }

@@ -1,6 +1,7 @@
 package utils;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -27,6 +28,37 @@ public class LoadSprites {
                 e.printStackTrace();
             }
         }
+        return sprites;
+    }
+
+    // * Para recortar sprites todo en uno
+    public static BufferedImage[] getSpritesBySlices() {
+        int spriteWidth = 32, spriteHeight = 21;
+
+        BufferedImage[] sprites = getSprites(new String[] { "resources/cut_pictures/chicken_fall_", "1" });
+
+        try {
+            BufferedImage spriteSheet = sprites[0];
+
+            int columns = spriteSheet.getWidth() / spriteWidth;
+            int rows = spriteSheet.getHeight() / spriteHeight;
+
+            for (int y = 0; y < rows; y++) {
+                for (int x = 0; x < columns; x++) {
+                    // Crear un nuevo sprite individual
+                    BufferedImage sprite = spriteSheet.getSubimage(
+                            x * spriteWidth, y * spriteHeight, spriteWidth, spriteHeight);
+
+                    // Guardar el sprite individual como una nueva imagen
+                    File output = new File("C:\\Users\\Fabricio\\Desktop\\monkeys\\test\\" + y + "_" + x + ".png");
+                    ImageIO.write(sprite, "png", output);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return sprites;
     }
 }

@@ -44,7 +44,7 @@ public class LevelHandler {
         for (int i = 0; i < levels.get(currentLevel).getLevelHeight(); i++) {
             for (int j = 0; j < levels.get(currentLevel).getLevelWidth(); j++) {
                 int index = levels.get(currentLevel).getTileToDraw(i, j);
-                if (index == LevelsCreation.VOID)
+                if (index == LevelsCreation.VOID || index >= 30)
                     continue; // * no pinta ningun sprite si es que es vacío
                 g.drawImage(tiles[index], TILES_SIZE * j - xLevelOffset, TILES_SIZE * i, TILES_SIZE, TILES_SIZE, null);
             }

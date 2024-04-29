@@ -31,8 +31,8 @@ public class Helpers {
     public static boolean isTileSolid(int xTile, int yTile, int[][] levelData) {
         int value = levelData[yTile][xTile];
 
-        // * Si es un valor void retorna false, es decir, se puede mover por ese pixel
-        if (value != LevelsCreation.VOID)
+        // * Si es un valor es distinto de void y menor a 30 es un hitbox sólido
+        if (value != LevelsCreation.VOID && value < 30)
             return true;
         return false;
 
@@ -84,5 +84,13 @@ public class Helpers {
             return currentTile * TILES_SIZE;
 
         }
+    }
+
+    // * Verifica si es suelo lo que se está pisando
+    public static boolean isFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] levelData) {
+        if (xSpeed < 0)
+            return isSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, levelData);
+        else
+            return isSolid(hitbox.x + hitbox.width + xSpeed, hitbox.y + hitbox.height + 1, levelData);
     }
 }

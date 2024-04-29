@@ -25,7 +25,7 @@ public class Player1 extends Entity {
 
     // * Movimiento
     private boolean left, right, jump, moving = false;
-    private float jumpSpeed = -3.0f, fallSpeedAfterCollision = 0.5f;
+    private float jumpSpeed = -2.5f, fallSpeedAfterCollision = 0.5f;
     private int flipX = 0, flipW = 1;
 
     public Player1(float x, float y, int width, int heigth, CircusPlaying circusPlaying) {
@@ -35,8 +35,6 @@ public class Player1 extends Entity {
         this.walkSpeed = 1.0f;
 
         loadAnimationsSprites();
-
-        // TODO - Verificar estas constantes
         initHitbox(REAL_WIDTH, REAL_HEIGHT);
 
     }
@@ -48,6 +46,7 @@ public class Player1 extends Entity {
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(RUNNING)));
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(JUMP)));
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(FALLING)));
+        animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(DEAD)));
     }
 
     // * Carga el nivel actual
@@ -68,10 +67,6 @@ public class Player1 extends Entity {
                 aniIndex = 0;
             }
         }
-
-    }
-
-    public void jump() {
 
     }
 

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import Entities.EnemyHandler;
 import Entities.Player1;
 import levels.LevelHandler;
 import main.Game;
@@ -18,6 +19,7 @@ public class CircusPlaying extends State implements StateMethods {
 
     private Player1 player1;
     private LevelHandler levelHandler;
+    private EnemyHandler enemyHandler;
 
     // * Los distintos bg en playing
     private BufferedImage[] environmentImages;
@@ -34,16 +36,25 @@ public class CircusPlaying extends State implements StateMethods {
 
         init();
 
+        // *
+        // LoadSprites.getSpritesBySlices();
+
+        // *
+
     }
 
     private void init() {
         levelHandler = new LevelHandler(game);
+        enemyHandler = new EnemyHandler(this);
 
-        player1 = new Player1(100, 300, SPRITE_WIDTH, SPRITE_HEIGHT, this);
+        player1 = new Player1(100, 100, SPRITE_WIDTH, SPRITE_HEIGHT, this);
         player1.loadLevelData(levelHandler.getCurrentLevel().getLevelData()); // * Cargo los niveles
 
         this.maxLevel1OffsetX = levelHandler.getCurrentLevel().getLevelOffsetX();
         environmentImages = LoadSprites.getSprites(Constants.CircusConstants.getSpritesInfo(BG_CIRCUS));
+
+        // * Añade los enemigos al mapa
+        enemyHandler.addEnemies(levelHandler.getCurrentLevel());
     }
 
     // * Chequea si el muñeco está cerca del borde para generar más nivel
@@ -66,6 +77,7 @@ public class CircusPlaying extends State implements StateMethods {
     @Override
     public void update() {
         player1.update();
+        enemyHandler.update(levelHandler.getCurrentLevel().getLevelData(), player1);
 
         checkCloseBorder();
     }
@@ -79,6 +91,7 @@ public class CircusPlaying extends State implements StateMethods {
         }
         levelHandler.draw(g, xLevelOffset);
         player1.draw(g, xLevelOffset);
+        enemyHandler.draw(g, xLevelOffset);
 
     }
 
@@ -95,6 +108,10 @@ public class CircusPlaying extends State implements StateMethods {
                 player1.setJump(true);
                 break;
             case KeyEvent.VK_ESCAPE:
+                GameState.state = GameState.MENU;
+                break;
+
+            case KeyEvent.VK_K:
                 GameState.state = GameState.MENU;
                 break;
 
