@@ -9,7 +9,7 @@ public class LevelsCreation {
         public static final int VOID = -1, DIRT = 0, GRAS = 1, ROPE = 2;
 
         // * Enemy Constants
-        public static final int BOMB = 30;
+        public static final int BOMB = 30, CKEN = 31;
 
         public static void addAllLevels(ArrayList<Level> levels) {
                 levels.add(level1());
@@ -36,7 +36,7 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
-                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, BOMB, VOID, VOID, VOID,
+                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, BOMB, VOID, VOID, CKEN,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,

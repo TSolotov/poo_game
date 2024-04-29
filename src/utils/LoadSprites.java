@@ -33,9 +33,9 @@ public class LoadSprites {
 
     // * Para recortar sprites todo en uno
     public static BufferedImage[] getSpritesBySlices() {
-        int spriteWidth = 20, spriteHeight = 21;
+        int spriteWidth = 32, spriteHeight = 21;
 
-        BufferedImage[] sprites = getSprites(new String[] { "resources/cut_pictures/chicken_walk_", "1" });
+        BufferedImage[] sprites = getSprites(new String[] { "resources/cut_pictures/chicken_fall_", "1" });
 
         try {
             BufferedImage spriteSheet = sprites[0];

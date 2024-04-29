@@ -13,15 +13,23 @@ public class Constants {
         public static final int BOMB_SPRITE_WIDTH = 64 * 3 / 2, BOMB_SPRITE_HEIGHT = 64 * 3 / 2;
         public static final int BOMB_REAL_WIDTH = 22 * 3 / 2, BOMB_REAL_HEIGHT = 29 * 3 / 2;
 
+        public static final int CHICKEN_X_DRAW_OFFSET = 1 * 2, CHICKEN_Y_DRAW_OFFSET = 2 * 2;
+        public static final int CHICKEN_SPRITE_WIDTH = 20 * 2, CHICKEN_SPRITE_HEIGHT = 21 * 2;
+        public static final int CHICKEN_REAL_WIDTH = 18 * 2, CHICKEN_REAL_HEIGHT = 18 * 2;
+
         // * Actions
         public static final int BOMB_RUNNING = 0;
         public static final int BOMB_JUMP = 1;
         public static final int BOMB_FALLING = 2;
+        public static final int CHICKEN_WALK = 3;
+        public static final int CHICKEN_FALLING = 4;
 
         // * Paths
         private static final String bombRunningAtlas = "resources/circus/bomb/run/bomb_run_";
         private static final String bombJumpingAtlas = "resources/circus/bomb/jump/bomb_jump_";
         private static final String bombFallingAtlas = "resources/circus/bomb/falling/bomb_falling_";
+        private static final String chickenWalkAtlas = "resources/circus/chicken/walk/chicken_walk_";
+        private static final String chickenFallingAtlas = "resources/circus/chicken/falling/chicken_falling_";
 
         // * Retorna la info necesaria para que la funcion loadSprites haga su trabajo.
         public static String[] getEnemySpritesInfo(int enemyAction) {
@@ -32,10 +40,13 @@ public class Constants {
                     return new String[] { bombJumpingAtlas, "1" };
                 case BOMB_FALLING:
                     return new String[] { bombFallingAtlas, "1" };
+                case CHICKEN_WALK:
+                    return new String[] { chickenWalkAtlas, "4" };
+                case CHICKEN_FALLING:
+                    return new String[] { chickenFallingAtlas, "5" };
                 default:
                     return new String[] { bombRunningAtlas, "6" };
             }
-
         }
 
     }

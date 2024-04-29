@@ -25,9 +25,7 @@ public class BombEnemy extends Enemy {
 
     public BombEnemy(float x, float y) {
         super(x, y, EnemyConstants.BOMB_SPRITE_WIDTH, EnemyConstants.BOMB_SPRITE_HEIGHT, LevelsCreation.BOMB);
-
         this.walkSpeed = 0.8f;
-
         initHitbox(EnemyConstants.BOMB_REAL_WIDTH, EnemyConstants.BOMB_REAL_HEIGHT);
 
         initJumpBox();
@@ -51,6 +49,7 @@ public class BombEnemy extends Enemy {
             return -EnemyConstants.BOMB_REAL_WIDTH;
     }
 
+    // TODO - Puede llegar a ser protected en Enemy
     public int flipW() {
         if (walkDir == Directions.RIGHT)
             return -1;
@@ -59,7 +58,6 @@ public class BombEnemy extends Enemy {
     }
 
     public void updateMove(int[][] levelData, Player1 player) {
-        System.out.println(xSpeed + " | In air: " + inAir + " | AirSpeed: " + airSpeed);
         if (firstUpdate)
             firstUpdateCheck(levelData);
 
@@ -124,7 +122,7 @@ public class BombEnemy extends Enemy {
         updateAnimationTick();
     }
 
-    // *
+    // * Actualiza la posición de la jumpBox acorde a su direccion
     private void updateJumpBox() {
         if (walkDir == Directions.RIGHT) {
             jumpBox.x = hitbox.x + hitbox.width + RANGE_TO_JUMP;
@@ -134,6 +132,7 @@ public class BombEnemy extends Enemy {
         jumpBox.y = hitbox.y;
     }
 
+    // * Dibuja la hitbox donde al intersectarla la bomba salta
     public void drawJumpBox(Graphics g, int offeset) {
         g.setColor(Color.RED);
         g.drawRect((int) jumpBox.x - offeset, (int) jumpBox.y, (int) jumpBox.width, (int) jumpBox.height);

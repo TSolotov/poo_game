@@ -11,7 +11,7 @@ public class Enemy extends Entity {
 
     protected boolean firstUpdate = true;
 
-    protected int walkDir = Constants.Directions.LEFT;
+    protected int walkDir = Constants.Directions.RIGHT;
     protected float xSpeed = 0;
     protected boolean jump = false;
 
@@ -73,8 +73,6 @@ public class Enemy extends Entity {
 
     // * Actualiza los movimientos en x
     protected void updateXMoves(int[][] levelData) {
-        // float xSpeed = 0;
-
         if (walkDir == Constants.Directions.LEFT) {
             xSpeed = -walkSpeed;
         } else {
