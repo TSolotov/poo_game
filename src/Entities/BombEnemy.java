@@ -98,6 +98,7 @@ public class BombEnemy extends Enemy {
 
             }
         }
+        checkIntersectHitboxes(player);
 
     }
 

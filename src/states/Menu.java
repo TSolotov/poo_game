@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import utils.LoadSprites;
@@ -97,6 +98,21 @@ public class Menu extends State implements StateMethods {
     @Override
     public void keyReleased(KeyEvent k) {
         // ! Innecesario por ahora
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        return;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        return;
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        return;
     }
 
 }

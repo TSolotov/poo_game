@@ -11,7 +11,7 @@ public class Enemy extends Entity {
 
     protected boolean firstUpdate = true;
 
-    protected int walkDir = Constants.Directions.RIGHT;
+    protected int walkDir = Constants.Directions.LEFT;
     protected float xSpeed = 0;
     protected boolean jump = false;
 
@@ -25,6 +25,13 @@ public class Enemy extends Entity {
         this.walkSpeed = 0.5f;
 
         initHitbox(width, height);
+    }
+
+    // * Chequea la colision entre la hitbox del enemigo y la del player
+    protected void checkIntersectHitboxes(Player1 player) {
+        if (hitbox.intersects(player.getHitbox())) {
+            player.subtrackLife();
+        }
     }
 
     // * Se encarga de hacer el primer chequeo, al comienzo chequea si el enemigo
@@ -114,5 +121,16 @@ public class Enemy extends Entity {
 
     public boolean isActive() {
         return active;
+    }
+
+    public void resetEnemy() {
+        hitbox.x = x;
+        hitbox.y = y;
+        firstUpdate = true;
+        changeAction(0);
+        active = true;
+        airSpeed = 0;
+        aniIndex = 0;
+        walkDir = Constants.Directions.LEFT;
     }
 }

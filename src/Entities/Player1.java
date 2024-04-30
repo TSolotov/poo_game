@@ -1,6 +1,7 @@
 package Entities;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class Player1 extends Entity {
     // * Sprites para las animaciones
     private ArrayList<BufferedImage[]> animations;
     private int playerAction = IDLE;
+    private boolean isDead = false, deadAnimDoit = false;
 
     // * Velocidad de animación
     private int aniSpeed;
@@ -37,6 +39,13 @@ public class Player1 extends Entity {
         loadAnimationsSprites();
         initHitbox(REAL_WIDTH, REAL_HEIGHT);
 
+    }
+
+    public void setSpawnPont(Point spawn) {
+        this.x = spawn.x;
+        this.y = spawn.y;
+        this.hitbox.x = x;
+        this.hitbox.y = y;
     }
 
     // * Carga los sprites de animacion del player en animations
@@ -64,6 +73,8 @@ public class Player1 extends Entity {
             aniTick = 0;
             aniIndex++;
             if (aniIndex >= Integer.parseInt(getPlayer1SpritesInfo(playerAction)[1])) {
+                if (isDead)
+                    deadAnimDoit = true;
                 aniIndex = 0;
             }
         }
@@ -143,6 +154,11 @@ public class Player1 extends Entity {
     private void setAnimations() {
         int startAnimation = playerAction;
 
+        if (deadAnimDoit) {
+            aniIndex = Integer.parseInt(getPlayer1SpritesInfo(playerAction)[1]) - 1;
+            return;
+        }
+
         if (moving)
             playerAction = RUNNING;
         else
@@ -155,6 +171,10 @@ public class Player1 extends Entity {
                 playerAction = FALLING;
         }
 
+        if (isDead) {
+            playerAction = DEAD;
+        }
+
         // * Resetea los sprites de animación
         if (startAnimation != playerAction) {
             this.aniIndex = 0;
@@ -164,8 +184,8 @@ public class Player1 extends Entity {
 
     // ! Draw & Update Methods
     public void update() {
-        if (currentLives <= 0) {
-            // TODO - El game over
+        if (currentLives <= 0 && deadAnimDoit) {
+            circusPlaying.setGameOver(true);
         }
 
         updateAnimationTick();
@@ -174,7 +194,6 @@ public class Player1 extends Entity {
     }
 
     public void draw(Graphics g, int xLevelOffset) {
-        // TODO - Ver variables
         g.drawImage(animations.get(playerAction)[aniIndex], (int) (hitbox.x - X_DRAW_OFFSET) - xLevelOffset + flipX,
                 (int) (hitbox.getY() - Y_DRAW_OFFSET),
                 SPRITE_WIDTH * flipW,
@@ -195,4 +214,49 @@ public class Player1 extends Entity {
     public void setJump(boolean jump) {
         this.jump = jump;
     }
+
+    public void subtrackLife() {
+        if (currentLives <= 0) {
+            // TODO - GameOver
+
+            return;
+        }
+
+        if (isDead)
+            return;
+
+        currentLives--;
+        isDead = true;
+        circusPlaying.togleLoseLife();
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public boolean isDeadAnimDoit() {
+        return deadAnimDoit;
+    }
+
+    // * Reset player
+    public void resetPlayer(boolean isCompletly) {
+        if (isCompletly)
+            currentLives = 5;
+
+        left = false;
+        right = false;
+        inAir = false;
+        moving = false;
+        jump = false;
+        isDead = false;
+        deadAnimDoit = false;
+        playerAction = IDLE;
+        aniIndex = 0;
+        hitbox.x = x;
+        hitbox.y = y;
+
+        if (!Helpers.IsEntityOnFloor(hitbox, levelData))
+            inAir = true;
+    }
+
 }
