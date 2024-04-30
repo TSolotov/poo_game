@@ -184,8 +184,8 @@ public class Player1 extends Entity {
 
     // ! Draw & Update Methods
     public void update() {
-        if (currentLives <= 0) {
-            // TODO - El game over
+        if (currentLives <= 0 && deadAnimDoit) {
+            circusPlaying.setGameOver(true);
         }
 
         updateAnimationTick();

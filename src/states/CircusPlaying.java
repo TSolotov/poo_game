@@ -95,13 +95,18 @@ public class CircusPlaying extends State implements StateMethods {
     public void update() {
         if (pause) {
             pauseOverlay.update();
-        } else if (loseLife && player1.isDeadAnimDoit()) {
-            loseOverlay.update();
+
         } else if (!gameOver) {
             player1.update();
             enemyHandler.update(levelHandler.getCurrentLevel().getLevelData(), player1);
             checkCloseBorder();
+
+        } else if (loseLife && player1.isDeadAnimDoit()) {
+            loseOverlay.update();
+
         }
+
+        gameoverOverlay.update();
     }
 
     @Override
@@ -117,7 +122,7 @@ public class CircusPlaying extends State implements StateMethods {
 
         if (pause) {
             pauseOverlay.draw(g);
-        } else if (gameOver) {
+        } else if (gameOver && player1.isDeadAnimDoit()) {
             gameoverOverlay.draw(g);
         } else if (loseLife && player1.isDeadAnimDoit()) {
             loseOverlay.draw(g);
@@ -190,6 +195,10 @@ public class CircusPlaying extends State implements StateMethods {
     }
 
     // * Setters & Getters
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
     public void toglePause() {
         pause = !pause;
     }
