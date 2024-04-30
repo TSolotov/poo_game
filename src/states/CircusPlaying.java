@@ -93,20 +93,23 @@ public class CircusPlaying extends State implements StateMethods {
     // ! Métodos heredados
     @Override
     public void update() {
+
         if (pause) {
             pauseOverlay.update();
+
+        } else if (loseLife && player1.isDeadAnimDoit() && !gameOver) {
+            loseOverlay.update();
+            player1.update();
 
         } else if (!gameOver) {
             player1.update();
             enemyHandler.update(levelHandler.getCurrentLevel().getLevelData(), player1);
             checkCloseBorder();
 
-        } else if (loseLife && player1.isDeadAnimDoit()) {
-            loseOverlay.update();
-
+        } else {
+            gameoverOverlay.update();
         }
 
-        gameoverOverlay.update();
     }
 
     @Override
@@ -122,7 +125,7 @@ public class CircusPlaying extends State implements StateMethods {
 
         if (pause) {
             pauseOverlay.draw(g);
-        } else if (gameOver && player1.isDeadAnimDoit()) {
+        } else if (gameOver) {
             gameoverOverlay.draw(g);
         } else if (loseLife && player1.isDeadAnimDoit()) {
             loseOverlay.draw(g);
@@ -150,7 +153,7 @@ public class CircusPlaying extends State implements StateMethods {
                 player1.setJump(true);
                 break;
             case KeyEvent.VK_ESCAPE:
-                toglePause();
+                setPause(true);
                 break;
         }
     }
@@ -174,6 +177,8 @@ public class CircusPlaying extends State implements StateMethods {
     public void mousePressed(MouseEvent e) {
         if (pause)
             pauseOverlay.mousePressed(e);
+        else if (gameOver)
+            gameoverOverlay.mousePressed(e);
         else if (loseLife && player1.isDeadAnimDoit())
             loseOverlay.mousePressed(e);
     }
@@ -182,6 +187,8 @@ public class CircusPlaying extends State implements StateMethods {
     public void mouseReleased(MouseEvent e) {
         if (pause)
             pauseOverlay.mouseReleased(e);
+        else if (gameOver)
+            gameoverOverlay.mouseReleased(e);
         else if (loseLife && player1.isDeadAnimDoit())
             loseOverlay.mouseReleased(e);
     }
@@ -190,6 +197,8 @@ public class CircusPlaying extends State implements StateMethods {
     public void mouseMoved(MouseEvent e) {
         if (pause)
             pauseOverlay.mouseMoved(e);
+        else if (gameOver)
+            gameoverOverlay.mouseMoved(e);
         else if (loseLife && player1.isDeadAnimDoit())
             loseOverlay.mouseMoved(e);
     }
@@ -199,8 +208,8 @@ public class CircusPlaying extends State implements StateMethods {
         this.gameOver = gameOver;
     }
 
-    public void toglePause() {
-        pause = !pause;
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 
     public void togleLoseLife() {
