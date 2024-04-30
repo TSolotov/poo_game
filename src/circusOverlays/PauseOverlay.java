@@ -124,7 +124,7 @@ public class PauseOverlay {
             }
         } else if (isMouseIn(play, e)) {
             if (play.isMousePressed()) {
-                circusPlaying.toglePause();
+                circusPlaying.setPause(false);
             }
         }
     }
