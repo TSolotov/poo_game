@@ -3,6 +3,10 @@ package utils;
 import static utils.Constants.CircusConstants.TILES_SIZE;
 import static utils.Constants.CircusConstants.TILES_WIDTH;
 import static utils.Constants.CircusConstants.TILE_HEIGHT;
+import static utils.Constants.FrameConstants.FRAME_HEIGHT;
+import static utils.Constants.FrameConstants.FRAME_WIDTH;
+
+import java.security.PublicKey;
 
 public class Constants {
     // * Contiene tda la informacion en Menu
@@ -124,6 +128,57 @@ public class Constants {
                     return new String[] { bgAtlas, "4" };
                 case TILES_CIRCUS:
                     return new String[] { tilesAtlas, "3" };
+                default:
+                    System.out.println("Error en la opción");
+                    return new String[] { "Null", "0" };
+            }
+        }
+
+    }
+
+    public static class OverlayConstants {
+
+        // ! Constantes para elegir la info
+        public static final int BG_LOSE_OVERLAY = 0;
+        public static int BG_LOSE_OVERLAY_WIDTH = FRAME_WIDTH / 2, BG_LOSE_OVERLAY_HEIGHT = FRAME_HEIGHT * 3 / 4;
+
+        // ! Constantes de los paths
+        private static final String bg_lose_overlay = "resources/UI/bg_overlay/bg_";
+
+        public static String[] getSpritesInfo(int option) {
+            switch (option) {
+                case BG_LOSE_OVERLAY:
+                    return new String[] { bg_lose_overlay, "1" };
+                default:
+                    System.out.println("Error en la opción");
+                    return new String[] { "Null", "0" };
+            }
+        }
+
+    }
+
+    public static class UIConstants {
+
+        public static final int SQUARE_BUTTON_SIZE = 75; // * 32x32px
+
+        // ! Constantes para elegir la info
+        public static final int CONTINUE = 0;
+        public static final int RESET = 1;
+        public static final int MENU = 2;
+
+        // ! Constantes de los paths
+        private static final String contunueButton = "resources/UI/buttons/continue_button_";
+        private static final String resetButton = "resources/UI/buttons/reset_button_";
+        private static final String menuButton = "resources/UI/buttons/menu_button_";
+
+        public static String[] getSpritesInfo(int option) {
+            switch (option) {
+                case CONTINUE:
+                    return new String[] { contunueButton, "2" };
+                case RESET:
+                    return new String[] { resetButton, "2" };
+                case MENU:
+                    return new String[] { menuButton, "2" };
                 default:
                     System.out.println("Error en la opción");
                     return new String[] { "Null", "0" };

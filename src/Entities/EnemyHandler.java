@@ -91,4 +91,13 @@ public class EnemyHandler {
         }
 
     }
+
+    public void resetEnemies() {
+        for (BombEnemy bomb : bombs) {
+            bomb.resetEnemy();
+        }
+        for (ChickenEnemy chicken : chickens) {
+            chicken.resetEnemy();
+        }
+    }
 }

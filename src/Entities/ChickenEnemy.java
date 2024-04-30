@@ -53,6 +53,7 @@ public class ChickenEnemy extends Enemy {
 
             }
         }
+        checkIntersectHitboxes(player);
 
     }
 

@@ -1,6 +1,10 @@
 package utils;
 
+import java.awt.Point;
 import java.awt.geom.Rectangle2D;
+
+import levels.Level;
+import main.Game;
 
 import static utils.Constants.CircusConstants.*;
 import static utils.Constants.Player1Constants.*;
@@ -92,5 +96,17 @@ public class Helpers {
             return isSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, levelData);
         else
             return isSolid(hitbox.x + hitbox.width + xSpeed, hitbox.y + hitbox.height + 1, levelData);
+    }
+
+    // * Me da la ubicación del spawn point
+    public static Point getPlayerSpawn(Level level) {
+        for (int i = 0; i < level.getLevelHeight(); i++) {
+            for (int j = 0; j < level.getLevelWidth(); j++) {
+                if (level.getTileToDraw(i, j) == LevelsCreation.SPWN) {
+                    return new Point(j * TILES_SIZE, i * TILES_SIZE);
+                }
+            }
+        }
+        return new Point(TILES_SIZE, TILES_SIZE);
     }
 }
