@@ -35,7 +35,7 @@ public class Helpers {
         int value = levelData[yTile][xTile];
 
         // * Si es un valor es distinto de void y menor a 30 es un hitbox sólido
-        if (value != LevelsCreation.VOID && value < 30)
+        if (value != LevelsCreation.VOID && value != LevelsCreation.WINN && value < 30)
             return true;
         return false;
 

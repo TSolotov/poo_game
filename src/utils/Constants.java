@@ -125,7 +125,7 @@ public class Constants {
                 case BG_CIRCUS:
                     return new String[] { bgAtlas, "4" };
                 case TILES_CIRCUS:
-                    return new String[] { tilesAtlas, "3" };
+                    return new String[] { tilesAtlas, "4" };
                 default:
                     System.out.println("Error en la opción");
                     return new String[] { "Null", "0" };

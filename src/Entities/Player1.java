@@ -5,11 +5,13 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import main.Game;
 import states.CircusPlaying;
 import utils.Constants;
 import utils.Helpers;
 import utils.LoadSprites;
 
+import static utils.Constants.CircusConstants.TILES_SIZE;
 import static utils.Constants.Player1Constants.*;
 
 public class Player1 extends Entity {
@@ -258,5 +260,4 @@ public class Player1 extends Entity {
         if (!Helpers.IsEntityOnFloor(hitbox, levelData))
             inAir = true;
     }
-
 }
