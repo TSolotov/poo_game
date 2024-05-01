@@ -12,6 +12,8 @@ public class LevelsCreation {
 
         // * Enemy Constants
         public static final int BOMB = 30, CKEN = 31;
+        // * Object Constants
+        public static final int FLME = 50;
 
         // * Junta todos los levels en un arraylist
         public static void addAllLevels(ArrayList<Level> levels) {
@@ -426,7 +428,7 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
-                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, FLME, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,

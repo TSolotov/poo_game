@@ -134,6 +134,31 @@ public class Constants {
 
     }
 
+    public static class ObjectConstants {
+        //
+        public static int FLAME_X_DRAW_OFFSET = 14 * 3 / 2, FLAME_Y_DRAW_OFFSET = 22 * 3 / 2,
+                FLAME_Y_DISTANCE_TO_TOUCH_FLOOR = 8 * 3 / 2;
+        public static final int FLAME_SPRITE_WIDTH = 64 * 3 / 2, FLAME_SPRITE_HEIGHT = 64 * 3 / 2;
+        public static final int FLAME_REAL_WIDTH = 36 * 3 / 2, FLAME_REAL_HEIGHT = 35 * 3 / 2;
+
+        // ! Constantes para elegir la info
+        public static final int FLAME = 0;
+
+        // ! Constantes de los paths
+        private static final String flame_sprites = "resources/circus/flame/flame_";
+
+        public static String[] getSpritesInfo(int option) {
+            switch (option) {
+                case FLAME:
+                    return new String[] { flame_sprites, "12" };
+                default:
+                    System.out.println("Error en la opción");
+                    return new String[] { "Null", "0" };
+            }
+        }
+
+    }
+
     public static class OverlayConstants {
 
         // ! Constantes para elegir la info

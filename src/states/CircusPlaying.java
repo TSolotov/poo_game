@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import Entities.EnemyHandler;
 import Entities.Player1;
+import circusObjects.ObjectHandler;
 import circusOverlays.GameoverOverlay;
 import circusOverlays.LevelCompleteOverlay;
 import circusOverlays.LoseOverlay;
@@ -26,6 +27,7 @@ public class CircusPlaying extends State implements StateMethods {
     private Player1 player1;
     private LevelHandler levelHandler;
     private EnemyHandler enemyHandler;
+    private ObjectHandler objectHandler;
 
     // * Overlays
     private PauseOverlay pauseOverlay;
@@ -61,6 +63,7 @@ public class CircusPlaying extends State implements StateMethods {
     private void init() {
         levelHandler = new LevelHandler(game);
         enemyHandler = new EnemyHandler(this);
+        objectHandler = new ObjectHandler();
 
         pauseOverlay = new PauseOverlay(this);
         gameoverOverlay = new GameoverOverlay(this);
@@ -76,6 +79,7 @@ public class CircusPlaying extends State implements StateMethods {
 
         // * Añade los enemigos al mapa
         enemyHandler.addEnemies(levelHandler.getCurrentLevel());
+        objectHandler.addObjects(levelHandler.getCurrentLevel());
     }
 
     public void loadNextLevel() {
@@ -121,6 +125,7 @@ public class CircusPlaying extends State implements StateMethods {
         } else if (!gameOver) {
             player1.update();
             enemyHandler.update(levelHandler.getCurrentLevel().getLevelData(), player1);
+            objectHandler.update(player1);
             checkCloseBorder();
 
             if (player1.getHitbox().getX() >= 1500) {
@@ -143,6 +148,7 @@ public class CircusPlaying extends State implements StateMethods {
         levelHandler.draw(g, xLevelOffset);
         player1.draw(g, xLevelOffset);
         enemyHandler.draw(g, xLevelOffset);
+        objectHandler.draw(g, xLevelOffset);
 
         if (pause) {
             pauseOverlay.draw(g);
@@ -257,6 +263,10 @@ public class CircusPlaying extends State implements StateMethods {
 
     public EnemyHandler getEnemyHandler() {
         return enemyHandler;
+    }
+
+    public ObjectHandler getObjectHandler() {
+        return objectHandler;
     }
 
     public Player1 getPlayer1() {

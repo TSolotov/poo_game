@@ -44,6 +44,7 @@ public class LevelHandler {
 
         Level newLevel = levels.get(currentLevel);
         game.getPlaying().getEnemyHandler().addEnemies(newLevel);
+        game.getPlaying().getObjectHandler().addObjects(newLevel);
         game.getPlaying().getPlayer1().loadLevelData(newLevel.getLevelData());
         game.getPlaying().setMaxLevel1OffsetX(newLevel.getLevelOffsetX());
 
