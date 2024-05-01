@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import Entities.Player1;
 import levels.Level;
 import utils.Constants.ObjectConstants;
+import utils.Constants.Player1Constants;
 import utils.LevelsCreation;
 
 public class RingObject extends GameObject {
@@ -44,6 +45,16 @@ public class RingObject extends GameObject {
                 ObjectConstants.SMALL_RING_REAL_HEIGHT + FRAME_HEIGHT / 2);
     }
 
+    private void checkIntersectHitboxes2(Player1 player) {
+        if (hitbox2.intersects(player.getHitbox())) {
+            player.subtrackLife();
+        }
+
+        if (hitbox2.getX() < player.getHitbox().getX() + hitbox2.width - Player1Constants.REAL_WIDTH) {
+            this.setActive(false);
+        }
+    }
+
     // * Helper para la creación de los rings
     public static ArrayList<RingObject> getRings(Level level) {
         ArrayList<RingObject> rings = new ArrayList<>();
@@ -69,13 +80,16 @@ public class RingObject extends GameObject {
         return rings;
     }
 
+    // ! Update & Draw
     public void update(Player1 player) {
         updateAnimationTick(ObjectConstants.RING);
-        // checkIntersectHitboxes(player);
+        checkIntersectHitboxes(player);
+        checkIntersectHitboxes2(player);
     }
 
     public void drawHitbox2(Graphics g, int xLvlOffset) {
         g.setColor(Color.GREEN);
         g.drawRect((int) hitbox2.x - xLvlOffset, (int) hitbox2.y, (int) hitbox2.width, (int) hitbox2.height);
     }
+
 }

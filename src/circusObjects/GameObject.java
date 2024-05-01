@@ -13,7 +13,7 @@ public class GameObject {
     protected int x, y, objType;
     protected Rectangle2D.Float hitbox;
 
-    protected boolean active = true;
+    protected boolean active = true, lastAnimDoit = false;
     protected int aniTick, aniIndex;
     protected int xDrawOffset, yDrawOffset;
 
@@ -45,6 +45,10 @@ public class GameObject {
         if (objectType == ObjectConstants.RING) {
             aniSpeed = 10;
             finalIndex = 19;
+            if (!active) {
+                finalIndex = Integer.parseInt(ObjectConstants.getSpritesInfo(objectType)[1]);
+            }
+
         }
 
         aniTick++;
@@ -52,6 +56,11 @@ public class GameObject {
             aniTick = 0;
             aniIndex++;
             if (aniIndex >= finalIndex) {
+                if (!active) {
+                    lastAnimDoit = true;
+                    return;
+                }
+
                 aniIndex = 0;
                 if (objectType == ObjectConstants.RING)
                     aniIndex = 18;
@@ -91,6 +100,10 @@ public class GameObject {
 
     public int getAniIndex() {
         return aniIndex;
+    }
+
+    public boolean getLastAnimDoit() {
+        return lastAnimDoit;
     }
 
     public void resetObject() {

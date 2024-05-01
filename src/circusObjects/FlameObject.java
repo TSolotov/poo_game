@@ -13,7 +13,6 @@ public class FlameObject extends GameObject {
 
     public FlameObject(int x, int y, int objType) {
         super(x, y - ObjectConstants.FLAME_Y_DRAW_OFFSET + ObjectConstants.FLAME_Y_DISTANCE_TO_TOUCH_FLOOR, objType);
-
         initHitbox(ObjectConstants.FLAME_REAL_WIDTH, ObjectConstants.FLAME_REAL_HEIGHT);
 
     }

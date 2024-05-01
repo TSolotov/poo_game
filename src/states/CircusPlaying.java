@@ -258,6 +258,7 @@ public class CircusPlaying extends State implements StateMethods {
         loseLife = false;
         levelCompleted = false;
         enemyHandler.resetEnemies();
+        objectHandler.resetObjects();
         player1.resetPlayer(isCompletly);
     }
 
