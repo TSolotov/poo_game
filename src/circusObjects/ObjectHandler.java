@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import Entities.Player1;
 import levels.Level;
-import utils.LevelsCreation;
 import utils.LoadSprites;
 import utils.Constants.ObjectConstants;
 
@@ -102,8 +101,13 @@ public class ObjectHandler {
 
     public void resetObjects() {
         for (RingObject ring : rings) {
-            ring.resetObject();
+            ring.resetRing();
         }
+
+        for (RingObject ring : smallRings) {
+            ring.resetSmallRing();
+        }
+
         for (FlameObject flame : flames) {
             flame.resetObject();
         }

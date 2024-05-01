@@ -109,7 +109,7 @@ public class GameObject {
     public void resetObject() {
         aniIndex = 0;
         aniTick = 0;
-        active = true;
+        active=true;
+        lastAnimDoit=false;
     }
-
 }
