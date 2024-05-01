@@ -13,7 +13,7 @@ public class LevelsCreation {
         // * Enemy Constants
         public static final int BOMB = 30, CKEN = 31;
         // * Object Constants
-        public static final int FLME = 50;
+        public static final int FLME = 50, RING = 51, SRNG = 52;
 
         // * Junta todos los levels en un arraylist
         public static void addAllLevels(ArrayList<Level> levels) {
@@ -365,8 +365,17 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
-                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, RING, VOID, VOID, SRNG,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                VOID, VOID },
+                                { VOID, VOID, VOID, VOID, SRNG, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                VOID, VOID, VOID, RING, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
@@ -420,15 +429,6 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
                                 { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID },
-                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, FLME, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
@@ -465,6 +465,7 @@ public class LevelsCreation {
                                                 DIRT, DIRT, DIRT, DIRT, DIRT, DIRT, DIRT, DIRT, DIRT, DIRT, DIRT, DIRT,
                                                 DIRT, DIRT },
                 };
+
                 return new Level(level1);
         }
 

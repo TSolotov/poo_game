@@ -32,7 +32,7 @@ public class FlameObject extends GameObject {
     }
 
     public void update(Player1 player) {
-        updateAnimationTick();
+        updateAnimationTick(ObjectConstants.FLAME);
         checkIntersectHitboxes(player);
     }
 

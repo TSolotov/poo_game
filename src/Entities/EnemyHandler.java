@@ -5,12 +5,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import levels.Level;
-import states.CircusPlaying;
 import utils.LoadSprites;
 import utils.Constants.EnemyConstants;
 
 public class EnemyHandler {
-    private CircusPlaying circusPlaying;
 
     // * Tiene todas las animaciones de las bombas
     private ArrayList<BufferedImage[]> bombSprites;
@@ -18,8 +16,7 @@ public class EnemyHandler {
     private ArrayList<BombEnemy> bombs = new ArrayList<>();
     private ArrayList<ChickenEnemy> chickens = new ArrayList<>();
 
-    public EnemyHandler(CircusPlaying circusPlaying) {
-        this.circusPlaying = circusPlaying;
+    public EnemyHandler() {
         loadSprites();
     }
 

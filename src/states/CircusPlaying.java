@@ -62,7 +62,7 @@ public class CircusPlaying extends State implements StateMethods {
 
     private void init() {
         levelHandler = new LevelHandler(game);
-        enemyHandler = new EnemyHandler(this);
+        enemyHandler = new EnemyHandler();
         objectHandler = new ObjectHandler();
 
         pauseOverlay = new PauseOverlay(this);

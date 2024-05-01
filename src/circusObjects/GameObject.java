@@ -6,11 +6,13 @@ import java.awt.geom.Rectangle2D;
 
 import Entities.Player1;
 import utils.Constants.ObjectConstants;
+import utils.LevelsCreation;
 
 public class GameObject {
     protected int aniSpeed;
     protected int x, y, objType;
     protected Rectangle2D.Float hitbox;
+
     protected boolean active = true;
     protected int aniTick, aniIndex;
     protected int xDrawOffset, yDrawOffset;
@@ -18,6 +20,12 @@ public class GameObject {
     public GameObject(int x, int y, int objType) {
         this.x = x;
         this.y = y;
+        if (objType == LevelsCreation.RING) {
+            this.y -= ObjectConstants.RING_Y_DRAW_OFFSET;
+        } else if (objType == LevelsCreation.SRNG) {
+            this.y -= ObjectConstants.SMALL_RING_Y_DRAW_OFFSET;
+        }
+
         this.objType = objType;
     }
 
@@ -31,20 +39,28 @@ public class GameObject {
         }
     }
 
-    protected void updateAnimationTick() {
-        aniSpeed = 30;
+    protected void updateAnimationTick(int objectType) {
+        int finalIndex = Integer.parseInt(ObjectConstants.getSpritesInfo(objectType)[1]);
+        aniSpeed = 20;
+        if (objectType == ObjectConstants.RING) {
+            aniSpeed = 10;
+            finalIndex = 19;
+        }
+
         aniTick++;
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
-            if (aniIndex >= Integer.parseInt(ObjectConstants.getSpritesInfo(ObjectConstants.FLAME)[1])) {
+            if (aniIndex >= finalIndex) {
                 aniIndex = 0;
+                if (objectType == ObjectConstants.RING)
+                    aniIndex = 18;
             }
         }
     }
 
     public void drawHitbox(Graphics g, int xLvlOffset) {
-        g.setColor(Color.PINK);
+        g.setColor(Color.RED);
         g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
