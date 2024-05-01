@@ -6,8 +6,6 @@ import static utils.Constants.CircusConstants.TILE_HEIGHT;
 import static utils.Constants.FrameConstants.FRAME_HEIGHT;
 import static utils.Constants.FrameConstants.FRAME_WIDTH;
 
-import java.security.PublicKey;
-
 public class Constants {
     // * Contiene tda la informacion en Menu
     public static class EnemyConstants {

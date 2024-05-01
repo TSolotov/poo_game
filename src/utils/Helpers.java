@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
 import levels.Level;
-import main.Game;
 
 import static utils.Constants.CircusConstants.*;
 import static utils.Constants.Player1Constants.*;
