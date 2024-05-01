@@ -7,7 +7,9 @@ import java.awt.image.BufferedImage;
 
 import Entities.EnemyHandler;
 import Entities.Player1;
+import circusObjects.ObjectHandler;
 import circusOverlays.GameoverOverlay;
+import circusOverlays.LevelCompleteOverlay;
 import circusOverlays.LoseOverlay;
 import circusOverlays.PauseOverlay;
 import levels.LevelHandler;
@@ -25,11 +27,13 @@ public class CircusPlaying extends State implements StateMethods {
     private Player1 player1;
     private LevelHandler levelHandler;
     private EnemyHandler enemyHandler;
+    private ObjectHandler objectHandler;
 
     // * Overlays
     private PauseOverlay pauseOverlay;
     private GameoverOverlay gameoverOverlay;
     private LoseOverlay loseOverlay;
+    private LevelCompleteOverlay levelCompleteOverlay;
 
     // * Los distintos bg en playing
     private BufferedImage[] environmentImages;
@@ -42,7 +46,7 @@ public class CircusPlaying extends State implements StateMethods {
     private int maxLevel1OffsetX;
 
     // *
-    private boolean pause = false, gameOver = false, loseLife = false;
+    private boolean pause = false, gameOver = false, loseLife = false, levelCompleted = false;
 
     public CircusPlaying(Game game) {
         super(game);
@@ -58,20 +62,34 @@ public class CircusPlaying extends State implements StateMethods {
 
     private void init() {
         levelHandler = new LevelHandler(game);
-        enemyHandler = new EnemyHandler(this);
+        enemyHandler = new EnemyHandler();
+        objectHandler = new ObjectHandler();
+
         pauseOverlay = new PauseOverlay(this);
         gameoverOverlay = new GameoverOverlay(this);
         loseOverlay = new LoseOverlay(this);
+        levelCompleteOverlay = new LevelCompleteOverlay(this);
 
         player1 = new Player1(100, 100, SPRITE_WIDTH, SPRITE_HEIGHT, this);
         player1.loadLevelData(levelHandler.getCurrentLevel().getLevelData()); // * Cargo los niveles
-        player1.setSpawnPont(Helpers.getPlayerSpawn(levelHandler.getCurrentLevel()));
+        player1.setSpawnPoint(Helpers.getPlayerSpawn(levelHandler.getCurrentLevel()));
 
         this.maxLevel1OffsetX = levelHandler.getCurrentLevel().getLevelOffsetX();
         environmentImages = LoadSprites.getSprites(Constants.CircusConstants.getSpritesInfo(BG_CIRCUS));
 
         // * Añade los enemigos al mapa
         enemyHandler.addEnemies(levelHandler.getCurrentLevel());
+        objectHandler.addObjects(levelHandler.getCurrentLevel());
+    }
+
+    public void loadNextLevel() {
+        resetLevel(false);
+        levelHandler.loadNextLevel();
+        player1.setSpawnPoint(Helpers.getPlayerSpawn(levelHandler.getCurrentLevel()));
+    }
+
+    public void setMaxLevel1OffsetX(int maxLevel1OffsetX) {
+        this.maxLevel1OffsetX = maxLevel1OffsetX;
     }
 
     // * Chequea si el muñeco está cerca del borde para generar más nivel
@@ -97,6 +115,9 @@ public class CircusPlaying extends State implements StateMethods {
         if (pause) {
             pauseOverlay.update();
 
+        } else if (levelCompleted) {
+            levelCompleteOverlay.update();
+
         } else if (loseLife && player1.isDeadAnimDoit() && !gameOver) {
             loseOverlay.update();
             player1.update();
@@ -104,7 +125,12 @@ public class CircusPlaying extends State implements StateMethods {
         } else if (!gameOver) {
             player1.update();
             enemyHandler.update(levelHandler.getCurrentLevel().getLevelData(), player1);
+            objectHandler.update(player1);
             checkCloseBorder();
+
+            if (player1.getHitbox().getX() >= 1500) {
+                levelCompleted = true;
+            }
 
         } else {
             gameoverOverlay.update();
@@ -122,9 +148,12 @@ public class CircusPlaying extends State implements StateMethods {
         levelHandler.draw(g, xLevelOffset);
         player1.draw(g, xLevelOffset);
         enemyHandler.draw(g, xLevelOffset);
+        objectHandler.draw(g, xLevelOffset);
 
         if (pause) {
             pauseOverlay.draw(g);
+        } else if (levelCompleted) {
+            levelCompleteOverlay.draw(g);
         } else if (gameOver) {
             gameoverOverlay.draw(g);
         } else if (loseLife && player1.isDeadAnimDoit()) {
@@ -181,6 +210,8 @@ public class CircusPlaying extends State implements StateMethods {
             gameoverOverlay.mousePressed(e);
         else if (loseLife && player1.isDeadAnimDoit())
             loseOverlay.mousePressed(e);
+        else if (levelCompleted)
+            levelCompleteOverlay.mousePressed(e);
     }
 
     @Override
@@ -191,6 +222,8 @@ public class CircusPlaying extends State implements StateMethods {
             gameoverOverlay.mouseReleased(e);
         else if (loseLife && player1.isDeadAnimDoit())
             loseOverlay.mouseReleased(e);
+        else if (levelCompleted)
+            levelCompleteOverlay.mouseReleased(e);
     }
 
     @Override
@@ -201,6 +234,9 @@ public class CircusPlaying extends State implements StateMethods {
             gameoverOverlay.mouseMoved(e);
         else if (loseLife && player1.isDeadAnimDoit())
             loseOverlay.mouseMoved(e);
+        else if (levelCompleted)
+            levelCompleteOverlay.mouseMoved(e);
+
     }
 
     // * Setters & Getters
@@ -220,7 +256,21 @@ public class CircusPlaying extends State implements StateMethods {
         gameOver = false;
         pause = false;
         loseLife = false;
+        levelCompleted = false;
         enemyHandler.resetEnemies();
+        objectHandler.resetObjects();
         player1.resetPlayer(isCompletly);
+    }
+
+    public EnemyHandler getEnemyHandler() {
+        return enemyHandler;
+    }
+
+    public ObjectHandler getObjectHandler() {
+        return objectHandler;
+    }
+
+    public Player1 getPlayer1() {
+        return player1;
     }
 }

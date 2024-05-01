@@ -41,7 +41,7 @@ public class Player1 extends Entity {
 
     }
 
-    public void setSpawnPont(Point spawn) {
+    public void setSpawnPoint(Point spawn) {
         this.x = spawn.x;
         this.y = spawn.y;
         this.hitbox.x = x;

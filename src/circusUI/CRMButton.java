@@ -5,8 +5,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import javax.swing.UIClientPropertyKey;
-
 import utils.Constants.UIConstants;
 import utils.LoadSprites;
 
@@ -16,7 +14,7 @@ public class CRMButton extends CButton {
     private BufferedImage[] CRMButtonImage;
     private int indexButtonImage;
 
-    private boolean mouseOver, mousePressed, mouseReleased;
+    private boolean mouseOver, mousePressed;
 
     public CRMButton(int x, int y, int width, int height, int whatButton) {
         super(x, y, width, height);
@@ -56,6 +54,5 @@ public class CRMButton extends CButton {
     public void resetMouseBooleans() {
         mouseOver = false;
         mousePressed = false;
-        mouseReleased = false;
     }
 }

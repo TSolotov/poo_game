@@ -33,16 +33,16 @@ public class LoadSprites {
 
     // * Para recortar sprites todo en uno
     public static BufferedImage[] getSpritesBySlices() {
-        int spriteWidth = 32, spriteHeight = 21;
+        int spriteWidth = 192, spriteHeight = 192;
 
-        BufferedImage[] sprites = getSprites(new String[] { "resources/cut_pictures/chicken_fall_", "1" });
+        BufferedImage[] sprites = getSprites(new String[] { "resources/cut_pictures/ring_", "1" });
 
         try {
             BufferedImage spriteSheet = sprites[0];
 
             int columns = spriteSheet.getWidth() / spriteWidth;
             int rows = spriteSheet.getHeight() / spriteHeight;
-
+            int i = 0;
             for (int y = 0; y < rows; y++) {
                 for (int x = 0; x < columns; x++) {
                     // Crear un nuevo sprite individual
@@ -50,8 +50,9 @@ public class LoadSprites {
                             x * spriteWidth, y * spriteHeight, spriteWidth, spriteHeight);
 
                     // Guardar el sprite individual como una nueva imagen
-                    File output = new File("C:\\Users\\Fabricio\\Desktop\\monkeys\\test\\" + y + "_" + x + ".png");
+                    File output = new File("C:\\Users\\Fabricio\\Desktop\\cut\\" + "ring_" + i + ".png");
                     ImageIO.write(sprite, "png", output);
+                    i++;
                 }
             }
 

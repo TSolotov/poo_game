@@ -34,9 +34,20 @@ public class LevelHandler {
         LevelsCreation.addAllLevels(levels);
     }
 
-    // * Obtiene el nivel actual
-    public Level getCurrentLevel() {
-        return levels.get(currentLevel);
+    public void loadNextLevel() {
+        currentLevel++;
+
+        if (currentLevel >= getCantLevels()) {
+            currentLevel = 0;
+            // TODO - LevelCompleted overlay
+        }
+
+        Level newLevel = levels.get(currentLevel);
+        game.getPlaying().getEnemyHandler().addEnemies(newLevel);
+        game.getPlaying().getObjectHandler().addObjects(newLevel);
+        game.getPlaying().getPlayer1().loadLevelData(newLevel.getLevelData());
+        game.getPlaying().setMaxLevel1OffsetX(newLevel.getLevelOffsetX());
+
     }
 
     // ! Draw & Update
@@ -51,4 +62,12 @@ public class LevelHandler {
         }
     }
 
+    // * Getters & Setters
+    public Level getCurrentLevel() {
+        return levels.get(currentLevel);
+    }
+
+    private int getCantLevels() {
+        return levels.size();
+    }
 }

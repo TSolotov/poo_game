@@ -6,8 +6,6 @@ import static utils.Constants.CircusConstants.TILE_HEIGHT;
 import static utils.Constants.FrameConstants.FRAME_HEIGHT;
 import static utils.Constants.FrameConstants.FRAME_WIDTH;
 
-import java.security.PublicKey;
-
 public class Constants {
     // * Contiene tda la informacion en Menu
     public static class EnemyConstants {
@@ -128,6 +126,44 @@ public class Constants {
                     return new String[] { bgAtlas, "4" };
                 case TILES_CIRCUS:
                     return new String[] { tilesAtlas, "3" };
+                default:
+                    System.out.println("Error en la opción");
+                    return new String[] { "Null", "0" };
+            }
+        }
+
+    }
+
+    public static class ObjectConstants {
+        // !
+        public static int FLAME_X_DRAW_OFFSET = 14 * 3 / 2, FLAME_Y_DRAW_OFFSET = 22 * 3 / 2,
+                FLAME_Y_DISTANCE_TO_TOUCH_FLOOR = 8 * 3 / 2;
+        public static final int FLAME_SPRITE_WIDTH = 64 * 3 / 2, FLAME_SPRITE_HEIGHT = 64 * 3 / 2;
+        public static final int FLAME_REAL_WIDTH = 36 * 3 / 2, FLAME_REAL_HEIGHT = 35 * 3 / 2;
+
+        public static int RING_X_DRAW_OFFSET = 70, RING_Y_DRAW_OFFSET = 10;
+        public static final int RING_SPRITE_WIDTH = 192, RING_SPRITE_HEIGHT = 192;
+        public static final int RING_REAL_WIDTH = 35, RING_REAL_HEIGHT = 20;
+
+        public static int SMALL_RING_X_DRAW_OFFSET = 74 * 3 / 4, SMALL_RING_Y_DRAW_OFFSET = 10 * 3 / 4;
+        public static final int SMALL_RING_SPRITE_WIDTH = 192 * 3 / 4, SMALL_RING_SPRITE_HEIGHT = 192 * 3 / 4;
+        public static final int SMALL_RING_REAL_WIDTH = 30 * 3 / 4, SMALL_RING_REAL_HEIGHT = 20 * 3 / 4;
+
+        // ! Constantes para elegir la info
+        public static final int FLAME = 0, RING = 1;
+
+        // ! Constantes de los paths
+        private static final String flame_sprites = "resources/circus/flame/flame_";
+        private static final String ring_sprites = "resources/circus/ring/ring_";
+
+        public static String[] getSpritesInfo(int option) {
+            switch (option) {
+                case FLAME:
+                    return new String[] { flame_sprites, "12" };
+
+                case RING:
+                    return new String[] { ring_sprites, "40" };
+
                 default:
                     System.out.println("Error en la opción");
                     return new String[] { "Null", "0" };

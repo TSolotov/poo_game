@@ -2,8 +2,6 @@ package levels;
 
 import static utils.Constants.CircusConstants.*;
 
-import main.Game;
-
 public class Level {
     private int[][] levelData;
 
