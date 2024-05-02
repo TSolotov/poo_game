@@ -34,8 +34,11 @@ public class Helpers {
     public static boolean isTileSolid(int xTile, int yTile, int[][] levelData) {
         int value = levelData[yTile][xTile];
 
+        // if (value == LevelsCreation.TRMP)
+        // return true;
+
         // * Si es un valor es distinto de void y menor a 30 es un hitbox sólido
-        if (value != LevelsCreation.VOID && value < 30)
+        if (value != LevelsCreation.VOID && value != LevelsCreation.WINN && value < 30)
             return true;
         return false;
 

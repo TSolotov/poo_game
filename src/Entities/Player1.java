@@ -81,6 +81,12 @@ public class Player1 extends Entity {
 
     }
 
+    // * Para realizar un minisalto
+    public void setMiniJump() {
+        airSpeed = jumpSpeed / 2;
+        inAir = true;
+    }
+
     // * Actualiza la posicion en la que se encuentra el plauyer
     private void updatePosition() {
         moving = false;
@@ -218,7 +224,6 @@ public class Player1 extends Entity {
     public void subtrackLife() {
         if (currentLives <= 0) {
             // TODO - GameOver
-
             return;
         }
 
@@ -258,5 +263,4 @@ public class Player1 extends Entity {
         if (!Helpers.IsEntityOnFloor(hitbox, levelData))
             inAir = true;
     }
-
 }

@@ -16,7 +16,9 @@ import levels.LevelHandler;
 import main.Game;
 import utils.Constants;
 import utils.Helpers;
+import utils.LevelsCreation;
 import utils.LoadSprites;
+import utils.Constants.Player1Constants;
 
 import static utils.Constants.FrameConstants.*;
 import static utils.Constants.Player1Constants.*;
@@ -128,7 +130,11 @@ public class CircusPlaying extends State implements StateMethods {
             objectHandler.update(player1);
             checkCloseBorder();
 
-            if (player1.getHitbox().getX() >= 1500) {
+            // * Si el personaje está por sobre la bandera, ganó
+            if (levelHandler.getCurrentLevel().getTileToDraw(
+                    (int) ((player1.getHitbox().getY() + Player1Constants.REAL_HEIGHT) / TILES_SIZE),
+                    (int) (player1.getHitbox().getX() + Player1Constants.REAL_WIDTH / 2)
+                            / TILES_SIZE) == LevelsCreation.WINN) {
                 levelCompleted = true;
             }
 

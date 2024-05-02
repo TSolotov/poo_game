@@ -29,6 +29,12 @@ public class RingObject extends GameObject {
         }
     }
 
+    public void updateMove() {
+        float movementSpeed = 0.1f;
+        hitbox.x -= movementSpeed;
+        hitbox2.x -= movementSpeed;
+    }
+
     private void initHitbox2() {
         hitbox2 = new Rectangle2D.Float(x,
                 y + ObjectConstants.RING_SPRITE_HEIGHT - ObjectConstants.RING_REAL_HEIGHT
@@ -83,6 +89,7 @@ public class RingObject extends GameObject {
     // ! Update & Draw
     public void update(Player1 player) {
         updateAnimationTick(ObjectConstants.RING);
+        updateMove();
         checkIntersectHitboxes(player);
         checkIntersectHitboxes2(player);
     }
@@ -90,6 +97,26 @@ public class RingObject extends GameObject {
     public void drawHitbox2(Graphics g, int xLvlOffset) {
         g.setColor(Color.GREEN);
         g.drawRect((int) hitbox2.x - xLvlOffset, (int) hitbox2.y, (int) hitbox2.width, (int) hitbox2.height);
+    }
+
+    public void resetRing() {
+        hitbox.x = x;
+        hitbox.y = y;
+        hitbox2.x = x;
+        hitbox2.y = y + ObjectConstants.RING_SPRITE_HEIGHT - ObjectConstants.RING_REAL_HEIGHT
+                - ObjectConstants.RING_Y_DRAW_OFFSET;
+
+        resetObject();
+    }
+
+    public void resetSmallRing() {
+        hitbox.x = x;
+        hitbox.y = y;
+        hitbox2.x = x;
+        hitbox2.y = y + ObjectConstants.SMALL_RING_SPRITE_HEIGHT - ObjectConstants.SMALL_RING_REAL_HEIGHT
+                - ObjectConstants.SMALL_RING_Y_DRAW_OFFSET;
+
+        resetObject();
     }
 
 }

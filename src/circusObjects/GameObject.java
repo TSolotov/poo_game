@@ -50,6 +50,9 @@ public class GameObject {
             }
 
         }
+        if (objectType == ObjectConstants.TRAMPOLINE) {
+            aniSpeed = 4;
+        }
 
         aniTick++;
         if (aniTick >= aniSpeed) {
@@ -59,6 +62,10 @@ public class GameObject {
                 if (!active) {
                     lastAnimDoit = true;
                     return;
+                }
+
+                if (objectType == ObjectConstants.TRAMPOLINE) {
+                    lastAnimDoit = true;
                 }
 
                 aniIndex = 0;
@@ -106,10 +113,18 @@ public class GameObject {
         return lastAnimDoit;
     }
 
+    public void setLastAnimDoit(boolean lastAnimDoit) {
+        this.lastAnimDoit = lastAnimDoit;
+    }
+
     public void resetObject() {
         aniIndex = 0;
         aniTick = 0;
         active = true;
+        lastAnimDoit = false;
     }
 
+    public void setAniIndex(int aniIndex) {
+        this.aniIndex = aniIndex;
+    }
 }
