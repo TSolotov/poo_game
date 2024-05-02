@@ -5,13 +5,11 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import main.Game;
 import states.CircusPlaying;
 import utils.Constants;
 import utils.Helpers;
 import utils.LoadSprites;
 
-import static utils.Constants.CircusConstants.TILES_SIZE;
 import static utils.Constants.Player1Constants.*;
 
 public class Player1 extends Entity {
@@ -81,6 +79,12 @@ public class Player1 extends Entity {
             }
         }
 
+    }
+
+    // * Para realizar un minisalto
+    public void setMiniJump() {
+        airSpeed = jumpSpeed / 2;
+        inAir = true;
     }
 
     // * Actualiza la posicion en la que se encuentra el plauyer
@@ -220,7 +224,6 @@ public class Player1 extends Entity {
     public void subtrackLife() {
         if (currentLives <= 0) {
             // TODO - GameOver
-
             return;
         }
 

@@ -13,9 +13,11 @@ public class ObjectHandler {
 
     private BufferedImage[] flameSprites;
     private BufferedImage[] ringSprites;
+    private BufferedImage[] trampolineSprites;
     private ArrayList<FlameObject> flames = new ArrayList<>();
     private ArrayList<RingObject> rings = new ArrayList<>();
     private ArrayList<RingObject> smallRings = new ArrayList<>();
+    private ArrayList<TrampObject> trampolines = new ArrayList<>();
 
     public ObjectHandler() {
         loadSprites();
@@ -24,22 +26,21 @@ public class ObjectHandler {
     private void loadSprites() {
         flameSprites = LoadSprites.getSprites(ObjectConstants.getSpritesInfo(ObjectConstants.FLAME));
         ringSprites = LoadSprites.getSprites(ObjectConstants.getSpritesInfo(ObjectConstants.RING));
+        trampolineSprites = LoadSprites.getSprites(ObjectConstants.getSpritesInfo(ObjectConstants.TRAMPOLINE));
     }
 
     public void addObjects(Level level) {
         flames = FlameObject.getFlames(level);
         rings = RingObject.getRings(level);
         smallRings = RingObject.getSmallRings(level);
+        trampolines = TrampObject.getTrampolines(level);
     }
 
     // ! Update & Draw
     public void update(Player1 player) {
         for (FlameObject flame : flames) {
-            if (flame.isActive()) {
-                flame.update(player);
-            }
+            flame.update(player);
         }
-
         for (RingObject ring : rings) {
             if (ring.isActive() || !ring.getLastAnimDoit()) {
                 ring.update(player);
@@ -50,12 +51,27 @@ public class ObjectHandler {
                 ring.update(player);
             }
         }
+        for (TrampObject tramp : trampolines) {
+            tramp.update(player);
+        }
     }
 
     public void draw(Graphics g, int xLevelOffset) {
         drawFlames(g, xLevelOffset);
         drawRings(g, xLevelOffset);
         drawSmallRings(g, xLevelOffset);
+        drawTrampolines(g, xLevelOffset);
+    }
+
+    private void drawTrampolines(Graphics g, int xLevelOffset) {
+        for (TrampObject tramp : trampolines) {
+            g.drawImage(trampolineSprites[tramp.getAniIndex()],
+                    (int) tramp.getHitbox().getX() - xLevelOffset - ObjectConstants.TRAMPOLINE_X_DRAW_OFFSET,
+                    (int) tramp.getHitbox().getY() - ObjectConstants.TRAMPOLINE_Y_DRAW_OFFSET,
+                    ObjectConstants.TRAMPOLINE_SPRITE_WIDTH,
+                    ObjectConstants.TRAMPOLINE_SPRITE_HEIGHT, null);
+            tramp.drawHitbox(g, xLevelOffset);
+        }
     }
 
     private void drawRings(Graphics g, int xLevelOffset) {
@@ -88,14 +104,13 @@ public class ObjectHandler {
 
     private void drawFlames(Graphics g, int xLevelOffset) {
         for (FlameObject flame : flames) {
-            if (flame.isActive()) {
-                g.drawImage(flameSprites[flame.getAniIndex()],
-                        (int) flame.getHitbox().getX() - xLevelOffset - ObjectConstants.FLAME_X_DRAW_OFFSET,
-                        (int) flame.getHitbox().getY() - ObjectConstants.FLAME_Y_DRAW_OFFSET,
-                        ObjectConstants.FLAME_SPRITE_WIDTH,
-                        ObjectConstants.FLAME_SPRITE_HEIGHT, null);
-                flame.drawHitbox(g, xLevelOffset);
-            }
+            g.drawImage(flameSprites[flame.getAniIndex()],
+                    (int) flame.getHitbox().getX() - xLevelOffset - ObjectConstants.FLAME_X_DRAW_OFFSET,
+                    (int) flame.getHitbox().getY() - ObjectConstants.FLAME_Y_DRAW_OFFSET,
+                    ObjectConstants.FLAME_SPRITE_WIDTH,
+                    ObjectConstants.FLAME_SPRITE_HEIGHT, null);
+            flame.drawHitbox(g, xLevelOffset);
+
         }
     }
 
@@ -103,13 +118,14 @@ public class ObjectHandler {
         for (RingObject ring : rings) {
             ring.resetRing();
         }
-
         for (RingObject ring : smallRings) {
             ring.resetSmallRing();
         }
-
         for (FlameObject flame : flames) {
             flame.resetObject();
+        }
+        for (TrampObject tramp : trampolines) {
+            tramp.resetObject();
         }
     }
 }

@@ -135,7 +135,7 @@ public class Constants {
     }
 
     public static class ObjectConstants {
-        // !
+        // ! Sizes
         public static int FLAME_X_DRAW_OFFSET = 14 * 3 / 2, FLAME_Y_DRAW_OFFSET = 22 * 3 / 2,
                 FLAME_Y_DISTANCE_TO_TOUCH_FLOOR = 8 * 3 / 2;
         public static final int FLAME_SPRITE_WIDTH = 64 * 3 / 2, FLAME_SPRITE_HEIGHT = 64 * 3 / 2;
@@ -149,12 +149,17 @@ public class Constants {
         public static final int SMALL_RING_SPRITE_WIDTH = 192 * 3 / 4, SMALL_RING_SPRITE_HEIGHT = 192 * 3 / 4;
         public static final int SMALL_RING_REAL_WIDTH = 30 * 3 / 4, SMALL_RING_REAL_HEIGHT = 20 * 3 / 4;
 
+        public static int TRAMPOLINE_X_DRAW_OFFSET = 0, TRAMPOLINE_Y_DRAW_OFFSET = 0;
+        public static final int TRAMPOLINE_SPRITE_WIDTH = 32, TRAMPOLINE_SPRITE_HEIGHT = 32;
+        public static final int TRAMPOLINE_REAL_WIDTH = 32, TRAMPOLINE_REAL_HEIGHT = 32;
+
         // ! Constantes para elegir la info
-        public static final int FLAME = 0, RING = 1;
+        public static final int FLAME = 0, RING = 1, TRAMPOLINE = 2;
 
         // ! Constantes de los paths
         private static final String flame_sprites = "resources/circus/flame/flame_";
         private static final String ring_sprites = "resources/circus/ring/ring_";
+        private static final String trampoline_sprites = "resources/circus/trampoline/tramp_";
 
         public static String[] getSpritesInfo(int option) {
             switch (option) {
@@ -163,6 +168,9 @@ public class Constants {
 
                 case RING:
                     return new String[] { ring_sprites, "40" };
+
+                case TRAMPOLINE:
+                    return new String[] { trampoline_sprites, "5" };
 
                 default:
                     System.out.println("Error en la opción");
