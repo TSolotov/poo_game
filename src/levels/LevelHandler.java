@@ -67,7 +67,7 @@ public class LevelHandler {
         return levels.get(currentLevel);
     }
 
-    public int getNumberLevel() {
+    public static int getNumberLevel() {
         return currentLevel;
     }
 

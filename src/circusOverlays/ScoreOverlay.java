@@ -8,6 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Entities.Player1;
+import levels.LevelHandler;
 import states.CircusPlaying;
 
 import static utils.Constants.FrameConstants.*;
@@ -55,7 +56,7 @@ public class ScoreOverlay {
     // ! Update & Draw
     public void update(Player1 player) {
         this.currentLives = player.getCurrentLives();
-        this.currentLevel = circusPlaying.getLevelHandler().getNumberLevel();
+        this.currentLevel = LevelHandler.getNumberLevel();
 
         ScoreYPosition = 0;
         if (currentLevel == 1)

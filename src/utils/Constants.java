@@ -19,12 +19,18 @@ public class Constants {
         public static final int CHICKEN_SPRITE_WIDTH = 20 * 2, CHICKEN_SPRITE_HEIGHT = 21 * 2;
         public static final int CHICKEN_REAL_WIDTH = 18 * 2, CHICKEN_REAL_HEIGHT = 18 * 2;
 
+        public static final int HORSE_X_DRAW_OFFSET = 13 * 2, HORSE_Y_DRAW_OFFSET = 31 * 2;
+        public static final int HORSE_SPRITE_WIDTH = 48 * 2, HORSE_SPRITE_HEIGHT = 48 * 2;
+        public static final int HORSE_REAL_WIDTH = 23 * 2, HORSE_REAL_HEIGHT = 16 * 2;
+
         // * Actions
         public static final int BOMB_RUNNING = 0;
         public static final int BOMB_JUMP = 1;
         public static final int BOMB_FALLING = 2;
         public static final int CHICKEN_WALK = 3;
         public static final int CHICKEN_FALLING = 4;
+        public static final int HORSE_WALK = 5;
+        public static final int HORSE_RUN = 6;
 
         // * Paths
         private static final String bombRunningAtlas = "resources/circus/bomb/run/bomb_run_";
@@ -32,6 +38,8 @@ public class Constants {
         private static final String bombFallingAtlas = "resources/circus/bomb/falling/bomb_falling_";
         private static final String chickenWalkAtlas = "resources/circus/chicken/walk/chicken_walk_";
         private static final String chickenFallingAtlas = "resources/circus/chicken/falling/chicken_falling_";
+        private static final String horseWalkAtlas = "resources/circus/horse/walk/walk_";
+        private static final String horseRunAtlas = "resources/circus/horse/run/run_";
 
         // * Retorna la info necesaria para que la funcion loadSprites haga su trabajo.
         public static String[] getEnemySpritesInfo(int enemyAction) {
@@ -46,6 +54,11 @@ public class Constants {
                     return new String[] { chickenWalkAtlas, "4" };
                 case CHICKEN_FALLING:
                     return new String[] { chickenFallingAtlas, "5" };
+                case HORSE_WALK:
+                    return new String[] { horseWalkAtlas, "8" };
+                case HORSE_RUN:
+                    return new String[] { horseRunAtlas, "5" };
+
                 default:
                     return new String[] { bombRunningAtlas, "6" };
             }
@@ -56,10 +69,12 @@ public class Constants {
     // * Contiene todos los paths e información acerca del player 1
     public static class Player1Constants {
 
+        // * Player sizes
         public static final int X_DRAW_OFFSET = 18 * 2, Y_DRAW_OFFSET = 10 * 2;
         public static final int SPRITE_WIDTH = 64 * 2, SPRITE_HEIGHT = 44 * 2;
         public static final int REAL_WIDTH = 18 * 2, REAL_HEIGHT = 33 * 2;
 
+        // * Player actions
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
         public static final int JUMP = 2;
