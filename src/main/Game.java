@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import states.GameState;
 import states.Menu;
+import states.PongPlaying;
 import states.CircusPlaying;
 
 import static utils.Constants.FrameConstants.FPS_SET;
@@ -19,6 +20,7 @@ public class Game implements Runnable {
     // * Objeto drawiables
     private CircusPlaying circusPlaying;
     private Menu menu;
+    private PongPlaying pongPlaying;
 
     public Game() {
         init();
@@ -34,6 +36,7 @@ public class Game implements Runnable {
     public void init() {
         circusPlaying = new CircusPlaying(this);
         menu = new Menu(this);
+        pongPlaying = new PongPlaying(this);
 
     }
 
@@ -102,7 +105,8 @@ public class Game implements Runnable {
             case MENU:
                 menu.update();
                 break;
-
+            case PONG_PLAYING:
+                pongPlaying.update();
             default:
                 break;
         }
@@ -117,7 +121,8 @@ public class Game implements Runnable {
             case MENU:
                 menu.draw(g);
                 break;
-
+            case PONG_PLAYING:
+                pongPlaying.draw(g);
             default:
                 break;
         }
@@ -131,5 +136,9 @@ public class Game implements Runnable {
 
     public Menu getMenu() {
         return menu;
+    }
+
+    public PongPlaying getPongPlaying() {
+        return pongPlaying;
     }
 }

@@ -12,6 +12,7 @@ import circusOverlays.GameoverOverlay;
 import circusOverlays.LevelCompleteOverlay;
 import circusOverlays.LoseOverlay;
 import circusOverlays.PauseOverlay;
+import circusOverlays.ScoreOverlay;
 import levels.LevelHandler;
 import main.Game;
 import utils.Constants;
@@ -36,6 +37,7 @@ public class CircusPlaying extends State implements StateMethods {
     private GameoverOverlay gameoverOverlay;
     private LoseOverlay loseOverlay;
     private LevelCompleteOverlay levelCompleteOverlay;
+    private ScoreOverlay scoreOverlay;
 
     // * Los distintos bg en playing
     private BufferedImage[] environmentImages;
@@ -71,6 +73,7 @@ public class CircusPlaying extends State implements StateMethods {
         gameoverOverlay = new GameoverOverlay(this);
         loseOverlay = new LoseOverlay(this);
         levelCompleteOverlay = new LevelCompleteOverlay(this);
+        scoreOverlay = new ScoreOverlay(this);
 
         player1 = new Player1(100, 100, SPRITE_WIDTH, SPRITE_HEIGHT, this);
         player1.loadLevelData(levelHandler.getCurrentLevel().getLevelData()); // * Cargo los niveles
@@ -82,6 +85,7 @@ public class CircusPlaying extends State implements StateMethods {
         // * Añade los enemigos al mapa
         enemyHandler.addEnemies(levelHandler.getCurrentLevel());
         objectHandler.addObjects(levelHandler.getCurrentLevel());
+
     }
 
     public void loadNextLevel() {
@@ -125,6 +129,7 @@ public class CircusPlaying extends State implements StateMethods {
             player1.update();
 
         } else if (!gameOver) {
+            scoreOverlay.update(player1);
             player1.update();
             enemyHandler.update(levelHandler.getCurrentLevel().getLevelData(), player1);
             objectHandler.update(player1);
@@ -155,6 +160,7 @@ public class CircusPlaying extends State implements StateMethods {
         player1.draw(g, xLevelOffset);
         enemyHandler.draw(g, xLevelOffset);
         objectHandler.draw(g, xLevelOffset);
+        scoreOverlay.draw(g);
 
         if (pause) {
             pauseOverlay.draw(g);
@@ -265,7 +271,12 @@ public class CircusPlaying extends State implements StateMethods {
         levelCompleted = false;
         enemyHandler.resetEnemies();
         objectHandler.resetObjects();
+        scoreOverlay.resetTimer();
         player1.resetPlayer(isCompletly);
+    }
+
+    public boolean getLoseLife() {
+        return loseLife;
     }
 
     public EnemyHandler getEnemyHandler() {
@@ -276,7 +287,27 @@ public class CircusPlaying extends State implements StateMethods {
         return objectHandler;
     }
 
+    public LevelHandler getLevelHandler() {
+        return levelHandler;
+    }
+
+    public ScoreOverlay getScoreOverlay() {
+        return scoreOverlay;
+    }
+
     public Player1 getPlayer1() {
         return player1;
+    }
+
+    public boolean getPause() {
+        return pause;
+    }
+
+    public boolean getGameOver() {
+        return gameOver;
+    }
+
+    public boolean getLevelComplete() {
+        return levelCompleted;
     }
 }

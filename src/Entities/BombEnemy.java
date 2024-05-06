@@ -26,6 +26,7 @@ public class BombEnemy extends Enemy {
     public BombEnemy(float x, float y) {
         super(x, y, EnemyConstants.BOMB_SPRITE_WIDTH, EnemyConstants.BOMB_SPRITE_HEIGHT, LevelsCreation.BOMB);
         this.walkSpeed = 0.8f;
+        this.walkDir = Directions.RIGHT;
         initHitbox(EnemyConstants.BOMB_REAL_WIDTH, EnemyConstants.BOMB_REAL_HEIGHT);
 
         initJumpBox();

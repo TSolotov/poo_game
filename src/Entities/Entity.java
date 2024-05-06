@@ -11,7 +11,7 @@ public abstract class Entity {
     protected Rectangle2D.Float hitbox;
 
     // *
-    protected int currentLives;
+    protected int currentLives = 0;
     protected float walkSpeed, airSpeed;
     protected boolean inAir = false;
 
@@ -31,6 +31,10 @@ public abstract class Entity {
 
     public Rectangle2D.Float getHitbox() {
         return hitbox;
+    }
+
+    public int getCurrentLives() {
+        return currentLives;
     }
 
     protected void drawHitbox(Graphics g, int xLevelOffset) {
