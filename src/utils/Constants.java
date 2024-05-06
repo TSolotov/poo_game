@@ -244,4 +244,40 @@ public class Constants {
         public static final int RIGHT = 0;
         public static final int LEFT = 1;
     }
+
+    public static class PongConstants {
+        // Pelota
+        public static final int BALL_SIZE = 15;
+        public static final int BALL_SPEED = 1;
+        public static final int BALL_MOVEMENT = BALL_SIZE * BALL_SPEED;
+
+        public static int getXposition() {
+            int retorno = (FRAME_WIDTH / 2) - (BALL_SIZE / 2);
+            return retorno;
+        }
+
+        public static int getYposition() {
+            int retorno = (FRAME_HEIGHT / 2) - (BALL_SIZE / 2);
+            return retorno;
+        }
+
+        // Sign
+        public static int sign(double d) {
+            if (d <= 0)
+                return -1;
+
+            return 1;
+        }
+
+        // Player
+        public static final int PLAYER_SPEED = 5;
+        public static final int PLAYER_HEIGHT = 80;
+        public static final int PLAYER_WIDTH = 20;
+        public static final int PLAYER_PADDING = 20;
+
+        public static final int PLAYER_1_START = 0;
+        public static final int PLAYER_2_START = FRAME_WIDTH - PLAYER_WIDTH;
+        public static final int PLAYER_START = (FRAME_HEIGHT / 2) - (PLAYER_HEIGHT / 2);
+    }
+
 }

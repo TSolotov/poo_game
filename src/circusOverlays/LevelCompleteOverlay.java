@@ -112,6 +112,7 @@ public class LevelCompleteOverlay {
         } else if (isMouseIn(play, e)) {
             if (play.isMousePressed()) {
                 circusPlaying.loadNextLevel();
+                circusPlaying.getScoreOverlay().resetTimer();
             }
         }
     }

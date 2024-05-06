@@ -18,7 +18,7 @@ public class LevelHandler {
     // * Acá irán todos los levels
     private ArrayList<Level> levels;
 
-    private static int currentLevel = 0;
+    private static int currentLevel = 1;
 
     public LevelHandler(Game game) {
         this.game = game;
@@ -65,6 +65,10 @@ public class LevelHandler {
     // * Getters & Setters
     public Level getCurrentLevel() {
         return levels.get(currentLevel);
+    }
+
+    public int getNumberLevel() {
+        return currentLevel;
     }
 
     private int getCantLevels() {
