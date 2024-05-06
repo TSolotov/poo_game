@@ -6,14 +6,14 @@ import levels.Level;
 
 public class LevelsCreation {
         // * Player spawn point (Importante: Que haya 1 por nivel)
-        public static final int SPWN = 100;
+        public static final int SPWN = 100, HRSE = 101;
         // * Tiles constants
         public static final int VOID = -1, DIRT = 0, GRAS = 1, ROPE = 2, WINN = 3;
 
         // * Enemy Constants
         public static final int BOMB = 30, CKEN = 31;
-        // * Object Constants
-        public static final int FLME = 50, RING = 51, SRNG = 52, TRMP = 53;
+        // * Object Constants - STRP = Solid trampoline
+        public static final int FLME = 50, RING = 51, SRNG = 52, TRMP = 53, STRP = 54;
 
         // * Junta todos los levels en un arraylist
         public static void addAllLevels(ArrayList<Level> levels) {
@@ -607,14 +607,14 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
-                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, TRMP, TRMP,
-                                                TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID, VOID, VOID, VOID, VOID, VOID, TRMP, TRMP, TRMP, TRMP, TRMP,
-                                                TRMP, TRMP, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID,
+                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                STRP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                STRP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                STRP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                                STRP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
                                 { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
@@ -625,7 +625,7 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
-                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                { VOID, VOID, HRSE, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
@@ -633,7 +633,7 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                VOID, VOID },
+                                                VOID, WINN },
                                 { GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS,
                                                 GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS,
                                                 GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS, GRAS,

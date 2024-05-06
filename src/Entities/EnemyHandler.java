@@ -13,8 +13,10 @@ public class EnemyHandler {
     // * Tiene todas las animaciones de las bombas
     private ArrayList<BufferedImage[]> bombSprites;
     private ArrayList<BufferedImage[]> chickenSprites;
+    private ArrayList<BufferedImage[]> horseSprites;
     private ArrayList<BombEnemy> bombs = new ArrayList<>();
     private ArrayList<ChickenEnemy> chickens = new ArrayList<>();
+    private Horse horse;
 
     public EnemyHandler() {
         loadSprites();
@@ -30,11 +32,16 @@ public class EnemyHandler {
         chickenSprites.addLast(LoadSprites.getSprites(EnemyConstants.getEnemySpritesInfo(EnemyConstants.CHICKEN_WALK)));
         chickenSprites
                 .addLast(LoadSprites.getSprites(EnemyConstants.getEnemySpritesInfo(EnemyConstants.CHICKEN_FALLING)));
+
+        horseSprites = new ArrayList<>();
+        horseSprites.addLast(LoadSprites.getSprites(EnemyConstants.getEnemySpritesInfo(EnemyConstants.HORSE_WALK)));
+        horseSprites.addLast(LoadSprites.getSprites(EnemyConstants.getEnemySpritesInfo(EnemyConstants.HORSE_RUN)));
     }
 
     public void addEnemies(Level level) {
         bombs = BombEnemy.getBombs(level);
         chickens = ChickenEnemy.getChickens(level);
+        horse = Horse.getHorse(level);
     }
 
     // ! Update y Draw
@@ -45,11 +52,15 @@ public class EnemyHandler {
         for (ChickenEnemy chicken : chickens) {
             chicken.update(levelData, player);
         }
+
+        horse.update(player);
+
     }
 
     public void draw(Graphics g, int xLevelOffset) {
         drawBombs(g, xLevelOffset);
         drawChickens(g, xLevelOffset);
+        drawHorse(g, xLevelOffset);
     }
 
     private void drawBombs(Graphics g, int xLevelOffset) {
@@ -89,6 +100,26 @@ public class EnemyHandler {
 
     }
 
+    private void drawHorse(Graphics g, int xLevelOffset) {
+        int action = 0;
+        switch (horse.getHorseAction()) {
+            case EnemyConstants.HORSE_WALK:
+                action = 0;
+                break;
+            case EnemyConstants.HORSE_RUN:
+                action = 1;
+                break;
+        }
+
+        g.drawImage(horseSprites.get(action)[horse.getAniIndex()],
+                (int) horse.getPosition().x - EnemyConstants.HORSE_REAL_WIDTH / 2 - xLevelOffset,
+                (int) horse.getPosition().y - EnemyConstants.HORSE_Y_DRAW_OFFSET,
+                EnemyConstants.HORSE_SPRITE_WIDTH,
+                EnemyConstants.HORSE_SPRITE_HEIGHT, null);
+
+        horse.drawHitbox(g, xLevelOffset);
+    }
+
     public void resetEnemies() {
         for (BombEnemy bomb : bombs) {
             bomb.resetEnemy();
@@ -96,5 +127,7 @@ public class EnemyHandler {
         for (ChickenEnemy chicken : chickens) {
             chicken.resetEnemy();
         }
+
+        horse.resetHorse();
     }
 }

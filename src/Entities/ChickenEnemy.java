@@ -60,7 +60,6 @@ public class ChickenEnemy extends Enemy {
     // * Helpers para la creación de enemigos
     public static ArrayList<ChickenEnemy> getChickens(Level level) {
         ArrayList<ChickenEnemy> chickens = new ArrayList<>();
-
         for (int i = 0; i < level.getLevelHeight(); i++) {
             for (int j = 0; j < level.getLevelWidth(); j++) {
                 if (level.getTileToDraw(i, j) == LevelsCreation.CKEN) {

@@ -21,7 +21,8 @@ public class TrampObject extends GameObject {
         ArrayList<TrampObject> tramp = new ArrayList<>();
         for (int i = 0; i < level.getLevelHeight(); i++) {
             for (int j = 0; j < level.getLevelWidth(); j++) {
-                if (level.getTileToDraw(i, j) == LevelsCreation.TRMP) {
+                if (level.getTileToDraw(i, j) == LevelsCreation.TRMP
+                        || level.getTileToDraw(i, j) == LevelsCreation.STRP) {
                     tramp.add(new TrampObject(j * TILES_SIZE, i * TILES_SIZE, LevelsCreation.TRMP));
                 }
             }

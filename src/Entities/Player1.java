@@ -193,7 +193,6 @@ public class Player1 extends Entity {
         if (currentLives <= 0 && deadAnimDoit) {
             circusPlaying.setGameOver(true);
         }
-
         updateAnimationTick();
         updatePosition();
         setAnimations();
@@ -204,7 +203,6 @@ public class Player1 extends Entity {
                 (int) (hitbox.getY() - Y_DRAW_OFFSET),
                 SPRITE_WIDTH * flipW,
                 SPRITE_HEIGHT, null);
-
         g.drawRect((int) hitbox.x - xLevelOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
@@ -262,5 +260,25 @@ public class Player1 extends Entity {
 
         if (!Helpers.IsEntityOnFloor(hitbox, levelData))
             inAir = true;
+    }
+
+    public void resetVelocity() {
+        this.walkSpeed = 1.0f;
+    }
+
+    public void decrementVelocity() {
+        this.walkSpeed = 1.0f;
+    }
+
+    public void incrementVelocity() {
+        this.walkSpeed = 2.0f;
+    }
+
+    public Point getPosition() {
+        return new Point((int) this.hitbox.x, (int) this.hitbox.y);
+    }
+
+    public void setPlayerAction(int playerAction) {
+        this.playerAction = playerAction;
     }
 }
