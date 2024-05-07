@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 import states.CircusPlaying;
 import utils.Constants;
+import utils.Constants.CircusConstants;
 import utils.Helpers;
 import utils.LoadSprites;
 
+import static utils.Constants.CircusConstants.GRAVITY;
 import static utils.Constants.Player1Constants.*;
 
 public class Player1 extends Entity {
@@ -27,17 +29,19 @@ public class Player1 extends Entity {
 
     // * Movimiento
     private boolean left, right, jump, moving = false;
-    private float jumpSpeed = -2.5f, fallSpeedAfterCollision = 0.5f;
+    private float jumpSpeed = (-2.5f * CircusConstants.SCALE), fallSpeedAfterCollision = (0.5f * CircusConstants.SCALE);
     private int flipX = 0, flipW = 1;
 
     public Player1(float x, float y, int width, int heigth, CircusPlaying circusPlaying) {
         super(x, y, width, heigth);
         this.circusPlaying = circusPlaying;
         this.currentLives = 5;
-        this.walkSpeed = 1.0f;
+        this.walkSpeed = 1.0f * CircusConstants.SCALE;
 
         loadAnimationsSprites();
         initHitbox(REAL_WIDTH, REAL_HEIGHT);
+
+        System.out.println(GRAVITY);
 
     }
 
@@ -109,7 +113,7 @@ public class Player1 extends Entity {
 
         if (left) {
             xSpeed -= walkSpeed;
-            flipX = width - 18;
+            flipX = width - (int) (18 * CircusConstants.SCALE);
             flipW = -1;
 
         }
@@ -263,15 +267,7 @@ public class Player1 extends Entity {
     }
 
     public void resetVelocity() {
-        this.walkSpeed = 1.0f;
-    }
-
-    public void decrementVelocity() {
-        this.walkSpeed = 1.0f;
-    }
-
-    public void incrementVelocity() {
-        this.walkSpeed = 2.0f;
+        this.walkSpeed = 1.0f * CircusConstants.SCALE;
     }
 
     public Point getPosition() {

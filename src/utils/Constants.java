@@ -1,5 +1,6 @@
 package utils;
 
+import static utils.Constants.CircusConstants.SCALE;
 import static utils.Constants.CircusConstants.TILES_SIZE;
 import static utils.Constants.CircusConstants.TILES_WIDTH;
 import static utils.Constants.CircusConstants.TILE_HEIGHT;
@@ -11,17 +12,26 @@ public class Constants {
     public static class EnemyConstants {
 
         // * Sizes
-        public static final int BOMB_X_DRAW_OFFSET = 23 * 3 / 2, BOMB_Y_DRAW_OFFSET = 22 * 3 / 2;
-        public static final int BOMB_SPRITE_WIDTH = 64 * 3 / 2, BOMB_SPRITE_HEIGHT = 64 * 3 / 2;
-        public static final int BOMB_REAL_WIDTH = 22 * 3 / 2, BOMB_REAL_HEIGHT = 29 * 3 / 2;
+        public static int BOMB_X_DRAW_OFFSET = (int) ((23 * SCALE * 3 / 2)),
+                BOMB_Y_DRAW_OFFSET = (int) ((22 * SCALE * 3 / 2));
+        public static int BOMB_SPRITE_WIDTH = (int) ((64 * SCALE * 3 / 2)),
+                BOMB_SPRITE_HEIGHT = (int) ((64 * SCALE * 3 / 2));
+        public static int BOMB_REAL_WIDTH = (int) ((22 * SCALE * 3 / 2)),
+                BOMB_REAL_HEIGHT = (int) ((29 * SCALE * 3 / 2));
 
-        public static final int CHICKEN_X_DRAW_OFFSET = 1 * 2, CHICKEN_Y_DRAW_OFFSET = 2 * 2;
-        public static final int CHICKEN_SPRITE_WIDTH = 20 * 2, CHICKEN_SPRITE_HEIGHT = 21 * 2;
-        public static final int CHICKEN_REAL_WIDTH = 18 * 2, CHICKEN_REAL_HEIGHT = 18 * 2;
+        public static int CHICKEN_X_DRAW_OFFSET = (int) (1 * SCALE * 2),
+                CHICKEN_Y_DRAW_OFFSET = (int) (2 * SCALE * 2);
+        public static int CHICKEN_SPRITE_WIDTH = (int) (20 * SCALE * 2),
+                CHICKEN_SPRITE_HEIGHT = (int) (21 * SCALE * 2);
+        public static int CHICKEN_REAL_WIDTH = (int) (18 * SCALE * 2),
+                CHICKEN_REAL_HEIGHT = (int) (18 * SCALE * 2);
 
-        public static final int HORSE_X_DRAW_OFFSET = 13 * 2, HORSE_Y_DRAW_OFFSET = 31 * 2;
-        public static final int HORSE_SPRITE_WIDTH = 48 * 2, HORSE_SPRITE_HEIGHT = 48 * 2;
-        public static final int HORSE_REAL_WIDTH = 23 * 2, HORSE_REAL_HEIGHT = 16 * 2;
+        public static int HORSE_X_DRAW_OFFSET = (int) (13 * SCALE * 2),
+                HORSE_Y_DRAW_OFFSET = (int) (31 * SCALE * 2);
+        public static int HORSE_SPRITE_WIDTH = (int) (48 * SCALE * 2),
+                HORSE_SPRITE_HEIGHT = (int) (48 * SCALE * 2);
+        public static int HORSE_REAL_WIDTH = (int) (23 * SCALE * 2),
+                HORSE_REAL_HEIGHT = (int) (16 * SCALE * 2);
 
         // * Actions
         public static final int BOMB_RUNNING = 0;
@@ -70,9 +80,12 @@ public class Constants {
     public static class Player1Constants {
 
         // * Player sizes
-        public static final int X_DRAW_OFFSET = 18 * 2, Y_DRAW_OFFSET = 10 * 2;
-        public static final int SPRITE_WIDTH = 64 * 2, SPRITE_HEIGHT = 44 * 2;
-        public static final int REAL_WIDTH = 18 * 2, REAL_HEIGHT = 33 * 2;
+        public static int X_DRAW_OFFSET = (int) (18 * SCALE * 2),
+                Y_DRAW_OFFSET = (int) (10 * SCALE * 2);
+        public static int SPRITE_WIDTH = (int) (64 * SCALE * 2),
+                SPRITE_HEIGHT = (int) (44 * SCALE * 2);
+        public static int REAL_WIDTH = (int) (18 * SCALE * 2),
+                REAL_HEIGHT = (int) (33 * SCALE * 2);
 
         // * Player actions
         public static final int IDLE = 0;
@@ -112,21 +125,24 @@ public class Constants {
     public static class MenuConstants {
         private static final String menuAtlas = "resources/menu/bg_";
 
-        public static String[] getPlayer1SpritesInfo() {
+        public static String[] getMenuSpritesInfo() {
             return new String[] { menuAtlas, "2" };
         }
 
     }
 
     public static class CircusConstants {
-        public final static float GRAVITY = 0.025f;
 
-        // ! Constantes para la construcción del mapa (Los tiles) - Testing
-        public final static int TILE_DEFAULT_SIZE = 32; // px
-        public final static float SCALE = 1.0f;
-        public final static int TILES_WIDTH = 40; // * De máximo serían 32 blocks de 32px (según la escala) de largo */
-        public final static int TILE_HEIGHT = 24; // * De máximo serían 20 blocks de 32px (según la escala) de alto */
-        public final static int TILES_SIZE = (int) (TILE_DEFAULT_SIZE * SCALE);
+        // ! Constantes para la construcción del mapa (Los tiles)
+        public final static int TILE_DEFAULT_SIZE = 32;
+        // public static float SCALE = 900.0f / 768.0f;
+        public static float SCALE = 1.0f;
+
+        public static int TILES_WIDTH = 43; // * De máximo serían 43 blocks de 32px (según la escala) de largo */
+        public static int TILE_HEIGHT = 24; // * De máximo serían 24 blocks de 32px (según la escala) de alto */
+        public static int TILES_SIZE = (int) (TILE_DEFAULT_SIZE * SCALE);
+
+        public static float GRAVITY = 0.025f * SCALE;
 
         // ! Constantes para elegir la info
         public static final int BG_CIRCUS = 0;
@@ -151,22 +167,34 @@ public class Constants {
 
     public static class ObjectConstants {
         // ! Sizes
-        public static int FLAME_X_DRAW_OFFSET = 14 * 3 / 2, FLAME_Y_DRAW_OFFSET = 22 * 3 / 2,
-                FLAME_Y_DISTANCE_TO_TOUCH_FLOOR = 8 * 3 / 2;
-        public static final int FLAME_SPRITE_WIDTH = 64 * 3 / 2, FLAME_SPRITE_HEIGHT = 64 * 3 / 2;
-        public static final int FLAME_REAL_WIDTH = 36 * 3 / 2, FLAME_REAL_HEIGHT = 35 * 3 / 2;
+        public static int FLAME_X_DRAW_OFFSET = (int) (14 * 3 * SCALE / 2),
+                FLAME_Y_DRAW_OFFSET = (int) (22 * 3 * SCALE / 2),
+                FLAME_Y_DISTANCE_TO_TOUCH_FLOOR = (int) (8 * 3 * SCALE / 2);
+        public static int FLAME_SPRITE_WIDTH = (int) (64 * 3 * SCALE / 2),
+                FLAME_SPRITE_HEIGHT = (int) (64 * 3 * SCALE / 2);
+        public static int FLAME_REAL_WIDTH = (int) (36 * 3 * SCALE / 2),
+                FLAME_REAL_HEIGHT = (int) (35 * 3 * SCALE / 2);
 
-        public static int RING_X_DRAW_OFFSET = 70, RING_Y_DRAW_OFFSET = 10;
-        public static final int RING_SPRITE_WIDTH = 192, RING_SPRITE_HEIGHT = 192;
-        public static final int RING_REAL_WIDTH = 35, RING_REAL_HEIGHT = 20;
+        public static int RING_X_DRAW_OFFSET = (int) (70 * SCALE),
+                RING_Y_DRAW_OFFSET = (int) (10 * SCALE);
+        public static int RING_SPRITE_WIDTH = (int) (192 * SCALE),
+                RING_SPRITE_HEIGHT = (int) (192 * SCALE);
+        public static int RING_REAL_WIDTH = (int) (35 * SCALE),
+                RING_REAL_HEIGHT = (int) (20 * SCALE);
 
-        public static int SMALL_RING_X_DRAW_OFFSET = 74 * 3 / 4, SMALL_RING_Y_DRAW_OFFSET = 10 * 3 / 4;
-        public static final int SMALL_RING_SPRITE_WIDTH = 192 * 3 / 4, SMALL_RING_SPRITE_HEIGHT = 192 * 3 / 4;
-        public static final int SMALL_RING_REAL_WIDTH = 30 * 3 / 4, SMALL_RING_REAL_HEIGHT = 20 * 3 / 4;
+        public static int SMALL_RING_X_DRAW_OFFSET = (int) (74 * 3 * SCALE / 4),
+                SMALL_RING_Y_DRAW_OFFSET = (int) (10 * 3 * SCALE / 4);
+        public static int SMALL_RING_SPRITE_WIDTH = (int) (192 * 3 * SCALE / 4),
+                SMALL_RING_SPRITE_HEIGHT = (int) (192 * 3 * SCALE / 4);
+        public static int SMALL_RING_REAL_WIDTH = (int) (30 * 3 * SCALE / 4),
+                SMALL_RING_REAL_HEIGHT = (int) (20 * 3 * SCALE / 4);
 
-        public static int TRAMPOLINE_X_DRAW_OFFSET = 0, TRAMPOLINE_Y_DRAW_OFFSET = 0;
-        public static final int TRAMPOLINE_SPRITE_WIDTH = 32, TRAMPOLINE_SPRITE_HEIGHT = 32;
-        public static final int TRAMPOLINE_REAL_WIDTH = 32, TRAMPOLINE_REAL_HEIGHT = 32;
+        public static int TRAMPOLINE_X_DRAW_OFFSET = (int) (0 * SCALE),
+                TRAMPOLINE_Y_DRAW_OFFSET = (int) (0 * SCALE);
+        public static int TRAMPOLINE_SPRITE_WIDTH = (int) (32 * SCALE),
+                TRAMPOLINE_SPRITE_HEIGHT = (int) (32 * SCALE);
+        public static int TRAMPOLINE_REAL_WIDTH = (int) (32 * SCALE),
+                TRAMPOLINE_REAL_HEIGHT = (int) (32 * SCALE);
 
         // ! Constantes para elegir la info
         public static final int FLAME = 0, RING = 1, TRAMPOLINE = 2;
@@ -199,7 +227,8 @@ public class Constants {
 
         // ! Constantes para elegir la info
         public static final int BG_LOSE_OVERLAY = 0;
-        public static int BG_LOSE_OVERLAY_WIDTH = FRAME_WIDTH / 2, BG_LOSE_OVERLAY_HEIGHT = FRAME_HEIGHT * 3 / 4;
+        public static int BG_LOSE_OVERLAY_WIDTH = (int) (FRAME_WIDTH / 2),
+                BG_LOSE_OVERLAY_HEIGHT = (int) (FRAME_HEIGHT * 3 / 4);
 
         // ! Constantes de los paths
         private static final String bg_lose_overlay = "resources/UI/bg_overlay/bg_";
@@ -218,17 +247,31 @@ public class Constants {
 
     public static class UIConstants {
 
-        public static final int SQUARE_BUTTON_SIZE = 75; // * 32x32px
+        public static int SQUARE_BUTTON_SIZE = (int) (75 * SCALE);
+        public static int CONFIGURATION_BUTTON_SIZE = (int) (56 * SCALE);
 
         // ! Constantes para elegir la info
         public static final int CONTINUE = 0;
         public static final int RESET = 1;
         public static final int MENU = 2;
 
+        public static final int SOUNDON = 3;
+        public static final int SOUNDOFF = 4;
+        public static final int MUSICON = 5;
+        public static final int MUSICOFF = 6;
+        public static final int FULLSCREEN = 7;
+        public static final int WINDOW = 8;
+
         // ! Constantes de los paths
         private static final String contunueButton = "resources/UI/buttons/continue_button_";
         private static final String resetButton = "resources/UI/buttons/reset_button_";
         private static final String menuButton = "resources/UI/buttons/menu_button_";
+        private static final String soundOnButton = "resources/UI/buttons/sound_on_";
+        private static final String soundOffButton = "resources/UI/buttons/sound_off_";
+        private static final String musicOnButton = "resources/UI/buttons/music_on_";
+        private static final String musicOffButton = "resources/UI/buttons/music_off_";
+        private static final String fullScreenButton = "resources/UI/buttons/full_screen_";
+        private static final String windowButton = "resources/UI/buttons/window_";
 
         public static String[] getSpritesInfo(int option) {
             switch (option) {
@@ -238,6 +281,18 @@ public class Constants {
                     return new String[] { resetButton, "2" };
                 case MENU:
                     return new String[] { menuButton, "2" };
+                case SOUNDON:
+                    return new String[] { soundOnButton, "2" };
+                case SOUNDOFF:
+                    return new String[] { soundOffButton, "2" };
+                case MUSICON:
+                    return new String[] { musicOnButton, "2" };
+                case MUSICOFF:
+                    return new String[] { musicOffButton, "2" };
+                case FULLSCREEN:
+                    return new String[] { fullScreenButton, "2" };
+                case WINDOW:
+                    return new String[] { windowButton, "2" };
                 default:
                     System.out.println("Error en la opción");
                     return new String[] { "Null", "0" };
@@ -248,8 +303,8 @@ public class Constants {
 
     // * Contiene toda la información de lo que es el frame, la ventana
     public static class FrameConstants {
-        public static final int FRAME_WIDTH = TILES_SIZE * TILES_WIDTH;
-        public static final int FRAME_HEIGHT = TILES_SIZE * TILE_HEIGHT;
+        public static int FRAME_WIDTH = (int) (TILES_SIZE * TILES_WIDTH);
+        public static int FRAME_HEIGHT = (int) (TILES_SIZE * TILE_HEIGHT);
         public static final int FPS_SET = 144;
         public static final int UPS_SET = 240;
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import levels.Level;
 import utils.Constants;
 import utils.LevelsCreation;
+import utils.Constants.CircusConstants;
 import utils.Constants.Directions;
 import utils.Constants.EnemyConstants;
 import utils.Helpers;
@@ -18,14 +19,14 @@ public class BombEnemy extends Enemy {
 
     private Rectangle2D.Float jumpBox;
 
-    private final int RANGE_TO_JUMP = 150;
+    private final int RANGE_TO_JUMP = (int) (150 * CircusConstants.SCALE);
 
     // * Controlan el salto de la bomba
-    private float jumpSpeed = -2.25f;
+    private float jumpSpeed = -2.25f * CircusConstants.SCALE;
 
     public BombEnemy(float x, float y) {
         super(x, y, EnemyConstants.BOMB_SPRITE_WIDTH, EnemyConstants.BOMB_SPRITE_HEIGHT, LevelsCreation.BOMB);
-        this.walkSpeed = 0.8f;
+        this.walkSpeed = 0.8f * CircusConstants.SCALE;
         this.walkDir = Directions.RIGHT;
         initHitbox(EnemyConstants.BOMB_REAL_WIDTH, EnemyConstants.BOMB_REAL_HEIGHT);
 
@@ -40,7 +41,7 @@ public class BombEnemy extends Enemy {
 
     // * Esta es la hitbox donde el mono saltaría cuando lo detecte
     private void initJumpBox() {
-        jumpBox = new Rectangle2D.Float(x, y, 32, 32);
+        jumpBox = new Rectangle2D.Float(x, y, 32 * CircusConstants.SCALE, 32 * CircusConstants.SCALE);
     }
 
     public int flipX() {

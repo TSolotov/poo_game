@@ -1,15 +1,16 @@
 package main;
 
 import java.lang.Thread;
+
 import java.awt.Graphics;
 
 import states.GameState;
 import states.Menu;
 import states.PongPlaying;
 import states.CircusPlaying;
+import states.Configuration;
 
-import static utils.Constants.FrameConstants.FPS_SET;
-import static utils.Constants.FrameConstants.UPS_SET;
+import static utils.Constants.FrameConstants.*;
 
 public class Game implements Runnable {
     private GamePanel gamePanel;
@@ -21,6 +22,7 @@ public class Game implements Runnable {
     private CircusPlaying circusPlaying;
     private Menu menu;
     private PongPlaying pongPlaying;
+    private Configuration configuration;
 
     public Game() {
         init();
@@ -37,6 +39,7 @@ public class Game implements Runnable {
         circusPlaying = new CircusPlaying(this);
         menu = new Menu(this);
         pongPlaying = new PongPlaying(this);
+        configuration = new Configuration(this);
 
     }
 
@@ -107,6 +110,10 @@ public class Game implements Runnable {
                 break;
             case PONG_PLAYING:
                 pongPlaying.update();
+                break;
+            case CONFIGURATION:
+                configuration.update();
+                break;
             default:
                 break;
         }
@@ -123,6 +130,10 @@ public class Game implements Runnable {
                 break;
             case PONG_PLAYING:
                 pongPlaying.draw(g);
+                break;
+            case CONFIGURATION:
+                configuration.draw(g);
+                break;
             default:
                 break;
         }
@@ -140,5 +151,9 @@ public class Game implements Runnable {
 
     public PongPlaying getPongPlaying() {
         return pongPlaying;
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
     }
 }

@@ -209,9 +209,15 @@ public class CircusPlaying extends State implements StateMethods {
     public void keyReleased(KeyEvent k) {
         switch (k.getKeyCode()) {
             case KeyEvent.VK_A:
+                if (LevelHandler.getNumberLevel() == 2) {
+                    break;
+                }
                 player1.setLeft(false);
                 break;
             case KeyEvent.VK_D:
+                if (LevelHandler.getNumberLevel() == 2) {
+                    break;
+                }
                 player1.setRight(false);
                 break;
             case KeyEvent.VK_SPACE:

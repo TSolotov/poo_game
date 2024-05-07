@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import utils.LoadSprites;
 import main.Game;
 import utils.Constants;
+import utils.Constants.CircusConstants;
+
 import static utils.Constants.FrameConstants.*;
 
 public class Menu extends State implements StateMethods {
@@ -28,7 +30,7 @@ public class Menu extends State implements StateMethods {
     }
 
     private void loadBackground() {
-        bg_images = LoadSprites.getSprites(Constants.MenuConstants.getPlayer1SpritesInfo());
+        bg_images = LoadSprites.getSprites(Constants.MenuConstants.getMenuSpritesInfo());
     }
 
     // * ---------------------------------------
@@ -46,7 +48,7 @@ public class Menu extends State implements StateMethods {
         g.drawImage(bg_images[1], (FRAME_WIDTH - bg_images[1].getWidth()) / 2,
                 75, null);
 
-        g.setFont(new Font("Verdana", Font.CENTER_BASELINE, 22));
+        g.setFont(new Font("Verdana", Font.CENTER_BASELINE, (int) (22 * CircusConstants.SCALE)));
         // TODO - Agregar funcionalidad
 
         for (int i = 0; i < options.length; i++) {
@@ -55,7 +57,9 @@ public class Menu extends State implements StateMethods {
             else
                 g.setColor(Color.WHITE);
 
-            g.drawString(options[i], 100, 400 + 50 * i);
+            g.drawString(options[i], (int) (100 * CircusConstants.SCALE),
+                    (int) ((400 * CircusConstants.SCALE)
+                            + (50 * CircusConstants.SCALE) * i * CircusConstants.SCALE));
         }
     }
 
@@ -84,6 +88,9 @@ public class Menu extends State implements StateMethods {
                         break;
                     case 1:
                         GameState.state = GameState.PONG_PLAYING;
+                        break;
+                    case 2:
+                        GameState.state = GameState.CONFIGURATION;
                         break;
                     default:
                         System.exit(0);

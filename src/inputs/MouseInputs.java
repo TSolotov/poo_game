@@ -20,6 +20,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
             case CIRCUS_PLAYING:
                 gamePanel.getGame().getPlaying().mousePressed(e);
                 break;
+            case CONFIGURATION:
+                gamePanel.getGame().getConfiguration().mousePressed(e);
+                break;
         }
     }
 
@@ -29,6 +32,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
             case CIRCUS_PLAYING:
                 gamePanel.getGame().getPlaying().mouseReleased(e);
                 break;
+            case CONFIGURATION:
+                gamePanel.getGame().getConfiguration().mouseReleased(e);
+                break;
         }
     }
 
@@ -37,6 +43,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         switch (GameState.state) {
             case CIRCUS_PLAYING:
                 gamePanel.getGame().getPlaying().mouseMoved(e);
+                break;
+            case CONFIGURATION:
+                gamePanel.getGame().getConfiguration().mouseMoved(e);
                 break;
         }
     }

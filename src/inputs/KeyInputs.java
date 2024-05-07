@@ -30,6 +30,9 @@ public class KeyInputs implements KeyListener {
             case PONG_PLAYING:
                 gamePanel.getGame().getPongPlaying().keyPressed(e);
                 break;
+            case CONFIGURATION:
+                gamePanel.getGame().getConfiguration().keyPressed(e);
+                break;
             default:
                 break;
         }
