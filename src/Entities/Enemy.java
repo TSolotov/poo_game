@@ -3,6 +3,7 @@ package Entities;
 import static utils.Constants.CircusConstants.TILES_SIZE;
 
 import utils.Constants;
+import utils.Constants.CircusConstants;
 import utils.Helpers;
 
 public class Enemy extends Entity {
@@ -22,7 +23,7 @@ public class Enemy extends Entity {
         super(x, y, width, height);
 
         this.enemyType = enemyType;
-        this.walkSpeed = 0.5f;
+        this.walkSpeed = 0.5f * CircusConstants.SCALE;
 
         initHitbox(width, height);
     }

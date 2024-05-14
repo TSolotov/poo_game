@@ -5,11 +5,15 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import audio.AudioPlayer;
+import levels.LevelHandler;
 import states.CircusPlaying;
 import utils.Constants;
+import utils.Constants.CircusConstants;
 import utils.Helpers;
 import utils.LoadSprites;
 
+import static utils.Constants.CircusConstants.GRAVITY;
 import static utils.Constants.Player1Constants.*;
 
 public class Player1 extends Entity {
@@ -27,17 +31,19 @@ public class Player1 extends Entity {
 
     // * Movimiento
     private boolean left, right, jump, moving = false;
-    private float jumpSpeed = -2.5f, fallSpeedAfterCollision = 0.5f;
+    private float jumpSpeed = (-2.5f * CircusConstants.SCALE), fallSpeedAfterCollision = (0.5f * CircusConstants.SCALE);
     private int flipX = 0, flipW = 1;
 
     public Player1(float x, float y, int width, int heigth, CircusPlaying circusPlaying) {
         super(x, y, width, heigth);
         this.circusPlaying = circusPlaying;
         this.currentLives = 5;
-        this.walkSpeed = 1.0f;
+        this.walkSpeed = 1.0f * CircusConstants.SCALE;
 
         loadAnimationsSprites();
         initHitbox(REAL_WIDTH, REAL_HEIGHT);
+
+        System.out.println(GRAVITY);
 
     }
 
@@ -72,7 +78,10 @@ public class Player1 extends Entity {
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
+            if (playerAction == RUNNING && aniIndex % 2 == 1)
+                circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             if (aniIndex >= Integer.parseInt(getPlayer1SpritesInfo(playerAction)[1])) {
+
                 if (isDead)
                     deadAnimDoit = true;
                 aniIndex = 0;
@@ -96,6 +105,7 @@ public class Player1 extends Entity {
             if (!inAir) {
                 inAir = true;
                 airSpeed = jumpSpeed;
+                circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.JUMP);
             }
         }
 
@@ -108,13 +118,15 @@ public class Player1 extends Entity {
         float xSpeed = 0;
 
         if (left) {
+            // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             xSpeed -= walkSpeed;
-            flipX = width - 18;
+            flipX = width - (int) (18 * CircusConstants.SCALE);
             flipW = -1;
 
         }
 
         if (right) {
+            // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             xSpeed += walkSpeed;
             flipX = 0;
             flipW = 1;
@@ -220,6 +232,7 @@ public class Player1 extends Entity {
     }
 
     public void subtrackLife() {
+        // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.DIE);
         if (currentLives <= 0) {
             // TODO - GameOver
             return;
@@ -263,15 +276,7 @@ public class Player1 extends Entity {
     }
 
     public void resetVelocity() {
-        this.walkSpeed = 1.0f;
-    }
-
-    public void decrementVelocity() {
-        this.walkSpeed = 1.0f;
-    }
-
-    public void incrementVelocity() {
-        this.walkSpeed = 2.0f;
+        this.walkSpeed = 1.0f * CircusConstants.SCALE;
     }
 
     public Point getPosition() {

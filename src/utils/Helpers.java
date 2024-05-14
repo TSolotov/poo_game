@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
 import levels.Level;
+import utils.Constants.CircusConstants;
 
 import static utils.Constants.CircusConstants.*;
 import static utils.Constants.Player1Constants.*;
@@ -84,7 +85,7 @@ public class Helpers {
             // * Right
             int tileXPos = currentTile * TILES_SIZE;
             int xOffset = (int) (TILES_SIZE - hitbox.width);
-            return tileXPos + xOffset + REAL_WIDTH - 5;
+            return tileXPos + xOffset + REAL_WIDTH - (5 * CircusConstants.SCALE);
         } else {
             // * Left
             return currentTile * TILES_SIZE;

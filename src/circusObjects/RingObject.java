@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import Entities.Player1;
 import levels.Level;
+import utils.Constants.CircusConstants;
 import utils.Constants.ObjectConstants;
 import utils.Constants.Player1Constants;
 import utils.LevelsCreation;
@@ -30,7 +31,7 @@ public class RingObject extends GameObject {
     }
 
     public void updateMove() {
-        float movementSpeed = 0.1f;
+        float movementSpeed = 0.1f * CircusConstants.SCALE;
         hitbox.x -= movementSpeed;
         hitbox2.x -= movementSpeed;
     }

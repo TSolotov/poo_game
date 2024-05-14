@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import utils.LoadSprites;
 import main.Game;
 import utils.Constants;
+import utils.Constants.CircusConstants;
+
 import static utils.Constants.FrameConstants.*;
 
 public class Menu extends State implements StateMethods {
@@ -18,8 +20,8 @@ public class Menu extends State implements StateMethods {
 
     // Gestiona la selección del menu
     private int currentOption = 0;
-    private String[] options = { "Play Circus (1 Jugador)", "Play Pong (2 Jugadores)", "TODO - Archivos",
-            "TODO - Configuraciones", "Salir" };
+    private String[] options = { "Play Circus (1 Jugador)", "Play Pong (2 Jugadores)",
+            "TODO - Configuraciones", "TODO - Puntuaciones", "Salir" };
 
     public Menu(Game game) {
         super(game);
@@ -28,7 +30,7 @@ public class Menu extends State implements StateMethods {
     }
 
     private void loadBackground() {
-        bg_images = LoadSprites.getSprites(Constants.MenuConstants.getPlayer1SpritesInfo());
+        bg_images = LoadSprites.getSprites(Constants.MenuConstants.getMenuSpritesInfo());
     }
 
     // * ---------------------------------------
@@ -46,7 +48,7 @@ public class Menu extends State implements StateMethods {
         g.drawImage(bg_images[1], (FRAME_WIDTH - bg_images[1].getWidth()) / 2,
                 75, null);
 
-        g.setFont(new Font("Verdana", Font.CENTER_BASELINE, 22));
+        g.setFont(new Font("Verdana", Font.CENTER_BASELINE, (int) (22 * CircusConstants.SCALE)));
         // TODO - Agregar funcionalidad
 
         for (int i = 0; i < options.length; i++) {
@@ -55,7 +57,9 @@ public class Menu extends State implements StateMethods {
             else
                 g.setColor(Color.WHITE);
 
-            g.drawString(options[i], 100, 400 + 50 * i);
+            g.drawString(options[i], (int) (100 * CircusConstants.SCALE),
+                    (int) ((400 * CircusConstants.SCALE)
+                            + (50 * CircusConstants.SCALE) * i * CircusConstants.SCALE));
         }
     }
 
@@ -80,10 +84,14 @@ public class Menu extends State implements StateMethods {
             case KeyEvent.VK_ENTER:
                 switch (currentOption) {
                     case 0:
-                        GameState.state = GameState.CIRCUS_PLAYING;
+                        this.setGamestate(GameState.CIRCUS_PLAYING);
+                        game.getAudioPlayer().setMusic(game.getPlaying().getLevelHandler().getNumberLevel());
                         break;
                     case 1:
-                        GameState.state = GameState.PONG_PLAYING;
+                        this.setGamestate(GameState.PONG_PLAYING);
+                        break;
+                    case 2:
+                        this.setGamestate(GameState.CONFIGURATION);
                         break;
                     default:
                         System.exit(0);
@@ -97,7 +105,7 @@ public class Menu extends State implements StateMethods {
 
     @Override
     public void keyReleased(KeyEvent k) {
-        // ! Innecesario por ahora
+
     }
 
     @Override

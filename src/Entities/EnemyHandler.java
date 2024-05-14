@@ -127,7 +127,7 @@ public class EnemyHandler {
         for (ChickenEnemy chicken : chickens) {
             chicken.resetEnemy();
         }
-
         horse.resetHorse();
     }
+
 }

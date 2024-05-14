@@ -18,7 +18,7 @@ public class LevelHandler {
     // * Acá irán todos los levels
     private ArrayList<Level> levels;
 
-    private static int currentLevel = 1;
+    private static int currentLevel = 2;
 
     public LevelHandler(Game game) {
         this.game = game;
@@ -47,6 +47,7 @@ public class LevelHandler {
         game.getPlaying().getObjectHandler().addObjects(newLevel);
         game.getPlaying().getPlayer1().loadLevelData(newLevel.getLevelData());
         game.getPlaying().setMaxLevel1OffsetX(newLevel.getLevelOffsetX());
+        game.getAudioPlayer().setMusic(currentLevel);
 
     }
 
@@ -57,7 +58,8 @@ public class LevelHandler {
                 int index = levels.get(currentLevel).getTileToDraw(i, j);
                 if (index == LevelsCreation.VOID || index >= 30)
                     continue; // * no pinta ningun sprite si es que es vacío
-                g.drawImage(tiles[index], TILES_SIZE * j - xLevelOffset, TILES_SIZE * i, TILES_SIZE, TILES_SIZE, null);
+                g.drawImage(tiles[index], (TILES_SIZE * j - xLevelOffset), TILES_SIZE * i, TILES_SIZE, TILES_SIZE,
+                        null);
             }
         }
     }
@@ -74,4 +76,5 @@ public class LevelHandler {
     private int getCantLevels() {
         return levels.size();
     }
+
 }

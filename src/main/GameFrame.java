@@ -8,6 +8,8 @@ public class GameFrame {
     public GameFrame(GamePanel panel) {
         jframe = new JFrame("Circus Charlie");
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        jframe.setUndecorated(true);
         jframe.add(panel);
         jframe.setResizable(false);
 

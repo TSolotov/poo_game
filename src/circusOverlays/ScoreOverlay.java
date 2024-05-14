@@ -1,9 +1,11 @@
 package circusOverlays;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,6 +29,7 @@ public class ScoreOverlay {
     private int currentLevel;
     private int seconds = 0, secondLimit = 120;;
     private Timer timer;
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     public ScoreOverlay(CircusPlaying circusPlaying) {
         this.circusPlaying = circusPlaying;
@@ -76,7 +79,7 @@ public class ScoreOverlay {
                 ScoreYPosition + YPadding + metrics.getHeight());
         g.drawString("Tiempo restante: " + seconds + "/" + secondLimit + " segundos", ScoreXPosition + XPadding,
                 ScoreYPosition + YPadding * 2 + metrics.getHeight() * 2);
-        g.drawString("Score: 5223 puntos", ScoreXPosition + XPadding,
+        g.drawString("Score: " + screenSize.getWidth() + " | " + screenSize.getHeight(), ScoreXPosition + XPadding,
                 ScoreYPosition + YPadding * 3 + metrics.getHeight() * 3);
 
     }

@@ -75,7 +75,7 @@ public class PongPlaying extends State implements StateMethods {
 
         // exit
         if (key == KeyEvent.VK_ESCAPE) {
-            GameState.state = GameState.MENU;
+            this.setGamestate(GameState.MENU);
         }
     }
 

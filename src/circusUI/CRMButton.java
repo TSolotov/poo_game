@@ -5,6 +5,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import utils.Constants.CircusConstants;
 import utils.Constants.UIConstants;
 import utils.LoadSprites;
 
@@ -29,12 +30,13 @@ public class CRMButton extends CButton {
     }
 
     public void draw(Graphics g, String text) {
-        g.setFont(new Font("Arial", Font.BOLD, 18));
+        g.setFont(new Font("Arial", Font.BOLD, (int) (18 * CircusConstants.SCALE)));
         FontMetrics metrics = g.getFontMetrics();
         g.drawImage(CRMButtonImage[indexButtonImage], this.getX(), this.getY(), this.getWidth(), this.getHeight(),
                 null);
-        g.drawString(text, this.getX() + (UIConstants.SQUARE_BUTTON_SIZE - metrics.stringWidth(text)) / 2,
-                this.getY() + UIConstants.SQUARE_BUTTON_SIZE + 25);
+        if (text.length() != 0)
+            g.drawString(text, this.getX() + (UIConstants.SQUARE_BUTTON_SIZE - metrics.stringWidth(text)) / 2,
+                    this.getY() + UIConstants.SQUARE_BUTTON_SIZE + (int) (25 * CircusConstants.SCALE));
     }
 
     // * Setters & Getters
