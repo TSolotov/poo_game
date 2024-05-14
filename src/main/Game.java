@@ -2,6 +2,8 @@ package main;
 
 import java.lang.Thread;
 
+import audio.AudioPlayer;
+
 import java.awt.Graphics;
 
 import states.GameState;
@@ -24,6 +26,9 @@ public class Game implements Runnable {
     private PongPlaying pongPlaying;
     private Configuration configuration;
 
+    // * Audio
+    private AudioPlayer audioPlayer;
+
     public Game() {
         init();
         this.gamePanel = new GamePanel(this);
@@ -40,6 +45,8 @@ public class Game implements Runnable {
         menu = new Menu(this);
         pongPlaying = new PongPlaying(this);
         configuration = new Configuration(this);
+
+        audioPlayer = new AudioPlayer();
 
     }
 
@@ -155,5 +162,9 @@ public class Game implements Runnable {
 
     public Configuration getConfiguration() {
         return configuration;
+    }
+
+    public AudioPlayer getAudioPlayer() {
+        return audioPlayer;
     }
 }

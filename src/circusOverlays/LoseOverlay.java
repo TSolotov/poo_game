@@ -110,7 +110,7 @@ public class LoseOverlay {
         if (isMouseIn(menu, e)) {
             if (menu.isMousePressed()) {
                 circusPlaying.resetLevel(true);
-                GameState.state = GameState.MENU;
+                circusPlaying.setGamestate(GameState.MENU);
             }
         } else if (isMouseIn(reset, e)) {
             if (reset.isMousePressed()) {

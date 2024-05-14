@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import Entities.EnemyHandler;
 import Entities.Player1;
+import audio.AudioPlayer;
 import circusObjects.ObjectHandler;
 import circusOverlays.GameoverOverlay;
 import circusOverlays.LevelCompleteOverlay;
@@ -164,6 +165,7 @@ public class CircusPlaying extends State implements StateMethods {
 
         if (pause) {
             pauseOverlay.draw(g);
+
         } else if (levelCompleted) {
             levelCompleteOverlay.draw(g);
         } else if (gameOver) {
@@ -266,13 +268,21 @@ public class CircusPlaying extends State implements StateMethods {
     // * Setters & Getters
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+        this.getGame().getAudioPlayer().stopMusic();
+        this.getGame().getAudioPlayer().playSounds(AudioPlayer.GAME_OVER);
     }
 
     public void setPause(boolean pause) {
+        if (pause)
+            this.getGame().getAudioPlayer().stopMusic();
+        else
+            this.getGame().getAudioPlayer().setMusic(LevelHandler.getNumberLevel());
+        this.getGame().getAudioPlayer().playSounds(AudioPlayer.PAUSE);
         this.pause = pause;
     }
 
     public void togleLoseLife() {
+        this.getGame().getAudioPlayer().playSounds(AudioPlayer.DIE);
         loseLife = !loseLife;
     }
 

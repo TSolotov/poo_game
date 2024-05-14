@@ -47,6 +47,7 @@ public class LevelHandler {
         game.getPlaying().getObjectHandler().addObjects(newLevel);
         game.getPlaying().getPlayer1().loadLevelData(newLevel.getLevelData());
         game.getPlaying().setMaxLevel1OffsetX(newLevel.getLevelOffsetX());
+        game.getAudioPlayer().setMusic(currentLevel);
 
     }
 

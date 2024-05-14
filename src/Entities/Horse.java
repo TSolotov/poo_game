@@ -50,6 +50,7 @@ public class Horse extends Entity {
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
+
             if (aniIndex >= Integer.parseInt(EnemyConstants.getEnemySpritesInfo(horseAction)[1])) {
                 aniIndex = 0;
             }

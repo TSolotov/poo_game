@@ -109,7 +109,7 @@ public class LevelCompleteOverlay {
         if (isMouseIn(menu, e)) {
             if (menu.isMousePressed()) {
                 circusPlaying.resetLevel(false);
-                GameState.state = GameState.MENU;
+                circusPlaying.setGamestate(GameState.MENU);
             }
         } else if (isMouseIn(play, e)) {
             if (play.isMousePressed()) {

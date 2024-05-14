@@ -117,10 +117,12 @@ public class Configuration extends State implements StateMethods {
         if (isMouseIn(e, musicButton)) {
             if (musicButton.isMousePressed()) {
                 musicButton.togleState();
+                game.getAudioPlayer().togleMusicMute();
             }
         } else if (isMouseIn(e, soundButton)) {
             if (soundButton.isMousePressed()) {
                 soundButton.togleState();
+                game.getAudioPlayer().togleSoundsMute();
             }
         } else if (isMouseIn(e, screenButton)) {
             if (screenButton.isMousePressed()) {

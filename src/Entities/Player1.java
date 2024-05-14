@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import audio.AudioPlayer;
+import levels.LevelHandler;
 import states.CircusPlaying;
 import utils.Constants;
 import utils.Constants.CircusConstants;
@@ -76,7 +78,10 @@ public class Player1 extends Entity {
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
+            if (playerAction == RUNNING && aniIndex % 2 == 1)
+                circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             if (aniIndex >= Integer.parseInt(getPlayer1SpritesInfo(playerAction)[1])) {
+
                 if (isDead)
                     deadAnimDoit = true;
                 aniIndex = 0;
@@ -100,6 +105,7 @@ public class Player1 extends Entity {
             if (!inAir) {
                 inAir = true;
                 airSpeed = jumpSpeed;
+                circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.JUMP);
             }
         }
 
@@ -112,6 +118,7 @@ public class Player1 extends Entity {
         float xSpeed = 0;
 
         if (left) {
+            // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             xSpeed -= walkSpeed;
             flipX = width - (int) (18 * CircusConstants.SCALE);
             flipW = -1;
@@ -119,6 +126,7 @@ public class Player1 extends Entity {
         }
 
         if (right) {
+            // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             xSpeed += walkSpeed;
             flipX = 0;
             flipW = 1;
@@ -224,6 +232,7 @@ public class Player1 extends Entity {
     }
 
     public void subtrackLife() {
+        // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.DIE);
         if (currentLives <= 0) {
             // TODO - GameOver
             return;

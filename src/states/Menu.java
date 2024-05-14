@@ -20,8 +20,8 @@ public class Menu extends State implements StateMethods {
 
     // Gestiona la selección del menu
     private int currentOption = 0;
-    private String[] options = { "Play Circus (1 Jugador)", "Play Pong (2 Jugadores)", "TODO - Archivos",
-            "TODO - Configuraciones", "Salir" };
+    private String[] options = { "Play Circus (1 Jugador)", "Play Pong (2 Jugadores)",
+            "TODO - Configuraciones", "TODO - Puntuaciones", "Salir" };
 
     public Menu(Game game) {
         super(game);
@@ -84,13 +84,14 @@ public class Menu extends State implements StateMethods {
             case KeyEvent.VK_ENTER:
                 switch (currentOption) {
                     case 0:
-                        GameState.state = GameState.CIRCUS_PLAYING;
+                        this.setGamestate(GameState.CIRCUS_PLAYING);
+                        game.getAudioPlayer().setMusic(game.getPlaying().getLevelHandler().getNumberLevel());
                         break;
                     case 1:
-                        GameState.state = GameState.PONG_PLAYING;
+                        this.setGamestate(GameState.PONG_PLAYING);
                         break;
                     case 2:
-                        GameState.state = GameState.CONFIGURATION;
+                        this.setGamestate(GameState.CONFIGURATION);
                         break;
                     default:
                         System.exit(0);
@@ -104,7 +105,7 @@ public class Menu extends State implements StateMethods {
 
     @Override
     public void keyReleased(KeyEvent k) {
-        // ! Innecesario por ahora
+
     }
 
     @Override
