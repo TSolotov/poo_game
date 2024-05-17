@@ -4,7 +4,6 @@ import static utils.Constants.CircusConstants.TILES_SIZE;
 
 import states.CircusPlaying;
 import utils.Constants;
-import utils.Constants.CircusConstants;
 import utils.Constants.Player1Constants;
 import utils.Helpers;
 import utils.LevelsCreation;

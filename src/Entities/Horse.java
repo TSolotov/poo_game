@@ -12,7 +12,6 @@ import static utils.Constants.CircusConstants.TILES_SIZE;
 
 public class Horse extends Entity {
     // * Velocidad de animación
-    private float lastXPos = 0;
     private int aniSpeed, aniIndex;
     private int horseAction = EnemyConstants.HORSE_WALK;
 
@@ -24,6 +23,12 @@ public class Horse extends Entity {
 
     // * Chequea la colision entre la hitbox del enemigo y la del player
     protected void checkIntersectHitboxes(Player1 player) {
+        if (player.isDead()) {
+            player.walkSpeed = 0;
+            player.setRight(false);
+            return;
+        }
+
         if (hitbox.intersects(player.getHitbox())) {
             player.inAir = false;
             player.airSpeed = 0;
@@ -85,16 +90,9 @@ public class Horse extends Entity {
             player.resetVelocity();
             return;
         }
-
-        if (lastXPos == player.getHitbox().x) {
-            player.setRight(false);
-            player.subtrackLife();
-            return;
-        }
         setSpawnPoint(player.getPosition());
         updateAnimationTick();
         checkIntersectHitboxes(player);
-        lastXPos = player.getHitbox().x;
     }
 
     // * Getters & Setters
