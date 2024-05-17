@@ -12,6 +12,7 @@ import java.util.TimerTask;
 import Entities.Player1;
 import levels.LevelHandler;
 import states.CircusPlaying;
+import states.GameState;
 
 import static utils.Constants.FrameConstants.*;
 
@@ -27,42 +28,43 @@ public class ScoreOverlay {
     // * Scores variables
     private int currentLives;
     private int currentLevel;
-    private int seconds = 0, secondLimit = 120;;
+    private static int seconds = 0, secondLimit = 120;;
     private Timer timer;
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     public ScoreOverlay(CircusPlaying circusPlaying) {
         this.circusPlaying = circusPlaying;
         timer = new Timer();
+        startTimer();
     }
 
     private void startTimer() {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                seconds++;
-                if (seconds >= secondLimit) {
-                    // circusPlaying.setGameOver(true);
-                    cancel();
+                if (GameState.state == GameState.CIRCUS_PLAYING) {
+                    if (!circusPlaying.getPause())
+                        if (!circusPlaying.getPlayer1().isDead() && !circusPlaying.getLevelComplete()
+                                && !circusPlaying.getGameOver()) {
+                            seconds++;
+                            CircusPlaying.setScore(-20);
+                        }
+
+                    if ((seconds >= secondLimit || CircusPlaying.getScore() <= 0) && !circusPlaying.getGameOver()) {
+                        circusPlaying.setGameOver(true);
+                        resetTimer();
+                    }
                 }
             }
         }, 0, 1000);
     }
 
-    // * Reseteo del timer al pasar de level
-    public void resetTimer() {
-        timer.cancel();
-        timer = new Timer();
-        startTimer();
-    }
-
     // ! Update & Draw
     public void update(Player1 player) {
         this.currentLives = player.getCurrentLives();
-        this.currentLevel = LevelHandler.getNumberLevel();
+        this.currentLevel = LevelHandler.getNumberLevel() + 1;
 
         ScoreYPosition = 0;
-        if (currentLevel == 1)
+        if (currentLevel == 2)
             ScoreYPosition = FRAME_HEIGHT - SCORE_OVERLAY_HEIGHT;
 
     }
@@ -79,9 +81,12 @@ public class ScoreOverlay {
                 ScoreYPosition + YPadding + metrics.getHeight());
         g.drawString("Tiempo restante: " + seconds + "/" + secondLimit + " segundos", ScoreXPosition + XPadding,
                 ScoreYPosition + YPadding * 2 + metrics.getHeight() * 2);
-        g.drawString("Score: " + screenSize.getWidth() + " | " + screenSize.getHeight(), ScoreXPosition + XPadding,
+        g.drawString("Score: " + CircusPlaying.getScore(), ScoreXPosition + XPadding,
                 ScoreYPosition + YPadding * 3 + metrics.getHeight() * 3);
 
     }
 
+    public static void resetTimer() {
+        seconds = 0;
+    }
 }

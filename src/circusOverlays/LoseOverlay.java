@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
 import circusUI.CRMButton;
 import states.CircusPlaying;
 import states.GameState;
+import utils.Constants;
 import utils.LoadSprites;
-import utils.Constants.CircusConstants;
 import utils.Constants.OverlayConstants;
 import utils.Constants.UIConstants;
 
@@ -39,14 +39,14 @@ public class LoseOverlay {
                 (FRAME_WIDTH - OverlayConstants.BG_LOSE_OVERLAY_WIDTH) / 2
                         + (OverlayConstants.BG_LOSE_OVERLAY_WIDTH / 3 - UIConstants.SQUARE_BUTTON_SIZE / 2),
                 FRAME_HEIGHT - (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT)
-                        - (int) (50 * CircusConstants.SCALE),
+                        - (int) (50 * Constants.SCALE),
                 UIConstants.SQUARE_BUTTON_SIZE,
                 UIConstants.SQUARE_BUTTON_SIZE, UIConstants.RESET);
 
         menu = new CRMButton((FRAME_WIDTH - OverlayConstants.BG_LOSE_OVERLAY_WIDTH) / 2
                 + (OverlayConstants.BG_LOSE_OVERLAY_WIDTH * 2 / 3 - UIConstants.SQUARE_BUTTON_SIZE / 2),
                 FRAME_HEIGHT - (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT)
-                        - (int) (50 * CircusConstants.SCALE),
+                        - (int) (50 * Constants.SCALE),
                 UIConstants.SQUARE_BUTTON_SIZE,
                 UIConstants.SQUARE_BUTTON_SIZE, UIConstants.MENU);
 
@@ -71,17 +71,18 @@ public class LoseOverlay {
                 (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2, OverlayConstants.BG_LOSE_OVERLAY_WIDTH,
                 OverlayConstants.BG_LOSE_OVERLAY_HEIGHT, null);
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (56 * CircusConstants.SCALE)));
+        g.setFont(new Font("Arial", Font.BOLD, (int) (56 * Constants.SCALE)));
         g.setColor(new Color(14, 165, 233));
 
         metrics = g.getFontMetrics();
         g.drawString("Perdedor", FRAME_WIDTH / 2 - metrics.stringWidth("Perdedor") / 2,
-                (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (100 * CircusConstants.SCALE));
+                (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (100 * Constants.SCALE));
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (32 * CircusConstants.SCALE)));
+        g.setFont(new Font("Arial", Font.BOLD, (int) (32 * Constants.SCALE)));
         metrics = g.getFontMetrics();
-        g.drawString("Score: ", FRAME_WIDTH / 2 - metrics.stringWidth("Score: ") / 2,
-                (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (200 * CircusConstants.SCALE));
+        g.drawString("Score: " + CircusPlaying.getScore(),
+                FRAME_WIDTH / 2 - metrics.stringWidth("Score: " + CircusPlaying.getScore()) / 2,
+                (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (200 * Constants.SCALE));
 
         reset.draw(g, "Reset level");
         menu.draw(g, "Go to menu");
@@ -115,6 +116,7 @@ public class LoseOverlay {
         } else if (isMouseIn(reset, e)) {
             if (reset.isMousePressed()) {
                 circusPlaying.resetLevel(false);
+                ScoreOverlay.resetTimer();
             }
         }
 

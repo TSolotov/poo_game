@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
 import levels.Level;
-import utils.Constants.CircusConstants;
 
 import static utils.Constants.CircusConstants.*;
 import static utils.Constants.Player1Constants.*;
@@ -12,13 +11,10 @@ import static utils.Constants.FrameConstants.*;
 
 public class Helpers {
 
-    // TODO - Colisiones acá
-
     /*
      * Se encarga de ver que el personaje no salga de la pantalla
      * O que el tile que está tocando sea solido
      */
-
     private static boolean isSolid(float x, float y, int[][] levelData) {
         if (x < 0 || x >= levelData[0].length * TILES_SIZE)
             return true;
@@ -85,7 +81,7 @@ public class Helpers {
             // * Right
             int tileXPos = currentTile * TILES_SIZE;
             int xOffset = (int) (TILES_SIZE - hitbox.width);
-            return tileXPos + xOffset + REAL_WIDTH - (5 * CircusConstants.SCALE);
+            return tileXPos + xOffset + REAL_WIDTH - (5 * Constants.SCALE);
         } else {
             // * Left
             return currentTile * TILES_SIZE;

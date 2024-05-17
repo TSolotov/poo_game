@@ -1,6 +1,7 @@
 package main;
 
 import java.lang.Thread;
+import java.net.URL;
 
 import audio.AudioPlayer;
 
@@ -9,6 +10,8 @@ import java.awt.Graphics;
 import states.GameState;
 import states.Menu;
 import states.PongPlaying;
+import utils.Constants;
+import utils.EnvConfig;
 import states.CircusPlaying;
 import states.Configuration;
 

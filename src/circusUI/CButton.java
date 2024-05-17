@@ -2,9 +2,9 @@ package circusUI;
 
 import java.awt.Rectangle;
 
-public class CButton {
-    private int x, y, width, height;
-    private Rectangle buttonBox;
+public abstract class CButton {
+    protected int x, y, width, height;
+    protected Rectangle buttonBox;
 
     public CButton(int x, int y, int width, int height) {
         this.x = x;

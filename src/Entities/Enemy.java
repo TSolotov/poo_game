@@ -2,9 +2,12 @@ package Entities;
 
 import static utils.Constants.CircusConstants.TILES_SIZE;
 
+import states.CircusPlaying;
 import utils.Constants;
 import utils.Constants.CircusConstants;
+import utils.Constants.Player1Constants;
 import utils.Helpers;
+import utils.LevelsCreation;
 
 public class Enemy extends Entity {
     protected int aniSpeed;
@@ -12,7 +15,7 @@ public class Enemy extends Entity {
 
     protected boolean firstUpdate = true;
 
-    protected int walkDir = Constants.Directions.LEFT;
+    protected int walkDir = Constants.Directions.RIGHT;
     protected float xSpeed = 0;
     protected boolean jump = false;
 
@@ -23,7 +26,7 @@ public class Enemy extends Entity {
         super(x, y, width, height);
 
         this.enemyType = enemyType;
-        this.walkSpeed = 0.5f * CircusConstants.SCALE;
+        this.walkSpeed = 0.5f * Constants.SCALE;
 
         initHitbox(width, height);
     }
@@ -32,6 +35,15 @@ public class Enemy extends Entity {
     protected void checkIntersectHitboxes(Player1 player) {
         if (hitbox.intersects(player.getHitbox())) {
             player.subtrackLife();
+        }
+
+        if (hitbox.getX() < player.getHitbox().getX() + hitbox.width - Player1Constants.REAL_WIDTH && active) {
+            this.setActive(false);
+            if (enemyType == LevelsCreation.BOMB)
+                CircusPlaying.setScore(100);
+            else
+                CircusPlaying.setScore(25);
+
         }
     }
 
@@ -132,6 +144,10 @@ public class Enemy extends Entity {
         active = true;
         airSpeed = 0;
         aniIndex = 0;
-        walkDir = Constants.Directions.LEFT;
+        walkDir = Constants.Directions.RIGHT;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

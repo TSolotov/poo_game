@@ -18,7 +18,7 @@ public class LevelHandler {
     // * Acá irán todos los levels
     private ArrayList<Level> levels;
 
-    private static int currentLevel = 2;
+    private static int currentLevel = 1;
 
     public LevelHandler(Game game) {
         this.game = game;
@@ -48,7 +48,6 @@ public class LevelHandler {
         game.getPlaying().getPlayer1().loadLevelData(newLevel.getLevelData());
         game.getPlaying().setMaxLevel1OffsetX(newLevel.getLevelOffsetX());
         game.getAudioPlayer().setMusic(currentLevel);
-
     }
 
     // ! Draw & Update
@@ -73,8 +72,18 @@ public class LevelHandler {
         return currentLevel;
     }
 
-    private int getCantLevels() {
+    public int getCantLevels() {
         return levels.size();
+    }
+
+    public void resetCurrentLevel() {
+        currentLevel = 0;
+        Level newLevel = levels.get(currentLevel);
+        game.getPlaying().getEnemyHandler().addEnemies(newLevel);
+        game.getPlaying().getObjectHandler().addObjects(newLevel);
+        game.getPlaying().getPlayer1().loadLevelData(newLevel.getLevelData());
+        game.getPlaying().setMaxLevel1OffsetX(newLevel.getLevelOffsetX());
+        game.getAudioPlayer().setMusic(currentLevel);
     }
 
 }

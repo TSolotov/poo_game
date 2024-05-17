@@ -3,9 +3,9 @@ package Entities;
 import java.awt.Point;
 
 import levels.Level;
-import utils.Constants.CircusConstants;
 import utils.Constants.EnemyConstants;
 import utils.Constants.Player1Constants;
+import utils.Constants;
 import utils.LevelsCreation;
 
 import static utils.Constants.CircusConstants.TILES_SIZE;
@@ -32,12 +32,12 @@ public class Horse extends Entity {
         if (!player.inAir) {
             if (horseAction != EnemyConstants.HORSE_RUN)
                 aniIndex = 0;
-            player.walkSpeed = 2.0f * CircusConstants.SCALE;
+            player.walkSpeed = 2.0f * Constants.SCALE;
             horseAction = EnemyConstants.HORSE_RUN;
         } else {
             if (horseAction != EnemyConstants.HORSE_WALK)
                 aniIndex = 0;
-            player.walkSpeed = 1.0f * CircusConstants.SCALE;
+            player.walkSpeed = 1.0f * Constants.SCALE;
             player.setRight(true);
             horseAction = EnemyConstants.HORSE_WALK;
         }

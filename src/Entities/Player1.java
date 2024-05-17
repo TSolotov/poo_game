@@ -6,10 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import audio.AudioPlayer;
-import levels.LevelHandler;
 import states.CircusPlaying;
 import utils.Constants;
-import utils.Constants.CircusConstants;
 import utils.Helpers;
 import utils.LoadSprites;
 
@@ -31,18 +29,19 @@ public class Player1 extends Entity {
 
     // * Movimiento
     private boolean left, right, jump, moving = false;
-    private float jumpSpeed = (-2.5f * CircusConstants.SCALE), fallSpeedAfterCollision = (0.5f * CircusConstants.SCALE);
+    private float jumpSpeed = (-2.5f * Constants.SCALE), fallSpeedAfterCollision = (0.5f * Constants.SCALE);
     private int flipX = 0, flipW = 1;
 
     public Player1(float x, float y, int width, int heigth, CircusPlaying circusPlaying) {
         super(x, y, width, heigth);
         this.circusPlaying = circusPlaying;
         this.currentLives = 5;
-        this.walkSpeed = 1.0f * CircusConstants.SCALE;
+        this.walkSpeed = 1.0f * Constants.SCALE;
 
         loadAnimationsSprites();
         initHitbox(REAL_WIDTH, REAL_HEIGHT);
 
+        System.out.println(Constants.SCALE);
         System.out.println(GRAVITY);
 
     }
@@ -94,6 +93,7 @@ public class Player1 extends Entity {
     public void setMiniJump() {
         airSpeed = jumpSpeed / 2;
         inAir = true;
+        CircusPlaying.setScore(25);
     }
 
     // * Actualiza la posicion en la que se encuentra el plauyer
@@ -120,7 +120,7 @@ public class Player1 extends Entity {
         if (left) {
             // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             xSpeed -= walkSpeed;
-            flipX = width - (int) (18 * CircusConstants.SCALE);
+            flipX = width - (int) (18 * Constants.SCALE);
             flipW = -1;
 
         }
@@ -276,7 +276,7 @@ public class Player1 extends Entity {
     }
 
     public void resetVelocity() {
-        this.walkSpeed = 1.0f * CircusConstants.SCALE;
+        this.walkSpeed = 1.0f * Constants.SCALE;
     }
 
     public Point getPosition() {

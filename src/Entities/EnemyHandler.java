@@ -47,10 +47,14 @@ public class EnemyHandler {
     // ! Update y Draw
     public void update(int[][] levelData, Player1 player) {
         for (BombEnemy bomb : bombs) {
-            bomb.update(levelData, player);
+            if (bomb.isActive()) {
+                bomb.update(levelData, player);
+            }
         }
         for (ChickenEnemy chicken : chickens) {
-            chicken.update(levelData, player);
+            if (chicken.isActive()) {
+                chicken.update(levelData, player);
+            }
         }
 
         horse.update(player);
@@ -65,14 +69,15 @@ public class EnemyHandler {
 
     private void drawBombs(Graphics g, int xLevelOffset) {
         for (BombEnemy bomb : bombs) {
-            g.drawImage(bombSprites.get(bomb.getEnemyAction())[bomb.getAniIndex()],
-                    (int) bomb.getHitbox().getX() - xLevelOffset + bomb.flipX(),
-                    (int) (bomb.getHitbox().getY() - EnemyConstants.BOMB_Y_DRAW_OFFSET),
-                    EnemyConstants.BOMB_SPRITE_WIDTH * bomb.flipW(),
-                    EnemyConstants.BOMB_SPRITE_HEIGHT, null);
-
-            bomb.drawHitbox(g, xLevelOffset);
-            bomb.drawJumpBox(g, xLevelOffset);
+            if (bomb.isActive()) {
+                g.drawImage(bombSprites.get(bomb.getEnemyAction())[bomb.getAniIndex()],
+                        (int) bomb.getHitbox().getX() - xLevelOffset + bomb.flipX(),
+                        (int) (bomb.getHitbox().getY() - EnemyConstants.BOMB_Y_DRAW_OFFSET),
+                        EnemyConstants.BOMB_SPRITE_WIDTH * bomb.flipW(),
+                        EnemyConstants.BOMB_SPRITE_HEIGHT, null);
+                bomb.drawHitbox(g, xLevelOffset);
+                bomb.drawJumpBox(g, xLevelOffset);
+            }
         }
 
     }
@@ -80,22 +85,22 @@ public class EnemyHandler {
     private void drawChickens(Graphics g, int xLevelOffset) {
         int action = 0;
         for (ChickenEnemy chicken : chickens) {
-            switch (chicken.getEnemyAction()) {
-                case EnemyConstants.CHICKEN_WALK:
-                    action = 0;
-                    break;
-                case EnemyConstants.CHICKEN_FALLING:
-                    action = 1;
-                    break;
+            if (chicken.isActive()) {
+                switch (chicken.getEnemyAction()) {
+                    case EnemyConstants.CHICKEN_WALK:
+                        action = 0;
+                        break;
+                    case EnemyConstants.CHICKEN_FALLING:
+                        action = 1;
+                        break;
+                }
+                g.drawImage(chickenSprites.get(action)[chicken.getAniIndex()],
+                        (int) chicken.getHitbox().getX() - xLevelOffset + chicken.flipX(),
+                        (int) (chicken.getHitbox().getY() - EnemyConstants.CHICKEN_Y_DRAW_OFFSET),
+                        EnemyConstants.CHICKEN_SPRITE_WIDTH * chicken.flipW(),
+                        EnemyConstants.CHICKEN_SPRITE_HEIGHT, null);
+                chicken.drawHitbox(g, xLevelOffset);
             }
-
-            g.drawImage(chickenSprites.get(action)[chicken.getAniIndex()],
-                    (int) chicken.getHitbox().getX() - xLevelOffset + chicken.flipX(),
-                    (int) (chicken.getHitbox().getY() - EnemyConstants.CHICKEN_Y_DRAW_OFFSET),
-                    EnemyConstants.CHICKEN_SPRITE_WIDTH * chicken.flipW(),
-                    EnemyConstants.CHICKEN_SPRITE_HEIGHT, null);
-
-            chicken.drawHitbox(g, xLevelOffset);
         }
 
     }

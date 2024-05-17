@@ -10,9 +10,10 @@ import java.util.ArrayList;
 
 import Entities.Player1;
 import levels.Level;
-import utils.Constants.CircusConstants;
+import states.CircusPlaying;
 import utils.Constants.ObjectConstants;
 import utils.Constants.Player1Constants;
+import utils.Constants;
 import utils.LevelsCreation;
 
 public class RingObject extends GameObject {
@@ -31,7 +32,7 @@ public class RingObject extends GameObject {
     }
 
     public void updateMove() {
-        float movementSpeed = 0.1f * CircusConstants.SCALE;
+        float movementSpeed = 0.1f * Constants.SCALE;
         hitbox.x -= movementSpeed;
         hitbox2.x -= movementSpeed;
     }
@@ -57,9 +58,15 @@ public class RingObject extends GameObject {
             player.subtrackLife();
         }
 
-        if (hitbox2.getX() < player.getHitbox().getX() + hitbox2.width - Player1Constants.REAL_WIDTH) {
+        if (hitbox2.getX() < player.getHitbox().getX() + hitbox2.width - Player1Constants.REAL_WIDTH && active) {
             this.setActive(false);
+            if (objType == LevelsCreation.SRNG)
+                CircusPlaying.setScore(500);
+            else
+                CircusPlaying.setScore(50);
+
         }
+
     }
 
     // * Helper para la creación de los rings
