@@ -7,10 +7,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import levels.LevelHandler;
 import utils.LoadSprites;
 import main.Game;
 import utils.Constants;
-import utils.Constants.CircusConstants;
 
 import static utils.Constants.FrameConstants.*;
 
@@ -48,8 +48,7 @@ public class Menu extends State implements StateMethods {
         g.drawImage(bg_images[1], (FRAME_WIDTH - bg_images[1].getWidth()) / 2,
                 75, null);
 
-        g.setFont(new Font("Verdana", Font.CENTER_BASELINE, (int) (22 * CircusConstants.SCALE)));
-        // TODO - Agregar funcionalidad
+        g.setFont(new Font("Verdana", Font.CENTER_BASELINE, (int) (22 * Constants.SCALE)));
 
         for (int i = 0; i < options.length; i++) {
             if (i == currentOption)
@@ -57,9 +56,9 @@ public class Menu extends State implements StateMethods {
             else
                 g.setColor(Color.WHITE);
 
-            g.drawString(options[i], (int) (100 * CircusConstants.SCALE),
-                    (int) ((400 * CircusConstants.SCALE)
-                            + (50 * CircusConstants.SCALE) * i * CircusConstants.SCALE));
+            g.drawString(options[i], (int) (100 * Constants.SCALE),
+                    (int) ((400 * Constants.SCALE)
+                            + (50 * Constants.SCALE) * i * Constants.SCALE));
         }
     }
 
@@ -85,7 +84,7 @@ public class Menu extends State implements StateMethods {
                 switch (currentOption) {
                     case 0:
                         this.setGamestate(GameState.CIRCUS_PLAYING);
-                        game.getAudioPlayer().setMusic(game.getPlaying().getLevelHandler().getNumberLevel());
+                        game.getAudioPlayer().setMusic(LevelHandler.getNumberLevel());
                         break;
                     case 1:
                         this.setGamestate(GameState.PONG_PLAYING);

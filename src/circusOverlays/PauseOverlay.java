@@ -7,9 +7,9 @@ import java.awt.image.BufferedImage;
 import circusUI.CRMButton;
 import states.CircusPlaying;
 import states.GameState;
-import utils.Constants.CircusConstants;
 import utils.Constants.OverlayConstants;
 import utils.Constants.UIConstants;
+import utils.Constants;
 import utils.LoadSprites;
 
 import static utils.Constants.FrameConstants.*;
@@ -32,7 +32,7 @@ public class PauseOverlay {
         play = new CRMButton((FRAME_WIDTH - OverlayConstants.BG_LOSE_OVERLAY_WIDTH) / 2
                 + (OverlayConstants.BG_LOSE_OVERLAY_WIDTH / 5 - UIConstants.SQUARE_BUTTON_SIZE / 2),
                 FRAME_HEIGHT - (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT)
-                        - (int) (50 * CircusConstants.SCALE),
+                        - (int) (50 * Constants.SCALE),
                 UIConstants.SQUARE_BUTTON_SIZE,
                 UIConstants.SQUARE_BUTTON_SIZE, UIConstants.CONTINUE);
 
@@ -40,14 +40,14 @@ public class PauseOverlay {
                 (FRAME_WIDTH - OverlayConstants.BG_LOSE_OVERLAY_WIDTH) / 2
                         + (OverlayConstants.BG_LOSE_OVERLAY_WIDTH / 2 - UIConstants.SQUARE_BUTTON_SIZE / 2),
                 FRAME_HEIGHT - (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT)
-                        - (int) (50 * CircusConstants.SCALE),
+                        - (int) (50 * Constants.SCALE),
                 UIConstants.SQUARE_BUTTON_SIZE,
                 UIConstants.SQUARE_BUTTON_SIZE, UIConstants.RESET);
 
         menu = new CRMButton((FRAME_WIDTH - OverlayConstants.BG_LOSE_OVERLAY_WIDTH) / 2
                 + (OverlayConstants.BG_LOSE_OVERLAY_WIDTH * 4 / 5 - UIConstants.SQUARE_BUTTON_SIZE / 2),
                 FRAME_HEIGHT - (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT)
-                        - (int) (50 * CircusConstants.SCALE),
+                        - (int) (50 * Constants.SCALE),
                 UIConstants.SQUARE_BUTTON_SIZE,
                 UIConstants.SQUARE_BUTTON_SIZE, UIConstants.MENU);
 
@@ -74,17 +74,17 @@ public class PauseOverlay {
                 (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2, OverlayConstants.BG_LOSE_OVERLAY_WIDTH,
                 OverlayConstants.BG_LOSE_OVERLAY_HEIGHT, null);
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (56 * CircusConstants.SCALE)));
+        g.setFont(new Font("Arial", Font.BOLD, (int) (56 * Constants.SCALE)));
         g.setColor(new Color(14, 165, 233));
 
         metrics = g.getFontMetrics();
         g.drawString("Pausa", FRAME_WIDTH / 2 - metrics.stringWidth("Pausa") / 2,
-                (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (100 * CircusConstants.SCALE));
+                (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (100 * Constants.SCALE));
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (32 * CircusConstants.SCALE)));
+        g.setFont(new Font("Arial", Font.BOLD, (int) (32 * Constants.SCALE)));
         metrics = g.getFontMetrics();
         g.drawString("Score: 1080 puntos", FRAME_WIDTH / 2 - metrics.stringWidth("Score: 1080 puntos") / 2,
-                (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (200 * CircusConstants.SCALE));
+                (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (200 * Constants.SCALE));
 
         play.draw(g, "Play game");
         reset.draw(g, "Reset level");

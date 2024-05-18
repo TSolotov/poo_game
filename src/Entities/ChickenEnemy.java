@@ -14,6 +14,7 @@ public class ChickenEnemy extends Enemy {
 
     public ChickenEnemy(float x, float y) {
         super(x, y, EnemyConstants.CHICKEN_SPRITE_WIDTH, EnemyConstants.CHICKEN_SPRITE_HEIGHT, LevelsCreation.CKEN);
+        this.active = true;
         initHitbox(EnemyConstants.CHICKEN_REAL_WIDTH, EnemyConstants.CHICKEN_REAL_HEIGHT);
     }
 

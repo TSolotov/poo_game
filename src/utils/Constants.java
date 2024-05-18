@@ -1,13 +1,26 @@
 package utils;
 
-import static utils.Constants.CircusConstants.SCALE;
-import static utils.Constants.CircusConstants.TILES_SIZE;
-import static utils.Constants.CircusConstants.TILES_WIDTH;
-import static utils.Constants.CircusConstants.TILE_HEIGHT;
 import static utils.Constants.FrameConstants.FRAME_HEIGHT;
 import static utils.Constants.FrameConstants.FRAME_WIDTH;
 
+import java.awt.Toolkit;
+
 public class Constants {
+    public static float SCALE;
+
+    public Constants() {
+        if (EnvConfig.getEnvVariableAsBoolean("FULL_SCREEN")) {
+            SCALE = (float) Toolkit.getDefaultToolkit().getScreenSize().getHeight()
+                    / (float) FrameConstants.FRAME_HEIGHT;
+            FrameConstants.FRAME_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+            FrameConstants.FRAME_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        } else {
+            FrameConstants.FRAME_WIDTH = 1280;
+            FrameConstants.FRAME_HEIGHT = 720;
+            SCALE = 1.0f;
+        }
+    }
+
     // * Contiene tda la informacion en Menu
     public static class EnemyConstants {
 
@@ -136,10 +149,9 @@ public class Constants {
         // ! Constantes para la construcción del mapa (Los tiles)
         public final static int TILE_DEFAULT_SIZE = 32;
         // public static float SCALE = 900.0f / 768.0f;
-        public static float SCALE = 1.0f;
 
-        public static int TILES_WIDTH = 43; // * De máximo serían 43 blocks de 32px (según la escala) de largo */
-        public static int TILE_HEIGHT = 24; // * De máximo serían 24 blocks de 32px (según la escala) de alto */
+        public static int TILES_WIDTH = 40; // * De máximo serían 43 blocks de 32px (según la escala) de largo */
+        public static int TILE_HEIGHT = 22; // * De máximo serían 24 blocks de 32px (según la escala) de alto */
         public static int TILES_SIZE = (int) (TILE_DEFAULT_SIZE * SCALE);
 
         public static float GRAVITY = 0.025f * SCALE;
@@ -303,8 +315,8 @@ public class Constants {
 
     // * Contiene toda la información de lo que es el frame, la ventana
     public static class FrameConstants {
-        public static int FRAME_WIDTH = (int) (TILES_SIZE * TILES_WIDTH);
-        public static int FRAME_HEIGHT = (int) (TILES_SIZE * TILE_HEIGHT);
+        public static int FRAME_WIDTH = 1280;
+        public static int FRAME_HEIGHT = 720;
         public static final int FPS_SET = 144;
         public static final int UPS_SET = 240;
 

@@ -1,6 +1,7 @@
 package states;
 
 import audio.AudioPlayer;
+import levels.LevelHandler;
 import main.Game;
 
 public class State {
@@ -20,7 +21,7 @@ public class State {
                 game.getAudioPlayer().playMusic(AudioPlayer.MAIN_MENU);
                 break;
             case CIRCUS_PLAYING:
-                game.getAudioPlayer().setMusic(game.getPlaying().getLevelHandler().getNumberLevel());
+                game.getAudioPlayer().setMusic(LevelHandler.getNumberLevel());
                 break;
             default:
                 break;

@@ -13,7 +13,7 @@ public class LevelsCreation {
         // * Enemy Constants
         public static final int BOMB = 30, CKEN = 31;
         // * Object Constants - STRP = Solid trampoline
-        public static final int FLME = 50, RING = 51, SRNG = 52, TRMP = 53, STRP = 54;
+        public static final int FLME = 50, RING = 51, SRNG = 52, TRMP = 53;
 
         // * Junta todos los levels en un arraylist
         public static void addAllLevels(ArrayList<Level> levels) {
@@ -608,13 +608,13 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
                                 { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                STRP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
+                                                TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                STRP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
+                                                TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                STRP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
+                                                TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
-                                                STRP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
+                                                TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, TRMP, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
                                 { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,

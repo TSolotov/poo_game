@@ -3,16 +3,15 @@ package Entities;
 import java.awt.Point;
 
 import levels.Level;
-import utils.Constants.CircusConstants;
 import utils.Constants.EnemyConstants;
 import utils.Constants.Player1Constants;
+import utils.Constants;
 import utils.LevelsCreation;
 
 import static utils.Constants.CircusConstants.TILES_SIZE;
 
 public class Horse extends Entity {
     // * Velocidad de animación
-    private float lastXPos = 0;
     private int aniSpeed, aniIndex;
     private int horseAction = EnemyConstants.HORSE_WALK;
 
@@ -24,6 +23,12 @@ public class Horse extends Entity {
 
     // * Chequea la colision entre la hitbox del enemigo y la del player
     protected void checkIntersectHitboxes(Player1 player) {
+        if (player.isDead()) {
+            player.walkSpeed = 0;
+            player.setRight(false);
+            return;
+        }
+
         if (hitbox.intersects(player.getHitbox())) {
             player.inAir = false;
             player.airSpeed = 0;
@@ -32,12 +37,12 @@ public class Horse extends Entity {
         if (!player.inAir) {
             if (horseAction != EnemyConstants.HORSE_RUN)
                 aniIndex = 0;
-            player.walkSpeed = 2.0f * CircusConstants.SCALE;
+            player.walkSpeed = 2.0f * Constants.SCALE;
             horseAction = EnemyConstants.HORSE_RUN;
         } else {
             if (horseAction != EnemyConstants.HORSE_WALK)
                 aniIndex = 0;
-            player.walkSpeed = 1.0f * CircusConstants.SCALE;
+            player.walkSpeed = 1.0f * Constants.SCALE;
             player.setRight(true);
             horseAction = EnemyConstants.HORSE_WALK;
         }
@@ -85,16 +90,9 @@ public class Horse extends Entity {
             player.resetVelocity();
             return;
         }
-
-        if (lastXPos == player.getHitbox().x) {
-            player.setRight(false);
-            player.subtrackLife();
-            return;
-        }
         setSpawnPoint(player.getPosition());
         updateAnimationTick();
         checkIntersectHitboxes(player);
-        lastXPos = player.getHitbox().x;
     }
 
     // * Getters & Setters

@@ -53,6 +53,9 @@ public class CircusPlaying extends State implements StateMethods {
     // *
     private boolean pause = false, gameOver = false, loseLife = false, levelCompleted = false;
 
+    // * Variable que maneja el score
+    private static int score = 5000;
+
     public CircusPlaying(Game game) {
         super(game);
 
@@ -70,12 +73,6 @@ public class CircusPlaying extends State implements StateMethods {
         enemyHandler = new EnemyHandler();
         objectHandler = new ObjectHandler();
 
-        pauseOverlay = new PauseOverlay(this);
-        gameoverOverlay = new GameoverOverlay(this);
-        loseOverlay = new LoseOverlay(this);
-        levelCompleteOverlay = new LevelCompleteOverlay(this);
-        scoreOverlay = new ScoreOverlay(this);
-
         player1 = new Player1(100, 100, SPRITE_WIDTH, SPRITE_HEIGHT, this);
         player1.loadLevelData(levelHandler.getCurrentLevel().getLevelData()); // * Cargo los niveles
         player1.setSpawnPoint(Helpers.getPlayerSpawn(levelHandler.getCurrentLevel()));
@@ -86,6 +83,12 @@ public class CircusPlaying extends State implements StateMethods {
         // * Añade los enemigos al mapa
         enemyHandler.addEnemies(levelHandler.getCurrentLevel());
         objectHandler.addObjects(levelHandler.getCurrentLevel());
+
+        pauseOverlay = new PauseOverlay(this);
+        gameoverOverlay = new GameoverOverlay(this);
+        loseOverlay = new LoseOverlay(this);
+        levelCompleteOverlay = new LevelCompleteOverlay(this);
+        scoreOverlay = new ScoreOverlay(this);
 
     }
 
@@ -287,14 +290,17 @@ public class CircusPlaying extends State implements StateMethods {
     }
 
     public void resetLevel(boolean isCompletly) {
+        if (isCompletly)
+            levelHandler.resetCurrentLevel();
+
         gameOver = false;
         pause = false;
         loseLife = false;
         levelCompleted = false;
         enemyHandler.resetEnemies();
         objectHandler.resetObjects();
-        scoreOverlay.resetTimer();
         player1.resetPlayer(isCompletly);
+        ScoreOverlay.resetTimer();
     }
 
     public boolean getLoseLife() {
@@ -331,5 +337,13 @@ public class CircusPlaying extends State implements StateMethods {
 
     public boolean getLevelComplete() {
         return levelCompleted;
+    }
+
+    public static void setScore(int score) {
+        CircusPlaying.score += score;
+    }
+
+    public static int getScore() {
+        return score;
     }
 }

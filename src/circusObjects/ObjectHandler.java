@@ -71,6 +71,7 @@ public class ObjectHandler {
                     ObjectConstants.TRAMPOLINE_SPRITE_WIDTH,
                     ObjectConstants.TRAMPOLINE_SPRITE_HEIGHT, null);
             tramp.drawHitbox(g, xLevelOffset);
+            tramp.drawHitbox2(g, xLevelOffset);
         }
     }
 

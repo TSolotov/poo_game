@@ -15,7 +15,7 @@ import utils.Constants;
 import utils.Constants.UIConstants;
 
 import static utils.Constants.FrameConstants.*;
-import static utils.Constants.CircusConstants.*;
+import static utils.Constants.*;
 
 public class Configuration extends State implements StateMethods {
     private BufferedImage[] bg_images;
