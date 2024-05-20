@@ -29,8 +29,9 @@ public class Ball {
     }
 
     public void update(PongPlayer player1, PongPlayer player2) {
-        posX = posX + PongConstants.BALL_SPEED;
-        posY = posY + PongConstants.BALL_SPEED;
+
+        posX = posX + PongConstants.BALL_SPEED * velX;
+        posY = posY + PongConstants.BALL_SPEED * velY;
 
         // Punto para jugador 1
         if (FRAME_WIDTH <= (posX + PongConstants.BALL_SIZE)) {
@@ -45,9 +46,10 @@ public class Ball {
         }
         // System.out.println((posX+PongConstants.BALL_SIZE));
         // Rebote en vertical
-        if (FRAME_HEIGHT <= (posY + PongConstants.BALL_SIZE)) {
+        if (FRAME_HEIGHT <= (posY + PongConstants.BALL_SIZE) || posY <= 0) {
             change_direction(true);
         }
+
     }
 
     // Retorna la posicion de la pelota
