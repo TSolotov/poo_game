@@ -32,6 +32,25 @@ public class PongPlayer {
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillRect(posX, posY, PongConstants.PLAYER_WIDTH, PongConstants.PLAYER_HEIGHT);
+
+        drawScore(g);
+    }
+
+    public void drawScore(Graphics g){
+        int dibujo;
+        int padding = 25; 
+        String goalsText = Integer.toString(goals);
+        Font fuente = new Font("Roboto", Font.PLAIN, 30);
+
+        if (player_left) {
+            int strWidth = g.getFontMetrics(fuente).stringWidth(goalsText); 
+            dibujo = PongConstants.FRAME_WIDTH / 2 - padding - strWidth;
+        } else {
+            dibujo = PongConstants.FRAME_WIDTH / 2 + padding;
+        }
+
+        g.setFont(fuente);
+        g.drawString(goalsText, dibujo, 50);
     }
 
     public void update(Ball ball) {
