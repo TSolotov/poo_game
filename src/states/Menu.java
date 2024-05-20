@@ -21,7 +21,7 @@ public class Menu extends State implements StateMethods {
     // Gestiona la selección del menu
     private int currentOption = 0;
     private String[] options = { "Play Circus (1 Jugador)", "Play Pong (2 Jugadores)",
-            "TODO - Configuraciones", "TODO - Puntuaciones", "Salir" };
+            "Configuraciones", "Puntuaciones", "Salir" };
 
     public Menu(Game game) {
         super(game);
@@ -92,6 +92,9 @@ public class Menu extends State implements StateMethods {
                     case 2:
                         this.setGamestate(GameState.CONFIGURATION);
                         break;
+                    case 3:
+                        this.setGamestate(GameState.SCORES);
+                        break;
                     default:
                         System.exit(0);
                         break;
@@ -104,7 +107,7 @@ public class Menu extends State implements StateMethods {
 
     @Override
     public void keyReleased(KeyEvent k) {
-
+        return;
     }
 
     @Override

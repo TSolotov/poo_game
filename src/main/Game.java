@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import states.GameState;
 import states.Menu;
 import states.PongPlaying;
+import states.Scores;
 import states.CircusPlaying;
 import states.Configuration;
 
@@ -25,6 +26,7 @@ public class Game implements Runnable {
     private Menu menu;
     private PongPlaying pongPlaying;
     private Configuration configuration;
+    private Scores scores;
 
     // * Audio
     private AudioPlayer audioPlayer;
@@ -45,6 +47,7 @@ public class Game implements Runnable {
         menu = new Menu(this);
         pongPlaying = new PongPlaying(this);
         configuration = new Configuration(this);
+        scores = new Scores(this);
 
         audioPlayer = new AudioPlayer();
 
@@ -121,6 +124,9 @@ public class Game implements Runnable {
             case CONFIGURATION:
                 configuration.update();
                 break;
+            case SCORES:
+                scores.update();
+                break;
             default:
                 break;
         }
@@ -140,6 +146,9 @@ public class Game implements Runnable {
                 break;
             case CONFIGURATION:
                 configuration.draw(g);
+                break;
+            case SCORES:
+                scores.draw(g);
                 break;
             default:
                 break;
@@ -162,6 +171,10 @@ public class Game implements Runnable {
 
     public Configuration getConfiguration() {
         return configuration;
+    }
+
+    public Scores getScores() {
+        return scores;
     }
 
     public AudioPlayer getAudioPlayer() {

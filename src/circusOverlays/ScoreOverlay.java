@@ -26,7 +26,7 @@ public class ScoreOverlay {
     // * Scores variables
     private int currentLives;
     private int currentLevel;
-    private static int seconds = 0, secondLimit = 120;;
+    private static int seconds = 0, secondLimit = 120, totalSeconds = 0;
     private Timer timer;
 
     public ScoreOverlay(CircusPlaying circusPlaying) {
@@ -44,6 +44,7 @@ public class ScoreOverlay {
                         if (!circusPlaying.getPlayer1().isDead() && !circusPlaying.getLevelComplete()
                                 && !circusPlaying.getGameOver()) {
                             seconds++;
+                            totalSeconds++;
                             CircusPlaying.setScore(-20);
                         }
 
@@ -86,5 +87,9 @@ public class ScoreOverlay {
 
     public static void resetTimer() {
         seconds = 0;
+    }
+
+    public static int getTotalSeconds() {
+        return totalSeconds;
     }
 }

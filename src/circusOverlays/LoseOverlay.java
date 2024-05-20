@@ -84,8 +84,8 @@ public class LoseOverlay {
                 FRAME_WIDTH / 2 - metrics.stringWidth("Score: " + CircusPlaying.getScore()) / 2,
                 (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (200 * Constants.SCALE));
 
-        reset.draw(g, "Reset level");
-        menu.draw(g, "Go to menu");
+        reset.draw(g, "Volver a intentarlo");
+        menu.draw(g, "Ir al Menu");
 
     }
 

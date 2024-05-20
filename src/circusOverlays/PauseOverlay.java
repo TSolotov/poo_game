@@ -78,17 +78,19 @@ public class PauseOverlay {
         g.setColor(new Color(14, 165, 233));
 
         metrics = g.getFontMetrics();
-        g.drawString("Pausa", FRAME_WIDTH / 2 - metrics.stringWidth("Pausa") / 2,
+        g.drawString("Juego en Pausa", FRAME_WIDTH / 2 - metrics.stringWidth("Juego en Pausa") / 2,
                 (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (100 * Constants.SCALE));
 
         g.setFont(new Font("Arial", Font.BOLD, (int) (32 * Constants.SCALE)));
         metrics = g.getFontMetrics();
-        g.drawString("Score: 1080 puntos", FRAME_WIDTH / 2 - metrics.stringWidth("Score: 1080 puntos") / 2,
+
+        g.drawString("Score: " + CircusPlaying.getScore(),
+                FRAME_WIDTH / 2 - metrics.stringWidth("Score: " + CircusPlaying.getScore()) / 2,
                 (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (200 * Constants.SCALE));
 
-        play.draw(g, "Play game");
-        reset.draw(g, "Reset level");
-        menu.draw(g, "Go to menu");
+        play.draw(g, "Quitar Pausa");
+        reset.draw(g, "Resetear nivel");
+        menu.draw(g, "Ir al menu");
 
     }
 

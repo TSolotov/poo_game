@@ -35,7 +35,7 @@ public class Player1 extends Entity {
     public Player1(float x, float y, int width, int heigth, CircusPlaying circusPlaying) {
         super(x, y, width, heigth);
         this.circusPlaying = circusPlaying;
-        this.currentLives = 5;
+        this.currentLives = 3;
         this.walkSpeed = 1.0f * Constants.SCALE;
 
         loadAnimationsSprites();
@@ -118,7 +118,6 @@ public class Player1 extends Entity {
         float xSpeed = 0;
 
         if (left) {
-            // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             xSpeed -= walkSpeed;
             flipX = width - (int) (18 * Constants.SCALE);
             flipW = -1;
@@ -126,7 +125,6 @@ public class Player1 extends Entity {
         }
 
         if (right) {
-            // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             xSpeed += walkSpeed;
             flipX = 0;
             flipW = 1;
@@ -232,9 +230,8 @@ public class Player1 extends Entity {
     }
 
     public void subtrackLife() {
-        // circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.DIE);
         if (currentLives <= 0) {
-            // TODO - GameOver
+            circusPlaying.setGameOver(true);
             return;
         }
 
@@ -257,7 +254,7 @@ public class Player1 extends Entity {
     // * Reset player
     public void resetPlayer(boolean isCompletly) {
         if (isCompletly)
-            currentLives = 5;
+            currentLives = 3;
 
         left = false;
         right = false;
