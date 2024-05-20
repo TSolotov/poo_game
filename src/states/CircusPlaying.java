@@ -29,6 +29,7 @@ import static utils.Constants.CircusConstants.*;
 public class CircusPlaying extends State implements StateMethods {
 
     private Player1 player1;
+    private String username = "";
     private LevelHandler levelHandler;
     private EnemyHandler enemyHandler;
     private ObjectHandler objectHandler;
@@ -229,6 +230,12 @@ public class CircusPlaying extends State implements StateMethods {
                 player1.setJump(false);
                 break;
         }
+        if (gameOver)
+            gameoverOverlay.keyReleased(k);
+
+        if (levelCompleted && (LevelHandler.getNumberLevel() + 1) == levelHandler.getCantLevels())
+            levelCompleteOverlay.keyReleased(k);
+
     }
 
     @Override
@@ -290,8 +297,11 @@ public class CircusPlaying extends State implements StateMethods {
     }
 
     public void resetLevel(boolean isCompletly) {
-        if (isCompletly)
+        if (isCompletly) {
             levelHandler.resetCurrentLevel();
+            score = 5000;
+            username = "";
+        }
 
         gameOver = false;
         pause = false;
@@ -345,5 +355,17 @@ public class CircusPlaying extends State implements StateMethods {
 
     public static int getScore() {
         return score;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void addLettersToUsername(char charKey) {
+        this.username += charKey;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

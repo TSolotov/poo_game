@@ -6,23 +6,25 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import circusUI.CRMButton;
 import states.CircusPlaying;
 import states.GameState;
 import utils.Constants.OverlayConstants;
 import utils.Constants.UIConstants;
+import utils.CSVFile;
 import utils.Constants;
 import utils.LoadSprites;
 
 public class GameoverOverlay {
-
     private CircusPlaying circusPlaying;
 
     private FontMetrics metrics;
-
     private BufferedImage[] bg_overlay;
     private CRMButton reset, menu;
 
@@ -83,6 +85,10 @@ public class GameoverOverlay {
                 FRAME_WIDTH / 2 - metrics.stringWidth("Score: " + CircusPlaying.getScore()) / 2,
                 (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (200 * Constants.SCALE));
 
+        g.drawString("Username: " + circusPlaying.getUsername(),
+                FRAME_WIDTH / 2 - metrics.stringWidth("Username: " + circusPlaying.getUsername()) / 2,
+                (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (300 * Constants.SCALE));
+
         reset.draw(g, "Volver a intentarlo");
         menu.draw(g, "Ir al menu");
 
@@ -114,11 +120,38 @@ public class GameoverOverlay {
             }
         } else if (isMouseIn(reset, e)) {
             if (reset.isMousePressed()) {
+                if (circusPlaying.getUsername().length() == 0)
+                    return;
+                try (FileWriter writer = new FileWriter(CSVFile.getFileNameCircus(), true)) {
+                    CSVFile.writeLine(writer,
+                            new String[] { circusPlaying.getUsername(),
+                                    Integer.toString(CircusPlaying.getScore()),
+                                    Integer.toString(ScoreOverlay.getTotalSeconds()) });
+                } catch (IOException error) {
+                    error.printStackTrace();
+                }
+                circusPlaying.setGamestate(GameState.MENU);
                 circusPlaying.resetLevel(true);
+                ScoreOverlay.resetTimer();
             }
         }
 
         menu.resetMouseBooleans();
         reset.resetMouseBooleans();
+    }
+
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            if (circusPlaying.getUsername().length() > 0)
+                circusPlaying.setUsername(
+                        circusPlaying.getUsername().substring(0, circusPlaying.getUsername().length() - 1));
+            return;
+        }
+
+        if (circusPlaying.getUsername().length() > 10)
+            return;
+        if ((e.getKeyCode() >= 'a' && e.getKeyCode() <= 'z') || (e.getKeyCode() >= 'A' && e.getKeyCode() <= 'Z')) {
+            circusPlaying.addLettersToUsername(e.getKeyChar());
+        }
     }
 }
