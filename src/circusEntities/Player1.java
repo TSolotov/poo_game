@@ -91,9 +91,12 @@ public class Player1 extends Entity {
 
     // * Para realizar un minisalto
     public void setMiniJump() {
+        if (isDead)
+            return;
         airSpeed = jumpSpeed / 2;
         inAir = true;
         CircusPlaying.setScore(25);
+        circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.JUMP);
     }
 
     // * Actualiza la posicion en la que se encuentra el plauyer

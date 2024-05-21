@@ -8,6 +8,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -30,7 +31,7 @@ public class AudioPlayer {
         String[] names = { "main_menu", "level1", "level2", "level3", "pong" };
         musics = new Clip[names.length];
         for (int i = 0; i < names.length; i++) {
-            musics[i] = getClip(names[i]);
+            musics[i] = getClip(names[i], true);
         }
     }
 
@@ -38,13 +39,13 @@ public class AudioPlayer {
         String[] names = { "run", "jump", "die", "pause", "level_completed", "game_over", "bounce", "goal" };
         sounds = new Clip[names.length];
         for (int i = 0; i < names.length; i++) {
-            sounds[i] = getClip(names[i]);
+            sounds[i] = getClip(names[i], false);
         }
 
     }
 
     // * Se encarga de agarrar los audios con el nombre y la ruta especificada
-    private Clip getClip(String name) {
+    private Clip getClip(String name, boolean isMusic) {
         URL url = getClass().getResource("/resources/audio/" + name + ".wav");
         AudioInputStream audioStream;
         try {
@@ -71,6 +72,18 @@ public class AudioPlayer {
             // * Abrir el Clip con el AudioInputStream modificado
             Clip clip = AudioSystem.getClip();
             clip.open(formattedStream);
+
+            if (isMusic) {
+                // * Obtener el control de volumen del clip
+                FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+
+                // * Calcular el valor del volumen al 50%
+                float range = volumeControl.getMaximum() - volumeControl.getMinimum();
+                float volume = volumeControl.getMinimum() + range * 0.70f; // 50% del volumen
+
+                // * Establecer el volumen
+                volumeControl.setValue(volume);
+            }
 
             return clip;
 

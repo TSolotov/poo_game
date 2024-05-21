@@ -18,12 +18,15 @@ public class State {
     public void setGamestate(GameState state) {
         switch (state) {
             case MENU:
+                game.getAudioPlayer().stopMusic();
                 game.getAudioPlayer().playMusic(AudioPlayer.MAIN_MENU);
                 break;
             case CIRCUS_PLAYING:
+                game.getAudioPlayer().stopMusic();
                 game.getAudioPlayer().setMusic(LevelHandler.getNumberLevel());
                 break;
             case PONG_PLAYING:
+                game.getAudioPlayer().stopMusic();
                 game.getAudioPlayer().playMusic(AudioPlayer.PONG);
             default:
                 break;

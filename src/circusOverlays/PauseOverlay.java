@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import circusLevels.LevelHandler;
 import circusUI.CRMButton;
 import states.CircusPlaying;
 import states.GameState;
@@ -127,6 +128,7 @@ public class PauseOverlay {
         } else if (isMouseIn(reset, e)) {
             if (reset.isMousePressed()) {
                 circusPlaying.resetLevel(false);
+                circusPlaying.getGame().getAudioPlayer().setMusic(LevelHandler.getNumberLevel());
             }
         } else if (isMouseIn(play, e)) {
             if (play.isMousePressed()) {
