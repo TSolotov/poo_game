@@ -12,9 +12,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class AudioPlayer {
-    public static int RUN = 0, JUMP = 1, DIE = 2, PAUSE = 3, LVL_COMPLETED = 3, GAME_OVER = 4;
-
-    public static int MAIN_MENU = 0, LEVEL_1 = 1, LEVEL_2 = 2, LEVEL_3 = 3;
+    public static int RUN = 0, JUMP = 1, DIE = 2, PAUSE = 3, LVL_COMPLETED = 4, GAME_OVER = 5, BALL_BOUNCE = 6,
+            GOAL = 7;
+    public static int MAIN_MENU = 0, LEVEL_1 = 1, LEVEL_2 = 2, LEVEL_3 = 3, PONG = 4;
 
     private Clip[] musics, sounds;
     private int currentMusicID = MAIN_MENU;
@@ -27,7 +27,7 @@ public class AudioPlayer {
     }
 
     private void loadMusics() {
-        String[] names = { "main_menu", "level1", "level2", "level3" };
+        String[] names = { "main_menu", "level1", "level2", "level3", "pong" };
         musics = new Clip[names.length];
         for (int i = 0; i < names.length; i++) {
             musics[i] = getClip(names[i]);
@@ -35,7 +35,7 @@ public class AudioPlayer {
     }
 
     private void loadSounds() {
-        String[] names = { "run", "jump", "die", "pause", "level_completed", "game_over" };
+        String[] names = { "run", "jump", "die", "pause", "level_completed", "game_over", "bounce", "goal" };
         sounds = new Clip[names.length];
         for (int i = 0; i < names.length; i++) {
             sounds[i] = getClip(names[i]);

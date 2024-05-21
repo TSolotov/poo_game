@@ -329,8 +329,8 @@ public class Constants {
 
     public static class PongConstants {
         // Pelota
-        public static final int BALL_SIZE = 15;
-        public static final int BALL_SPEED = 1;
+        public static final int BALL_SIZE = (int) (15 * SCALE);
+        public static final int BALL_SPEED = (int) (2 * SCALE);
         public static final int BALL_MOVEMENT = BALL_SIZE * BALL_SPEED;
 
         public static int getXposition() {
@@ -352,10 +352,10 @@ public class Constants {
         }
 
         // Player
-        public static final int PLAYER_SPEED = 5;
-        public static final int PLAYER_HEIGHT = 80;
-        public static final int PLAYER_WIDTH = 20;
-        public static final int PLAYER_PADDING = 20;
+        public static final int PLAYER_SPEED = (int) (5 * SCALE);
+        public static final int PLAYER_HEIGHT = (int) (80 * SCALE);
+        public static final int PLAYER_WIDTH = (int) (20 * SCALE);
+        public static final int PLAYER_PADDING = (int) (20 * SCALE);
 
         public static final int PLAYER_1_START = 0;
         public static final int PLAYER_2_START = FRAME_WIDTH - PLAYER_WIDTH;

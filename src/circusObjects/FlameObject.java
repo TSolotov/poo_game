@@ -4,8 +4,8 @@ import static utils.Constants.CircusConstants.TILES_SIZE;
 
 import java.util.ArrayList;
 
-import Entities.Player1;
-import levels.Level;
+import circusEntities.Player1;
+import circusLevels.Level;
 import utils.LevelsCreation;
 import utils.Constants.ObjectConstants;
 

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
-import Entities.Player1;
+import circusEntities.Player1;
 import utils.Constants.ObjectConstants;
 import utils.LevelsCreation;
 

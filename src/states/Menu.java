@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import levels.LevelHandler;
+import circusLevels.LevelHandler;
 import utils.LoadSprites;
 import main.Game;
 import utils.Constants;
@@ -66,6 +66,7 @@ public class Menu extends State implements StateMethods {
     public void keyPressed(KeyEvent k) {
         switch (k.getKeyCode()) {
             case KeyEvent.VK_W:
+            case KeyEvent.VK_UP:
                 if (currentOption == 0) {
                     currentOption = options.length - 1;
                 } else {
@@ -73,6 +74,7 @@ public class Menu extends State implements StateMethods {
                 }
                 break;
             case KeyEvent.VK_S:
+            case KeyEvent.VK_DOWN:
                 if (currentOption == options.length - 1) {
                     currentOption = 0;
                 } else {
@@ -81,6 +83,7 @@ public class Menu extends State implements StateMethods {
                 break;
 
             case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_Z:
                 switch (currentOption) {
                     case 0:
                         this.setGamestate(GameState.CIRCUS_PLAYING);

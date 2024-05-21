@@ -70,7 +70,7 @@ public class Scores extends State implements StateMethods {
         g.fillRect((int) (100 * SCALE), (int) (100 * SCALE), (int) (500 * SCALE), FRAME_HEIGHT - (int) (200 * SCALE));
 
         g.setColor(Color.PINK);
-        g.setFont(new Font("Arial", Font.BOLD, (int) (40 * SCALE)));
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (40 * SCALE)));
 
         metrics = g.getFontMetrics();
         g.drawString("Circus Charlie",
@@ -79,14 +79,14 @@ public class Scores extends State implements StateMethods {
 
         g.setColor(Color.GREEN);
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (24 * SCALE)));
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (24 * SCALE)));
         for (int i = 0; i < 3; i++) {
             g.drawString(header[i], (int) (120 * SCALE) + (int) (150 * SCALE) * i,
                     (int) (200 * SCALE));
         }
 
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.PLAIN, (int) (24 * SCALE)));
+        g.setFont(new Font("Roboto", Font.PLAIN, (int) (24 * SCALE)));
         for (int i = 0; i < allCircusData.size() && i < 10; i++) {
             for (int j = 0; j < allCircusData.get(i).length; j++) {
                 String complement;

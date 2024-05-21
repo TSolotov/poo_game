@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import Entities.Player1;
-import levels.Level;
+import circusEntities.Player1;
+import circusLevels.Level;
 import utils.LoadSprites;
 import utils.Constants.ObjectConstants;
 

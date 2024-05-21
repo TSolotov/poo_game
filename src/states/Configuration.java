@@ -67,13 +67,13 @@ public class Configuration extends State implements StateMethods {
         g.drawImage(bg_images[0], 0, 0, FRAME_WIDTH, FRAME_HEIGHT, null);
         g.fillRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (62 * SCALE)));
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (62 * SCALE)));
         g.setColor(Color.WHITE);
         metrics = g.getFontMetrics();
         g.drawString("Configuraciones", FRAME_WIDTH / 2 - metrics.stringWidth("Configuraciones") / 2,
                 (int) (100 * SCALE));
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (32 * SCALE)));
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (32 * SCALE)));
         metrics = g.getFontMetrics();
 
         for (int i = 0; i < optionsString.length; i++) {

@@ -5,14 +5,18 @@ import static utils.Constants.FrameConstants.FRAME_WIDTH;
 
 import java.awt.*;
 
+import audio.AudioPlayer;
+import states.PongPlaying;
 import utils.Constants.PongConstants;
 
 public class Ball {
 
     private static int posX, posY;
     public static int velX, velY;
+    private PongPlaying pongPlaying;
 
-    public Ball() {
+    public Ball(PongPlaying pongPlaying) {
+        this.pongPlaying = pongPlaying;
         reset_ball();
     }
 
@@ -60,13 +64,12 @@ public class Ball {
         } else {
             retorno = posX;
         }
-
         return retorno;
     }
 
     public void change_direction(Boolean vertical) {
         // Movimiento vertical u horizontal
-
+        pongPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.BALL_BOUNCE);
         if (vertical) {
             velY *= (-1);
         } else {

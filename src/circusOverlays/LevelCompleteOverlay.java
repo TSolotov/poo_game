@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import circusLevels.LevelHandler;
 import circusUI.CRMButton;
-import levels.LevelHandler;
 import states.CircusPlaying;
 import states.GameState;
 import utils.CSVFile;
@@ -74,7 +74,7 @@ public class LevelCompleteOverlay {
                 (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2, OverlayConstants.BG_LOSE_OVERLAY_WIDTH,
                 OverlayConstants.BG_LOSE_OVERLAY_HEIGHT, null);
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (56 * Constants.SCALE)));
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (56 * Constants.SCALE)));
         g.setColor(new Color(14, 165, 233));
 
         metrics = g.getFontMetrics();
@@ -86,7 +86,7 @@ public class LevelCompleteOverlay {
             g.drawString("Nivel Completado", FRAME_WIDTH / 2 - metrics.stringWidth("Nivel Completado") / 2,
                     (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (100 * Constants.SCALE));
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (32 * Constants.SCALE)));
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (32 * Constants.SCALE)));
         metrics = g.getFontMetrics();
         g.drawString("Score actial: " + CircusPlaying.getScore(),
                 FRAME_WIDTH / 2 - metrics.stringWidth("Score actial: " + CircusPlaying.getScore()) / 2,

@@ -3,7 +3,7 @@ package utils;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
-import levels.Level;
+import circusLevels.Level;
 
 import static utils.Constants.CircusConstants.*;
 import static utils.Constants.Player1Constants.*;

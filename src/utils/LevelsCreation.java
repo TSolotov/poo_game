@@ -2,7 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 
-import levels.Level;
+import circusLevels.Level;
 
 public class LevelsCreation {
         // * Player spawn point (Importante: Que haya 1 por nivel)

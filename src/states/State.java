@@ -1,7 +1,7 @@
 package states;
 
 import audio.AudioPlayer;
-import levels.LevelHandler;
+import circusLevels.LevelHandler;
 import main.Game;
 
 public class State {
@@ -23,6 +23,8 @@ public class State {
             case CIRCUS_PLAYING:
                 game.getAudioPlayer().setMusic(LevelHandler.getNumberLevel());
                 break;
+            case PONG_PLAYING:
+                game.getAudioPlayer().playMusic(AudioPlayer.PONG);
             default:
                 break;
         }
