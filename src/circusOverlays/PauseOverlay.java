@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import circusLevels.LevelHandler;
 import circusUI.CRMButton;
 import states.CircusPlaying;
 import states.GameState;
@@ -74,14 +75,14 @@ public class PauseOverlay {
                 (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2, OverlayConstants.BG_LOSE_OVERLAY_WIDTH,
                 OverlayConstants.BG_LOSE_OVERLAY_HEIGHT, null);
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (56 * Constants.SCALE)));
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (56 * Constants.SCALE)));
         g.setColor(new Color(14, 165, 233));
 
         metrics = g.getFontMetrics();
         g.drawString("Juego en Pausa", FRAME_WIDTH / 2 - metrics.stringWidth("Juego en Pausa") / 2,
                 (FRAME_HEIGHT - OverlayConstants.BG_LOSE_OVERLAY_HEIGHT) / 2 + (int) (100 * Constants.SCALE));
 
-        g.setFont(new Font("Arial", Font.BOLD, (int) (32 * Constants.SCALE)));
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (32 * Constants.SCALE)));
         metrics = g.getFontMetrics();
 
         g.drawString("Score: " + CircusPlaying.getScore(),
@@ -127,6 +128,7 @@ public class PauseOverlay {
         } else if (isMouseIn(reset, e)) {
             if (reset.isMousePressed()) {
                 circusPlaying.resetLevel(false);
+                circusPlaying.getGame().getAudioPlayer().setMusic(LevelHandler.getNumberLevel());
             }
         } else if (isMouseIn(play, e)) {
             if (play.isMousePressed()) {

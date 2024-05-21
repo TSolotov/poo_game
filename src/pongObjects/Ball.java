@@ -5,14 +5,18 @@ import static utils.Constants.FrameConstants.FRAME_WIDTH;
 
 import java.awt.*;
 
+import audio.AudioPlayer;
+import states.PongPlaying;
 import utils.Constants.PongConstants;
 
 public class Ball {
 
     private static int posX, posY;
-    public static int velX, velY;
+    public static float velX, velY;
+    private PongPlaying pongPlaying;
 
-    public Ball() {
+    public Ball(PongPlaying pongPlaying) {
+        this.pongPlaying = pongPlaying;
         reset_ball();
     }
 
@@ -29,8 +33,11 @@ public class Ball {
     }
 
     public void update(PongPlayer player1, PongPlayer player2) {
-        posX = posX + PongConstants.BALL_SPEED*velX;
-        posY = posY + PongConstants.BALL_SPEED*velY;
+
+
+        posX = (int) (posX + PongConstants.BALL_SPEED * velX);
+        posY = (int) (posY + PongConstants.BALL_SPEED * velY);
+
 
         // Punto para jugador 1
         if (FRAME_WIDTH <= (posX + PongConstants.BALL_SIZE)) {
@@ -48,6 +55,7 @@ public class Ball {
         if (FRAME_HEIGHT <= (posY + PongConstants.BALL_SIZE) || posY<=0) {
             change_direction(true);
         }
+
     }
 
     // Retorna la posicion de la pelota
@@ -58,16 +66,21 @@ public class Ball {
         } else {
             retorno = posX;
         }
-
         return retorno;
     }
 
     public void change_direction(Boolean vertical) {
         // Movimiento vertical u horizontal
-
+        pongPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.BALL_BOUNCE);
         if (vertical) {
             velY *= (-1);
         } else {
+            if (velX < 0)
+                velX -= 0.2f;
+            else
+                velX += 0.2f;
+
+            System.out.println(velX);
             velX *= (-1);
         }
     }

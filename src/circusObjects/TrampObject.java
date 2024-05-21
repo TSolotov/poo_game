@@ -7,8 +7,8 @@ import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import Entities.Player1;
-import levels.Level;
+import circusEntities.Player1;
+import circusLevels.Level;
 import utils.LevelsCreation;
 import utils.Constants.ObjectConstants;
 

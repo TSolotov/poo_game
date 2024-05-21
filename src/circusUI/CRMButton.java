@@ -30,7 +30,7 @@ public class CRMButton extends CButton {
     }
 
     public void draw(Graphics g, String text) {
-        g.setFont(new Font("Arial", Font.BOLD, (int) (18 * Constants.SCALE)));
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (18 * Constants.SCALE)));
         FontMetrics metrics = g.getFontMetrics();
         g.drawImage(CRMButtonImage[indexButtonImage], this.getX(), this.getY(), this.getWidth(), this.getHeight(),
                 null);

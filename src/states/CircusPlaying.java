@@ -5,16 +5,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import Entities.EnemyHandler;
-import Entities.Player1;
 import audio.AudioPlayer;
+import circusEntities.EnemyHandler;
+import circusEntities.Player1;
+import circusLevels.LevelHandler;
 import circusObjects.ObjectHandler;
 import circusOverlays.GameoverOverlay;
 import circusOverlays.LevelCompleteOverlay;
 import circusOverlays.LoseOverlay;
 import circusOverlays.PauseOverlay;
 import circusOverlays.ScoreOverlay;
-import levels.LevelHandler;
 import main.Game;
 import utils.Constants;
 import utils.Helpers;
@@ -191,18 +191,21 @@ public class CircusPlaying extends State implements StateMethods {
 
         switch (k.getKeyCode()) {
             case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT:
                 if (LevelHandler.getNumberLevel() == 2) {
                     break;
                 }
                 player1.setLeft(true);
                 break;
             case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:
                 if (LevelHandler.getNumberLevel() == 2) {
                     break;
                 }
                 player1.setRight(true);
                 break;
             case KeyEvent.VK_SPACE:
+            case KeyEvent.VK_Z:
                 player1.setJump(true);
                 break;
             case KeyEvent.VK_ESCAPE:
@@ -215,18 +218,21 @@ public class CircusPlaying extends State implements StateMethods {
     public void keyReleased(KeyEvent k) {
         switch (k.getKeyCode()) {
             case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT:
                 if (LevelHandler.getNumberLevel() == 2) {
                     break;
                 }
                 player1.setLeft(false);
                 break;
             case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:
                 if (LevelHandler.getNumberLevel() == 2) {
                     break;
                 }
                 player1.setRight(false);
                 break;
             case KeyEvent.VK_SPACE:
+            case KeyEvent.VK_Z:
                 player1.setJump(false);
                 break;
         }

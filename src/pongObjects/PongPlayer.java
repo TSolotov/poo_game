@@ -1,18 +1,26 @@
 package pongObjects;
 
 import static utils.Constants.FrameConstants.FRAME_HEIGHT;
+import static utils.Constants.FrameConstants.FRAME_WIDTH;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
+import audio.AudioPlayer;
+import states.PongPlaying;
 import utils.Constants.PongConstants;
 
 public class PongPlayer {
+    private PongPlaying pongPlaying;
+
     private int posX, posY;
     private int goals = 0, dir = 0;
-    private boolean player_left;
+    private boolean player_left, isWinner = false;
+    private String username = "";
 
-    public PongPlayer(Boolean pleft) {
+    public PongPlayer(Boolean pleft, PongPlaying pongPlaying) {
+        this.pongPlaying = pongPlaying;
         this.player_left = pleft;
 
         if (pleft) {
@@ -20,19 +28,23 @@ public class PongPlayer {
         } else {
             posX = PongConstants.PLAYER_2_START;
         }
-
         posY = PongConstants.PLAYER_START;
-
     }
 
     public void set_goal() {
         this.goals++;
+        pongPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.GOAL);
+
+        pongPlaying.setPause(true);
+        if (goals >= 1) {
+            pongPlaying.setWin(true);
+            this.isWinner = true;
+        }
     }
 
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillRect(posX, posY, PongConstants.PLAYER_WIDTH, PongConstants.PLAYER_HEIGHT);
-
         drawScore(g);
     }
 
@@ -43,10 +55,10 @@ public class PongPlayer {
         Font fuente = new Font("Roboto", Font.PLAIN, 30);
 
         if (player_left) {
-            int strWidth = g.getFontMetrics(fuente).stringWidth(goalsText); 
-            dibujo = PongConstants.FRAME_WIDTH / 2 - padding - strWidth;
+            int strWidth = g.getFontMetrics(fuente).stringWidth(goalsText);
+            dibujo = FRAME_WIDTH / 2 - padding - strWidth;
         } else {
-            dibujo = PongConstants.FRAME_WIDTH / 2 + padding;
+            dibujo = FRAME_WIDTH / 2 + padding;
         }
 
         g.setFont(fuente);
@@ -67,7 +79,7 @@ public class PongPlayer {
             }
         } else {
             if (ballPosX + PongConstants.BALL_SIZE >= posX && ballPosY + PongConstants.BALL_SIZE >= posY
-                    && ballPosY <= posY + FRAME_HEIGHT) {
+                    && ballPosY <= posY + PongConstants.PLAYER_HEIGHT) {
                 ball.change_direction(false);
             }
         }
@@ -81,4 +93,34 @@ public class PongPlayer {
         dir = PongConstants.PLAYER_SPEED * direction;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void addLetterToUsername(char letter) {
+        this.username += letter;
+    }
+
+    public boolean getIsWinner() {
+        return isWinner;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void resetPlayer() {
+        goals = 0;
+        isWinner = false;
+        username = "";
+        if (player_left) {
+            posX = PongConstants.PLAYER_1_START;
+        } else {
+            posX = PongConstants.PLAYER_2_START;
+        }
+    }
 }

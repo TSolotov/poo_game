@@ -7,8 +7,8 @@ import java.awt.Graphics;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import Entities.Player1;
-import levels.LevelHandler;
+import circusEntities.Player1;
+import circusLevels.LevelHandler;
 import states.CircusPlaying;
 import states.GameState;
 
