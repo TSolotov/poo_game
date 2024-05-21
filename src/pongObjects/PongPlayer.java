@@ -48,9 +48,9 @@ public class PongPlayer {
         drawScore(g);
     }
 
-    public void drawScore(Graphics g) {
+    public void drawScore(Graphics g){
         int dibujo;
-        int padding = 25;
+        int padding = 25; 
         String goalsText = Integer.toString(goals);
         Font fuente = new Font("Roboto", Font.PLAIN, 30);
 
@@ -63,7 +63,6 @@ public class PongPlayer {
 
         g.setFont(fuente);
         g.drawString(goalsText, dibujo, 50);
-
     }
 
     public void update(Ball ball) {
