@@ -24,13 +24,13 @@ public class PongPlaying extends State implements StateMethods {
     private FontMetrics metrics;
 
     private boolean p1up = false, p1down = false, p2up = false, p2down = false;
-    private boolean pause = false, isWinner = false;
+    private boolean pause = false, win = false;
 
     public PongPlaying(Game game) {
         super(game);
         create_components();
 
-        winnerOverlay = new WinnerOverlay();
+        winnerOverlay = new WinnerOverlay(player1, player2, this);
     }
 
     public void create_components() {
@@ -55,29 +55,35 @@ public class PongPlaying extends State implements StateMethods {
         player1.draw(g);
         player2.draw(g);
 
-        if (isWinner) {
+        if (win) {
             winnerOverlay.draw(g);
         } else if (pause)
             drawPause(g);
     }
 
     public void drawPause(Graphics g) {
-        g.setColor(Color.PINK);
-        g.fillRect((int) ((FRAME_WIDTH - 400) / 2 * SCALE), (int) ((FRAME_HEIGHT - 200) / 2 * SCALE),
-                (int) (400 * SCALE), (int) (200 * SCALE));
-
         g.setColor(Color.BLACK);
+        g.fillRoundRect((int) (FRAME_WIDTH / 2 - 400 * SCALE / 2), (int) (FRAME_HEIGHT / 2 - 200 * SCALE / 2),
+                (int) (400 * SCALE), (int) (200 * SCALE), (int) (10 * SCALE), (int) (10 * SCALE));
+        g.setColor(Color.WHITE);
+        g.drawRoundRect((int) (FRAME_WIDTH / 2 - 400 * SCALE / 2), (int) (FRAME_HEIGHT / 2 - 200 * SCALE / 2),
+                (int) (400 * SCALE), (int) (200 * SCALE), (int) (10 * SCALE), (int) (10 * SCALE));
+
         g.setFont(new Font("Roboto", Font.BOLD, (int) (32 * SCALE)));
         metrics = g.getFontMetrics();
 
-        g.drawString("Juego Pausado", (int) ((FRAME_WIDTH - metrics.stringWidth("Juego Pausado")) / 2 * SCALE),
-                (int) (((FRAME_HEIGHT - 200) / 2 + metrics.getHeight()) * SCALE));
+        g.drawString("Juego Pausado", (int) ((FRAME_WIDTH - metrics.stringWidth("Juego Pausado")) / 2),
+                (int) (((FRAME_HEIGHT - 200 * SCALE) / 2 + metrics.getHeight())));
 
         g.setFont(new Font("Roboto", Font.BOLD, (int) (16 * SCALE)));
         metrics = g.getFontMetrics();
         g.drawString("Pulsa ENTER para quitar la pausa",
-                (int) (((FRAME_WIDTH - metrics.stringWidth("Pulsa ENTER para quitar la pausa")) / 2) * SCALE),
-                (int) ((FRAME_HEIGHT / 2 + 50) * SCALE));
+                (int) (((FRAME_WIDTH - metrics.stringWidth("Pulsa ENTER para quitar la pausa")) / 2)),
+                (int) (FRAME_HEIGHT / 2));
+
+        g.drawString("Pulsa ESCAPE para salir",
+                (int) (((FRAME_WIDTH - metrics.stringWidth("Pulsa ESCAPE para salir")) / 2)),
+                (int) (FRAME_HEIGHT / 2 + 50 * SCALE));
     }
 
     public void drawBackground(Graphics g) {
@@ -110,12 +116,17 @@ public class PongPlaying extends State implements StateMethods {
 
         // exit
         if (key == KeyEvent.VK_ESCAPE) {
-            this.setGamestate(GameState.MENU);
+            if (pause) {
+                resetPong();
+                this.setGamestate(GameState.MENU);
+            }
         }
     }
 
     @Override
     public void keyReleased(KeyEvent k) {
+        winnerOverlay.keyReleased(k);
+
         switch (k.getKeyCode()) {
             case KeyEvent.VK_UP:
                 p2up = false;
@@ -130,7 +141,9 @@ public class PongPlaying extends State implements StateMethods {
                 p1down = false;
                 break;
             case KeyEvent.VK_ENTER:
-                pause = !pause;
+                if (!win)
+                    pause = !pause;
+                break;
         }
 
         if (!p1up && !p1down)
@@ -143,24 +156,40 @@ public class PongPlaying extends State implements StateMethods {
     // * ponerlas.
     @Override
     public void mousePressed(MouseEvent e) {
-
+        return;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        return;
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        return;
     }
 
     public void setPause(boolean pause) {
         this.pause = pause;
     }
 
-    public void setWinner(boolean isWinner) {
-        this.isWinner = isWinner;
+    public void setWin(boolean win) {
+        this.win = win;
+    }
+
+    public boolean getWin() {
+        return win;
+    }
+
+    public void resetPong() {
+        player1.resetPlayer();
+        player2.resetPlayer();
+        ball.reset_ball();
+        win = false;
+        pause = false;
+        p1up = false;
+        p1down = false;
+        p2up = false;
+        p2down = false;
     }
 }

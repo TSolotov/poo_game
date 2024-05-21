@@ -16,7 +16,8 @@ public class PongPlayer {
 
     private int posX, posY;
     private int goals = 0, dir = 0;
-    private boolean player_left;
+    private boolean player_left, isWinner = false;
+    private String username = "";
 
     public PongPlayer(Boolean pleft, PongPlaying pongPlaying) {
         this.pongPlaying = pongPlaying;
@@ -35,8 +36,10 @@ public class PongPlayer {
         pongPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.GOAL);
 
         pongPlaying.setPause(true);
-        if (goals >= 5)
-            pongPlaying.setWinner(true);
+        if (goals >= 1) {
+            pongPlaying.setWin(true);
+            this.isWinner = true;
+        }
     }
 
     public void draw(Graphics g) {
@@ -91,4 +94,34 @@ public class PongPlayer {
         dir = PongConstants.PLAYER_SPEED * direction;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void addLetterToUsername(char letter) {
+        this.username += letter;
+    }
+
+    public boolean getIsWinner() {
+        return isWinner;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void resetPlayer() {
+        goals = 0;
+        isWinner = false;
+        username = "";
+        if (player_left) {
+            posX = PongConstants.PLAYER_1_START;
+        } else {
+            posX = PongConstants.PLAYER_2_START;
+        }
+    }
 }

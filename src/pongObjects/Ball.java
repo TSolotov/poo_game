@@ -12,7 +12,7 @@ import utils.Constants.PongConstants;
 public class Ball {
 
     private static int posX, posY;
-    public static int velX, velY;
+    public static float velX, velY;
     private PongPlaying pongPlaying;
 
     public Ball(PongPlaying pongPlaying) {
@@ -34,8 +34,8 @@ public class Ball {
 
     public void update(PongPlayer player1, PongPlayer player2) {
 
-        posX = posX + PongConstants.BALL_SPEED * velX;
-        posY = posY + PongConstants.BALL_SPEED * velY;
+        posX = (int) (posX + PongConstants.BALL_SPEED * velX);
+        posY = (int) (posY + PongConstants.BALL_SPEED * velY);
 
         // Punto para jugador 1
         if (FRAME_WIDTH <= (posX + PongConstants.BALL_SIZE)) {
@@ -73,6 +73,12 @@ public class Ball {
         if (vertical) {
             velY *= (-1);
         } else {
+            if (velX < 0)
+                velX -= 0.2f;
+            else
+                velX += 0.2f;
+
+            System.out.println(velX);
             velX *= (-1);
         }
     }

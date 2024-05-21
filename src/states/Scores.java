@@ -26,7 +26,9 @@ public class Scores extends State implements StateMethods {
     private FontMetrics metrics;
 
     private ArrayList<String[]> allCircusData;
-    private String[] header = { "Username", "Puntuación", "Tiempo (sec)" };
+    private ArrayList<String[]> allPongData;
+    private String[] headerCircus = { "Username", "Puntuación", "Tiempo (sec)" };
+    private String[] headerPong = { "Player 1", "Resultado", "Player 2" };
 
     public Scores(Game game) {
         super(game);
@@ -37,6 +39,12 @@ public class Scores extends State implements StateMethods {
     private void init() {
         csvFile = new CSVFile();
         allCircusData = csvFile.readCSV(CSVFile.getFileNameCircus());
+        allPongData = csvFile.readCSV(CSVFile.getFileNamePong());
+
+        for (String[] strings : allPongData) {
+            System.out.println(strings[0] + " - " + strings[1] + " - " + strings[2] + " - " + strings[3]);
+        }
+
     }
 
     private void sortDataByScore() {
@@ -57,31 +65,34 @@ public class Scores extends State implements StateMethods {
     @Override
     public void update() {
         allCircusData = csvFile.readCSV(CSVFile.getFileNameCircus());
+        allPongData = csvFile.readCSV(CSVFile.getFileNamePong());
         sortDataByScore();
     }
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(new Color(0, 0, 0, 50));
         g.drawImage(bg_images[0], 0, 0, FRAME_WIDTH, FRAME_HEIGHT, null);
+
+        g.setColor(new Color(0, 0, 0, 50));
         g.fillRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
         g.setColor(new Color(0, 0, 0, 200));
-        g.fillRect((int) (100 * SCALE), (int) (100 * SCALE), (int) (500 * SCALE), FRAME_HEIGHT - (int) (200 * SCALE));
+        g.fillRoundRect((int) (100 * SCALE), (int) (100 * SCALE), (int) (500 * SCALE),
+                FRAME_HEIGHT - (int) (200 * SCALE), (int) (10 * SCALE), (int) (10 * SCALE));
 
         g.setColor(Color.PINK);
         g.setFont(new Font("Roboto", Font.BOLD, (int) (40 * SCALE)));
 
         metrics = g.getFontMetrics();
         g.drawString("Circus Charlie",
-                (int) (100 + (500 / 2 * SCALE) - (metrics.stringWidth("Circus Charlie") / 2 * SCALE)),
+                (int) (100 * SCALE + (500 / 2 * SCALE) - (metrics.stringWidth("Circus Charlie") / 2)),
                 (int) (150 * SCALE));
 
         g.setColor(Color.GREEN);
 
         g.setFont(new Font("Roboto", Font.BOLD, (int) (24 * SCALE)));
         for (int i = 0; i < 3; i++) {
-            g.drawString(header[i], (int) (120 * SCALE) + (int) (150 * SCALE) * i,
+            g.drawString(headerCircus[i], (int) (120 * SCALE) + (int) (150 * SCALE) * i,
                     (int) (200 * SCALE));
         }
 
@@ -102,6 +113,43 @@ public class Scores extends State implements StateMethods {
             }
         }
 
+        // * Parte Pong --------------------------------------------
+
+        g.setColor(new Color(0, 0, 0, 200));
+        g.fillRoundRect((int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE)), (int) (100 * SCALE), (int) (500 * SCALE),
+                FRAME_HEIGHT - (int) (200 * SCALE), (int) (10 * SCALE), (int) (10 * SCALE));
+
+        g.setColor(Color.PINK);
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (40 * SCALE)));
+
+        metrics = g.getFontMetrics();
+        g.drawString("Pong",
+                (int) ((FRAME_WIDTH - 500 * SCALE - (100 * SCALE)) + (500 / 2 * SCALE)
+                        - (metrics.stringWidth("Pong") / 2)),
+                (int) (150 * SCALE));
+
+        g.setColor(Color.GREEN);
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (24 * SCALE)));
+        for (int i = 0; i < 3; i++) {
+            g.drawString(headerPong[i], (int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE) / 2) + (int) (150 * SCALE) * i,
+                    (int) (200 * SCALE));
+        }
+
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Roboto", Font.PLAIN, (int) (24 * SCALE)));
+        for (int i = 0; i < allPongData.size() && i < 10; i++) {
+            g.drawString(allPongData.get(i)[0], (int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE) / 2) +
+                    (int) (150 * SCALE) * 0, (int) (200 * SCALE) + (int) (40 * SCALE) * (i + 1));
+
+            g.drawString(allPongData.get(i)[1] + " - " + allPongData.get(i)[3],
+                    (int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE) / 2) +
+                            (int) (180 * SCALE) * 1,
+                    (int) (200 * SCALE) + (int) (40 * SCALE) * (i + 1));
+
+            g.drawString(allPongData.get(i)[2], (int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE) / 2) +
+                    (int) (150 * SCALE) * 2, (int) (200 * SCALE) + (int) (40 * SCALE) * (i + 1));
+
+        }
     }
 
     @Override

@@ -330,7 +330,7 @@ public class Constants {
     public static class PongConstants {
         // Pelota
         public static final int BALL_SIZE = (int) (15 * SCALE);
-        public static final int BALL_SPEED = (int) (2 * SCALE);
+        public static final int BALL_SPEED = (int) (1 * SCALE);
         public static final int BALL_MOVEMENT = BALL_SIZE * BALL_SPEED;
 
         public static int getXposition() {

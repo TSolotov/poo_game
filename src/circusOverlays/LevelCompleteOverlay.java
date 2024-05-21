@@ -140,9 +140,9 @@ public class LevelCompleteOverlay {
                     } catch (IOException error) {
                         error.printStackTrace();
                     }
-                    circusPlaying.setGamestate(GameState.MENU);
                     circusPlaying.resetLevel(true);
                     ScoreOverlay.resetTimer();
+                    circusPlaying.setGamestate(GameState.MENU);
                     return;
                 }
                 circusPlaying.loadNextLevel();

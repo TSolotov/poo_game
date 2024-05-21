@@ -46,7 +46,7 @@ public class CSVFile {
         try (BufferedReader br = new BufferedReader(new FileReader(fileNameCircus))) {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
-                allData.add(data);
+                allData.addFirst(data);
             }
             return allData;
         } catch (IOException e) {
@@ -58,5 +58,9 @@ public class CSVFile {
 
     public static String getFileNameCircus() {
         return fileNameCircus;
+    }
+
+    public static String getFileNamePong() {
+        return fileNamePong;
     }
 }
