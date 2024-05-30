@@ -21,8 +21,10 @@ public class Score extends State implements StateMethods {
     private BufferedImage[] bg_images;
     private FontMetrics metrics;
 
-    private String[] headerCircus = {"Username", "Puntuación", "Tiempo (sec)"};
-    private String[] headerPong = {"Player 1", "Resultado", "Player 2"};
+    private String[] headerCircus = { "Username", "Puntuación", "Tiempo (sec)" };
+    private String[] headerPong = { "Player 1", "Resultado", "Player 2" };
+    private String[] gamesScore = { "Circus Scores", "Pong Scores" };
+    private int currentScoreView = 0;
 
     public Score(GameSystem game) {
         super(game);
@@ -58,8 +60,32 @@ public class Score extends State implements StateMethods {
         g.setColor(new Color(0, 0, 0, 50));
         g.fillRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
+        g.setColor(Color.PINK);
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (24 * SCALE)));
+        g.drawString("Juegos Disponibles", (int) (100 * SCALE), (int) (200 * SCALE));
+        for (int i = 0; i < gamesScore.length; i++) {
+            g.setColor(Color.WHITE);
+            if (i == currentScoreView) {
+                g.setColor(Color.GREEN);
+            }
+            g.drawString(gamesScore[i], (int) (100 * SCALE), (int) (250 * SCALE + 50 * SCALE * i));
+        }
+
+        switch (currentScoreView) {
+            case 0:
+                drawCircusScore(g);
+                break;
+            case 1:
+                drawPongScore(g);
+                break;
+        }
+
+    }
+
+    // * Parte Circus ------------------------------------------
+    private void drawCircusScore(Graphics g) {
         g.setColor(new Color(0, 0, 0, 150));
-        g.fillRoundRect((int) (100 * SCALE), (int) (100 * SCALE), (int) (500 * SCALE),
+        g.fillRoundRect((int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE)), (int) (100 * SCALE), (int) (500 * SCALE),
                 FRAME_HEIGHT - (int) (200 * SCALE), (int) (10 * SCALE), (int) (10 * SCALE));
 
         g.setColor(Color.PINK);
@@ -67,14 +93,16 @@ public class Score extends State implements StateMethods {
 
         metrics = g.getFontMetrics();
         g.drawString("Circus Charlie",
-                (int) (100 * SCALE + (500 / 2 * SCALE) - (metrics.stringWidth("Circus Charlie") / 2)),
+                (int) ((FRAME_WIDTH - 500 * SCALE - (100 * SCALE)) + (500 / 2 * SCALE)
+                        - (metrics.stringWidth("Circus Charlie") / 2)),
                 (int) (150 * SCALE));
 
         g.setColor(Color.GREEN);
-
         g.setFont(new Font("Roboto", Font.BOLD, (int) (24 * SCALE)));
+
         for (int i = 0; i < 3; i++) {
-            g.drawString(headerCircus[i], (int) (120 * SCALE) + (int) (150 * SCALE) * i,
+            g.drawString(headerCircus[i],
+                    (int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE) / 2) + (int) (150 * SCALE) * i,
                     (int) (200 * SCALE));
         }
 
@@ -90,13 +118,15 @@ public class Score extends State implements StateMethods {
                 else
                     complement = "";
 
-                g.drawString(allCircusData.get(i)[j] + complement, (int) (120 * SCALE) + (int) (150 * SCALE) * j,
+                g.drawString(allCircusData.get(i)[j] + complement,
+                        (int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE) / 2) + (int) (150 * SCALE) * j,
                         (int) (200 * SCALE) + (int) (40 * SCALE) * (i + 1));
             }
         }
+    }
 
-        // * Parte Pong --------------------------------------------
-
+    // * Parte Pong --------------------------------------------
+    private void drawPongScore(Graphics g) {
         g.setColor(new Color(0, 0, 0, 150));
         g.fillRoundRect((int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE)), (int) (100 * SCALE), (int) (500 * SCALE),
                 FRAME_HEIGHT - (int) (200 * SCALE), (int) (10 * SCALE), (int) (10 * SCALE));
@@ -112,6 +142,7 @@ public class Score extends State implements StateMethods {
 
         g.setColor(Color.GREEN);
         g.setFont(new Font("Roboto", Font.BOLD, (int) (24 * SCALE)));
+
         for (int i = 0; i < 3; i++) {
             g.drawString(headerPong[i], (int) (FRAME_WIDTH - 500 * SCALE - (100 * SCALE) / 2) + (int) (150 * SCALE) * i,
                     (int) (200 * SCALE));
@@ -143,6 +174,22 @@ public class Score extends State implements StateMethods {
 
     @Override
     public void keyReleased(KeyEvent k) {
+        switch (k.getKeyCode()) {
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
+                if (currentScoreView == gamesScore.length - 1)
+                    currentScoreView = 0;
+                else
+                    currentScoreView++;
+                break;
+            case KeyEvent.VK_UP:
+            case KeyEvent.VK_W:
+                if (currentScoreView == 0)
+                    currentScoreView = gamesScore.length - 1;
+                else
+                    currentScoreView--;
+                break;
+        }
     }
 
     @Override
