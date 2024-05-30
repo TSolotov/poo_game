@@ -7,9 +7,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import circusLevels.LevelHandler;
+import circus.levels.LevelHandler;
 import utils.LoadSprites;
-import main.Game;
+import main.GameSystem;
 import utils.Constants;
 
 import static utils.Constants.FrameConstants.*;
@@ -20,10 +20,10 @@ public class Menu extends State implements StateMethods {
 
     // Gestiona la selección del menu
     private int currentOption = 0;
-    private String[] options = { "Play Circus (1 Jugador)", "Play Pong (2 Jugadores)",
-            "Configuraciones", "Puntuaciones", "Salir" };
+    private String[] options = {"Play Circus (1 Jugador)", "Play Pong (2 Jugadores)",
+            "Configuraciones", "Puntuaciones", "Salir"};
 
-    public Menu(Game game) {
+    public Menu(GameSystem game) {
         super(game);
 
         loadBackground();
@@ -86,11 +86,11 @@ public class Menu extends State implements StateMethods {
             case KeyEvent.VK_Z:
                 switch (currentOption) {
                     case 0:
-                        this.setGamestate(GameState.CIRCUS_PLAYING);
+                        this.setGamestate(GameState.CIRCUS_GAME);
                         game.getAudioPlayer().setMusic(LevelHandler.getNumberLevel());
                         break;
                     case 1:
-                        this.setGamestate(GameState.PONG_PLAYING);
+                        this.setGamestate(GameState.PONG_GAME);
                         break;
                     case 2:
                         this.setGamestate(GameState.CONFIGURATION);

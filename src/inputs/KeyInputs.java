@@ -24,11 +24,11 @@ public class KeyInputs implements KeyListener {
             case MENU:
                 gamePanel.getGame().getMenu().keyPressed(e);
                 break;
-            case CIRCUS_PLAYING:
-                gamePanel.getGame().getPlaying().keyPressed(e);
+            case CIRCUS_GAME:
+                gamePanel.getGame().getCircusGame().keyPressed(e);
                 break;
-            case PONG_PLAYING:
-                gamePanel.getGame().getPongPlaying().keyPressed(e);
+            case PONG_GAME:
+                gamePanel.getGame().getPongGame().keyPressed(e);
                 break;
             case CONFIGURATION:
                 gamePanel.getGame().getConfiguration().keyPressed(e);
@@ -46,11 +46,11 @@ public class KeyInputs implements KeyListener {
             case MENU:
                 gamePanel.getGame().getMenu().keyReleased(e);
                 break;
-            case CIRCUS_PLAYING:
-                gamePanel.getGame().getPlaying().keyReleased(e);
+            case CIRCUS_GAME:
+                gamePanel.getGame().getCircusGame().keyReleased(e);
                 break;
-            case PONG_PLAYING:
-                gamePanel.getGame().getPongPlaying().keyReleased(e);
+            case PONG_GAME:
+                gamePanel.getGame().getPongGame().keyReleased(e);
                 break;
             case CONFIGURATION:
                 gamePanel.getGame().getConfiguration().keyReleased(e);

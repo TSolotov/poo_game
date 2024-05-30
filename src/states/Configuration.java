@@ -7,10 +7,11 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-import circusUI.TogleButton;
+import ui.TogleButton;
 import utils.LoadSprites;
-import main.Game;
+import main.GameSystem;
 import utils.Constants;
 import utils.Constants.UIConstants;
 
@@ -21,12 +22,14 @@ public class Configuration extends State implements StateMethods {
     private BufferedImage[] bg_images;
     private FontMetrics metrics;
 
-    private String[] optionsString = { "Activar Música: ", "Activar Sonidos: " };
-    private TogleButton musicButton, soundButton;
+    private final String[] optionsString = {"Pantalla Completa: ", "Activar Música: ", "Activar Sonidos: "};
+    private TogleButton musicButton, soundButton, screenButton;
 
-    public Configuration(Game game) {
+    public Configuration(GameSystem game) {
         super(game);
         loadBackground();
+
+
         loadButons();
     }
 
@@ -35,13 +38,19 @@ public class Configuration extends State implements StateMethods {
     }
 
     private void loadButons() {
-        musicButton = new TogleButton((int) ((150 + 25 + 248) * SCALE),
+        boolean screenState = Boolean.parseBoolean(game.getEnvFile().getEnvProps().getProperty("FULL_SCREEN"));
+        screenButton = new TogleButton((int) ((150 + 25 + 298) * SCALE),
                 (int) ((214) * SCALE + (87) * 0 * SCALE),
+                UIConstants.getSpritesInfo(UIConstants.WINDOW),
+                UIConstants.getSpritesInfo(UIConstants.FULLSCREEN), screenState);
+
+        musicButton = new TogleButton((int) ((150 + 25 + 248) * SCALE),
+                (int) ((214) * SCALE + (87) * 1 * SCALE),
                 UIConstants.getSpritesInfo(UIConstants.MUSICON),
                 UIConstants.getSpritesInfo(UIConstants.MUSICOFF));
 
         soundButton = new TogleButton((int) ((150 + 25 + 263) * SCALE),
-                (int) ((214) * SCALE + (87) * 1 * SCALE),
+                (int) ((214) * SCALE + (87) * 2 * SCALE),
                 UIConstants.getSpritesInfo(UIConstants.SOUNDON),
                 UIConstants.getSpritesInfo(UIConstants.SOUNDOFF));
 
@@ -53,6 +62,7 @@ public class Configuration extends State implements StateMethods {
     public void update() {
         musicButton.update();
         soundButton.update();
+        screenButton.update();
     }
 
     @Override
@@ -77,16 +87,13 @@ public class Configuration extends State implements StateMethods {
 
         musicButton.draw(g);
         soundButton.draw(g);
+        screenButton.draw(g);
     }
 
     @Override
     public void keyPressed(KeyEvent k) {
-        switch (k.getKeyCode()) {
-            case KeyEvent.VK_ESCAPE:
-                GameState.state = GameState.MENU;
-                break;
-            default:
-                break;
+        if (k.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            GameState.state = GameState.MENU;
         }
     }
 
@@ -101,6 +108,8 @@ public class Configuration extends State implements StateMethods {
             musicButton.setMousePressed(true);
         else if (isMouseIn(e, soundButton))
             soundButton.setMousePressed(true);
+        else if (isMouseIn(e, screenButton))
+            screenButton.setMousePressed(true);
     }
 
     @Override
@@ -115,20 +124,34 @@ public class Configuration extends State implements StateMethods {
                 soundButton.togleState();
                 game.getAudioPlayer().togleSoundsMute();
             }
+        } else if (isMouseIn(e, screenButton)) {
+            if (screenButton.isMousePressed()) {
+                screenButton.togleState();
+                try {
+                    game.getEnvFile().setEnvVariable("FULL_SCREEN", String.valueOf(screenButton.getState()));
+                    game.setEnvFileChanged(true);
+                } catch (IOException err) {
+                    err.printStackTrace();
+                }
+            }
         }
-
         musicButton.resetMouseBooleans();
         soundButton.resetMouseBooleans();
+        screenButton.resetMouseBooleans();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         soundButton.setMouseOver(false);
         musicButton.setMouseOver(false);
+        screenButton.setMouseOver(false);
         if (isMouseIn(e, soundButton))
             soundButton.setMouseOver(true);
         else if (isMouseIn(e, musicButton))
             musicButton.setMouseOver(true);
+
+        else if (isMouseIn(e, screenButton))
+            screenButton.setMouseOver(true);
     }
 
     // * Chequea que el mouse esté sobre el botón

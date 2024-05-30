@@ -8,28 +8,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CSVFile {
-    private static String fileNameCircus = "dataCircus.csv";
-    private static String fileNamePong = "dataPong.csv";
+    String fileName;
 
-    public CSVFile() {
-        createBothCSV();
+    public CSVFile(String fileName) {
+        this.fileName = fileName;
+        createCSV(fileName);
     }
 
-    private void createBothCSV() {
-        File file = new File(fileNameCircus);
-        File file2 = new File(fileNamePong);
-        if (file.exists() && file2.exists())
+    private void createCSV(String fileName) {
+        File file = new File(fileName);
+        if (file.exists())
             return;
 
         // * Crea el CSV (No le agrego un header xq da problemas a la hora de sort)
-        try (FileWriter writer = new FileWriter(fileNameCircus); FileWriter writer2 = new FileWriter(fileNamePong);) {
+        try (FileWriter writer = new FileWriter(fileName)) {
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public static void writeLine(FileWriter writer, String[] row) throws IOException {
+    public void writeLine(FileWriter writer, String[] row) throws IOException {
         for (int i = 0; i < row.length; i++) {
             writer.append(row[i]);
             if (i < row.length - 1) {
@@ -39,11 +38,11 @@ public class CSVFile {
         writer.append("\n");
     }
 
-    public ArrayList<String[]> readCSV(String fileNameCircus) {
+    public ArrayList<String[]> readCSV() {
         ArrayList<String[]> allData = new ArrayList<>();
         String line = "";
         String cvsSplitBy = ",";
-        try (BufferedReader br = new BufferedReader(new FileReader(fileNameCircus))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
                 allData.addFirst(data);
@@ -56,11 +55,7 @@ public class CSVFile {
         return null;
     }
 
-    public static String getFileNameCircus() {
-        return fileNameCircus;
-    }
-
-    public static String getFileNamePong() {
-        return fileNamePong;
+    public String getFileName() {
+        return fileName;
     }
 }
