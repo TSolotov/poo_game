@@ -41,7 +41,12 @@ public class Hero extends Entity {
         this.walkSpeed = 1.0f * Constants.SCALE;
 
         loadAnimationsSprites();
-        initHitbox(REAL_WIDTH, REAL_HEIGHT);
+
+        if (Constants.ORIGINAL_SPRITES) {
+            initHitbox(REAL_WIDTH, REAL_HEIGHT);
+        } else {
+            initHitbox(HUMAN_REAL_WIDTH, HUMAN_REAL_HEIGHT);
+        }
 
         System.out.println(Constants.SCALE);
         System.out.println(GRAVITY);
@@ -64,6 +69,7 @@ public class Hero extends Entity {
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(JUMP)));
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(FALLING)));
         animations.addLast(LoadSprites.getSprites(getPlayer1SpritesInfo(DEAD)));
+
     }
 
     // * Carga el nivel actual
@@ -83,7 +89,6 @@ public class Hero extends Entity {
             if (playerAction == RUNNING && aniIndex % 2 == 1)
                 circusPlaying.getGame().getAudioPlayer().playSounds(AudioPlayer.RUN);
             if (aniIndex >= Integer.parseInt(getPlayer1SpritesInfo(playerAction)[1])) {
-
                 if (isDead)
                     deadAnimDoit = true;
                 aniIndex = 0;
@@ -125,7 +130,11 @@ public class Hero extends Entity {
 
         if (left) {
             xSpeed -= walkSpeed;
-            flipX = width - (int) (18 * Constants.SCALE);
+            if (Constants.ORIGINAL_SPRITES)
+                flipX = width - (int) (X_DRAW_OFFSET * Constants.SCALE);
+            else
+                flipX = width - (int) (25 * Constants.SCALE);
+
             flipW = -1;
 
         }
@@ -187,10 +196,11 @@ public class Hero extends Entity {
             playerAction = IDLE;
 
         if (inAir) {
-            if (airSpeed < 0)
+            if (airSpeed < 0) {
                 playerAction = JUMP;
-            else
+            } else {
                 playerAction = FALLING;
+            }
         }
 
         if (isDead) {
@@ -215,10 +225,23 @@ public class Hero extends Entity {
     }
 
     public void draw(Graphics g, int xLevelOffset) {
-        g.drawImage(animations.get(playerAction)[aniIndex], (int) (hitbox.x - X_DRAW_OFFSET) - xLevelOffset + flipX,
-                (int) (hitbox.getY() - Y_DRAW_OFFSET),
-                SPRITE_WIDTH * flipW,
-                SPRITE_HEIGHT, null);
+        int xOffset, yOffset, sWidth, sHeight;
+        if (Constants.ORIGINAL_SPRITES) {
+            xOffset = X_DRAW_OFFSET;
+            yOffset = Y_DRAW_OFFSET;
+            sWidth = SPRITE_WIDTH;
+            sHeight = SPRITE_HEIGHT;
+        } else {
+            xOffset = HUMAN_X_DRAW_OFFSET;
+            yOffset = HUMAN_Y_DRAW_OFFSET;
+            sWidth = HUMAN_SPRITE_WIDTH;
+            sHeight = HUMAN_SPRITE_HEIGHT;
+        }
+
+        g.drawImage(animations.get(playerAction)[aniIndex], (int) (hitbox.x - xOffset) - xLevelOffset + flipX,
+                (int) (hitbox.getY() - yOffset),
+                sWidth * flipW,
+                sHeight, null);
         g.drawRect((int) hitbox.x - xLevelOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
@@ -269,10 +292,10 @@ public class Hero extends Entity {
         jump = false;
         isDead = false;
         deadAnimDoit = false;
-        playerAction = IDLE;
         aniIndex = 0;
         hitbox.x = x;
         hitbox.y = y;
+        playerAction = IDLE;
 
         if (!isEntityOnFloor(hitbox, levelData))
             inAir = true;
@@ -291,7 +314,7 @@ public class Hero extends Entity {
     }
 
     // * Me da la ubicación del spawn point
-    private static Point getPlayerSpawn(Level level) {
+    private Point getPlayerSpawn(Level level) {
         for (int i = 0; i < level.getLevelHeight(); i++) {
             for (int j = 0; j < level.getLevelWidth(); j++) {
                 if (level.getTileToDraw(i, j) == LevelsCreation.SPWN) {

@@ -21,8 +21,7 @@ public class LevelHandler {
     // * Acá irán todos los circus.levels
     private ArrayList<Level> levels;
 
-    private static int currentLevel = 2;
-
+    private static int currentLevel = 0;
 
     private EnemyHandler enemyHandler;
     private ObjectHandler objectHandler;
@@ -43,7 +42,6 @@ public class LevelHandler {
         enemyHandler.addEnemies(getCurrentLevel());
         objectHandler.addObjects(getCurrentLevel());
     }
-
 
     public void loadNextLevel() {
         currentLevel++;
@@ -67,13 +65,11 @@ public class LevelHandler {
         objectHandler.update(player);
     }
 
-
     public void draw(Graphics g, int xLevelOffset) {
         drawTiles(g, xLevelOffset);
         enemyHandler.draw(g, xLevelOffset);
         objectHandler.draw(g, xLevelOffset);
     }
-
 
     private void drawTiles(Graphics g, int xLevelOffset) {
         for (int i = 0; i < levels.get(currentLevel).getLevelHeight(); i++) {
@@ -86,7 +82,6 @@ public class LevelHandler {
             }
         }
     }
-
 
     // * Getters & Setters
     public Level getCurrentLevel() {

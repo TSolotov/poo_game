@@ -36,5 +36,5 @@ public class CRMButton extends CButton {
             g.drawString(text, this.getX() + (UIConstants.SQUARE_BUTTON_SIZE - metrics.stringWidth(text)) / 2,
                     this.getY() + UIConstants.SQUARE_BUTTON_SIZE + (int) (25 * Constants.SCALE));
     }
-    
+
 }

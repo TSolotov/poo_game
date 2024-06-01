@@ -8,8 +8,10 @@ import java.util.Properties;
 
 public class Constants {
     public static float SCALE;
+    public static boolean ORIGINAL_SPRITES;
 
     public Constants(Properties props) {
+        ORIGINAL_SPRITES = Boolean.parseBoolean(props.getProperty("ORIGINAL_SPRITES"));
         if (Boolean.parseBoolean(props.getProperty("FULL_SCREEN"))) {
             SCALE = (float) Toolkit.getDefaultToolkit().getScreenSize().getHeight()
                     / (float) FrameConstants.FRAME_HEIGHT;
@@ -68,21 +70,21 @@ public class Constants {
         public static String[] getEnemySpritesInfo(int enemyAction) {
             switch (enemyAction) {
                 case BOMB_RUNNING:
-                    return new String[]{bombRunningAtlas, "6"};
+                    return new String[] { bombRunningAtlas, "6" };
                 case BOMB_JUMP:
-                    return new String[]{bombJumpingAtlas, "1"};
+                    return new String[] { bombJumpingAtlas, "1" };
                 case BOMB_FALLING:
-                    return new String[]{bombFallingAtlas, "1"};
+                    return new String[] { bombFallingAtlas, "1" };
                 case CHICKEN_WALK:
-                    return new String[]{chickenWalkAtlas, "4"};
+                    return new String[] { chickenWalkAtlas, "4" };
                 case CHICKEN_FALLING:
-                    return new String[]{chickenFallingAtlas, "5"};
+                    return new String[] { chickenFallingAtlas, "5" };
                 case HORSE_WALK:
-                    return new String[]{horseWalkAtlas, "8"};
+                    return new String[] { horseWalkAtlas, "8" };
                 case HORSE_RUN:
-                    return new String[]{horseRunAtlas, "5"};
+                    return new String[] { horseRunAtlas, "5" };
                 default:
-                    return new String[]{bombRunningAtlas, "6"};
+                    return new String[] { bombRunningAtlas, "6" };
             }
         }
 
@@ -91,43 +93,72 @@ public class Constants {
     // * Contiene todos los paths e información acerca del player 1
     public static class Player1Constants {
 
-        // * Player sizes
-        public static int X_DRAW_OFFSET = (int) (18 * SCALE * 2),
-                Y_DRAW_OFFSET = (int) (10 * SCALE * 2);
-        public static int SPRITE_WIDTH = (int) (64 * SCALE * 2),
-                SPRITE_HEIGHT = (int) (44 * SCALE * 2);
-        public static int REAL_WIDTH = (int) (18 * SCALE * 2),
-                REAL_HEIGHT = (int) (33 * SCALE * 2);
+        // * Soldier sizes
+        public static int X_DRAW_OFFSET = (int) (18 * SCALE * 2), Y_DRAW_OFFSET = (int) (10 * SCALE * 2);
+        public static int SPRITE_WIDTH = (int) (64 * SCALE * 2), SPRITE_HEIGHT = (int) (44 * SCALE * 2);
+        public static int REAL_WIDTH = (int) (18 * SCALE * 2), REAL_HEIGHT = (int) (33 * SCALE * 2);
 
-        // * Player actions
+        // * Soldier actions
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
         public static final int JUMP = 2;
         public static final int FALLING = 3;
         public static final int DEAD = 4;
 
-        // * Player 1 paths atlas
-        private static final String player1IdleAtlas = "resources/player1/idle/player_idle_";
-        private static final String player1RunningAtlas = "resources/player1/run/player_run_";
-        private static final String player1JumpingAtlas = "resources/player1/jump/player_jump_";
-        private static final String player1FallingAtlas = "resources/player1/falling/player_falling_";
-        private static final String player1DeadAtlas = "resources/player1/dead/player_dead_";
+        // * Soldier 1 paths atlas
+        private static final String soldierIdleAtlas = "resources/player1/idle/player_idle_";
+        private static final String soldierRunningAtlas = "resources/player1/run/player_run_";
+        private static final String soldierJumpingAtlas = "resources/player1/jump/player_jump_";
+        private static final String soldierFallingAtlas = "resources/player1/falling/player_falling_";
+        private static final String soldierDeadAtlas = "resources/player1/dead/player_dead_";
+
+        // * HUMAN sizes
+        public static int HUMAN_X_DRAW_OFFSET = (int) (16 * SCALE * 2), HUMAN_Y_DRAW_OFFSET = (int) (2 * SCALE * 2);
+        public static int HUMAN_SPRITE_WIDTH = (int) (48 * SCALE * 2), HUMAN_SPRITE_HEIGHT = (int) (36 * SCALE * 2);
+        public static int HUMAN_REAL_WIDTH = (int) (18 * SCALE * 2), HUMAN_REAL_HEIGHT = (int) (33 * SCALE * 2);
+
+        // * Soldier 1 paths atlas
+        private static final String humanIdleAtlas = "resources/player1/human_idle/idle_";
+        private static final String humanRunningAtlas = "resources/player1/human_run/run_";
+        private static final String humanJumpingAtlas = "resources/player1/human_jump/jump_";
+        private static final String humanFallingAtlas = "resources/player1/human_falling/falling_";
+        private static final String humanDeadAtlas = "resources/player1/human_dead/dead_";
 
         // * Retorna la info necesaria para que la funcion loadSprites haga su trabajo.
         public static String[] getPlayer1SpritesInfo(int playerAction) {
             switch (playerAction) {
                 case IDLE:
-                    return new String[]{player1IdleAtlas, "6"};
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierIdleAtlas, "6" };
+                    else
+                        return new String[] { humanIdleAtlas, "10" };
+
                 case RUNNING:
-                    return new String[]{player1RunningAtlas, "8"};
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierRunningAtlas, "8" };
+                    else
+                        return new String[] { humanRunningAtlas, "9" };
+
                 case JUMP:
-                    return new String[]{player1JumpingAtlas, "3"};
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierJumpingAtlas, "3" };
+                    else
+                        return new String[] { humanJumpingAtlas, "1" };
+
                 case FALLING:
-                    return new String[]{player1FallingAtlas, "3"};
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierFallingAtlas, "3" };
+                    else
+                        return new String[] { humanFallingAtlas, "1" };
+
                 case DEAD:
-                    return new String[]{player1DeadAtlas, "10"};
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierDeadAtlas, "10" };
+                    else
+                        return new String[] { humanDeadAtlas, "1" };
+
                 default:
-                    return new String[]{player1IdleAtlas, "6"};
+                    return new String[] { soldierIdleAtlas, "6" };
             }
 
         }
@@ -138,7 +169,7 @@ public class Constants {
         private static final String menuAtlas = "resources/menu/bg_";
 
         public static String[] getMenuSpritesInfo() {
-            return new String[]{menuAtlas, "2"};
+            return new String[] { menuAtlas, "2" };
         }
 
     }
@@ -165,12 +196,12 @@ public class Constants {
         public static String[] getSpritesInfo(int option) {
             switch (option) {
                 case BG_CIRCUS:
-                    return new String[]{bgAtlas, "4"};
+                    return new String[] { bgAtlas, "4" };
                 case TILES_CIRCUS:
-                    return new String[]{tilesAtlas, "4"};
+                    return new String[] { tilesAtlas, "4" };
                 default:
                     System.out.println("Error en la opción");
-                    return new String[]{"Null", "0"};
+                    return new String[] { "Null", "0" };
             }
         }
 
@@ -218,17 +249,17 @@ public class Constants {
         public static String[] getSpritesInfo(int option) {
             switch (option) {
                 case FLAME:
-                    return new String[]{flame_sprites, "12"};
+                    return new String[] { flame_sprites, "12" };
 
                 case RING:
-                    return new String[]{ring_sprites, "40"};
+                    return new String[] { ring_sprites, "40" };
 
                 case TRAMPOLINE:
-                    return new String[]{trampoline_sprites, "5"};
+                    return new String[] { trampoline_sprites, "5" };
 
                 default:
                     System.out.println("Error en la opción");
-                    return new String[]{"Null", "0"};
+                    return new String[] { "Null", "0" };
             }
         }
 
@@ -247,10 +278,10 @@ public class Constants {
         public static String[] getSpritesInfo(int option) {
             switch (option) {
                 case BG_LOSE_OVERLAY:
-                    return new String[]{bg_lose_overlay, "1"};
+                    return new String[] { bg_lose_overlay, "1" };
                 default:
                     System.out.println("Error en la opción");
-                    return new String[]{"Null", "0"};
+                    return new String[] { "Null", "0" };
             }
         }
 
@@ -287,26 +318,26 @@ public class Constants {
         public static String[] getSpritesInfo(int option) {
             switch (option) {
                 case CONTINUE:
-                    return new String[]{contunueButton, "2"};
+                    return new String[] { contunueButton, "2" };
                 case RESET:
-                    return new String[]{resetButton, "2"};
+                    return new String[] { resetButton, "2" };
                 case MENU:
-                    return new String[]{menuButton, "2"};
+                    return new String[] { menuButton, "2" };
                 case SOUNDON:
-                    return new String[]{soundOnButton, "2"};
+                    return new String[] { soundOnButton, "2" };
                 case SOUNDOFF:
-                    return new String[]{soundOffButton, "2"};
+                    return new String[] { soundOffButton, "2" };
                 case MUSICON:
-                    return new String[]{musicOnButton, "2"};
+                    return new String[] { musicOnButton, "2" };
                 case MUSICOFF:
-                    return new String[]{musicOffButton, "2"};
+                    return new String[] { musicOffButton, "2" };
                 case FULLSCREEN:
-                    return new String[]{fullScreenButton, "2"};
+                    return new String[] { fullScreenButton, "2" };
                 case WINDOW:
-                    return new String[]{windowButton, "2"};
+                    return new String[] { windowButton, "2" };
                 default:
                     System.out.println("Error en la opción");
-                    return new String[]{"Null", "0"};
+                    return new String[] { "Null", "0" };
             }
         }
 

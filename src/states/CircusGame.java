@@ -22,7 +22,6 @@ import static utils.Constants.FrameConstants.*;
 import static utils.Constants.CircusConstants.*;
 import static utils.Constants.Player1Constants.*;
 
-
 public class CircusGame extends State implements StateMethods {
 
     private Hero player;
@@ -54,26 +53,25 @@ public class CircusGame extends State implements StateMethods {
 
     public CircusGame(GameSystem game) {
         super(game);
-
         init();
 
-        // *
         // LoadSprites.getSpritesBySlices();
-
-        // *
 
     }
 
     private void init() {
         levelHandler = new LevelHandler(game);
 
-        player = new Hero(100, 100, SPRITE_WIDTH, SPRITE_HEIGHT, this);
+        if (Constants.ORIGINAL_SPRITES)
+            player = new Hero(100, 100, SPRITE_WIDTH, SPRITE_HEIGHT, this);
+        else
+            player = new Hero(100, 100, SPRITE_WIDTH, SPRITE_HEIGHT, this);
+
         player.loadLevelData(levelHandler.getCurrentLevel().getLevelData()); // * Cargo los niveles
         player.setSpawnPoint(levelHandler.getCurrentLevel());
 
         this.maxLevel1OffsetX = levelHandler.getCurrentLevel().getLevelOffsetX();
         environmentImages = LoadSprites.getSprites(Constants.CircusConstants.getSpritesInfo(BG_CIRCUS));
-
 
         pauseOverlay = new PauseOverlay(this);
         gameoverOverlay = new GameoverOverlay(this);
@@ -112,6 +110,7 @@ public class CircusGame extends State implements StateMethods {
     // ! Métodos heredados
     @Override
     public void update() {
+
         if (pause) {
             pauseOverlay.update();
 
@@ -302,8 +301,8 @@ public class CircusGame extends State implements StateMethods {
         ScoreOverlay.resetTimer();
         levelHandler.getEnemyHandler().addEnemies(levelHandler.getCurrentLevel());
         levelHandler.getObjectHandler().addObjects(levelHandler.getCurrentLevel());
+        game.getCharapterSelect().setAnySelected(false);
     }
-
 
     public LevelHandler getLevelHandler() {
         return levelHandler;

@@ -20,8 +20,8 @@ public class Menu extends State implements StateMethods {
 
     // Gestiona la selección del menu
     private int currentOption = 0;
-    private String[] options = {"Play Circus (1 Jugador)", "Play Pong (2 Jugadores)",
-            "Configuraciones", "Puntuaciones", "Salir"};
+    private String[] options = { "Play Circus (1 Jugador)", "Play Pong (2 Jugadores)",
+            "Configuraciones", "Puntuaciones", "Salir" };
 
     public Menu(GameSystem game) {
         super(game);

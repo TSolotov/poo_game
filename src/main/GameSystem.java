@@ -9,6 +9,7 @@ import states.GameState;
 import states.Menu;
 import states.PongGame;
 import states.Score;
+import states.CharapterSelect;
 import states.CircusGame;
 import states.Configuration;
 import utils.EnvConfig;
@@ -27,6 +28,7 @@ public class GameSystem implements Runnable {
     private PongGame pongPlaying;
     private Configuration configuration;
     private Score scores;
+    private CharapterSelect charapterSelect;
 
     // * Audio
     private AudioPlayer audioPlayer;
@@ -52,11 +54,12 @@ public class GameSystem implements Runnable {
 
     public void init() {
 
-        circusPlaying = new CircusGame(this);
         menu = new Menu(this);
         pongPlaying = new PongGame(this);
         configuration = new Configuration(this);
         scores = new Score(this);
+        charapterSelect = new CharapterSelect(this);
+        circusPlaying = new CircusGame(this);
 
         audioPlayer = new AudioPlayer();
 
@@ -140,6 +143,9 @@ public class GameSystem implements Runnable {
             case SCORES:
                 scores.update();
                 break;
+            case CHARAPTER_SELECT:
+                charapterSelect.update();
+                break;
             default:
                 break;
         }
@@ -162,6 +168,9 @@ public class GameSystem implements Runnable {
                 break;
             case SCORES:
                 scores.draw(g);
+                break;
+            case CHARAPTER_SELECT:
+                charapterSelect.draw(g);
                 break;
             default:
                 break;
@@ -209,6 +218,10 @@ public class GameSystem implements Runnable {
 
     public EnvConfig getEnvFile() {
         return envFile;
+    }
+
+    public CharapterSelect getCharapterSelect() {
+        return charapterSelect;
     }
 
     public void setEnvFileChanged(boolean envFileChanged) {
