@@ -301,7 +301,6 @@ public class CircusGame extends State implements StateMethods {
         ScoreOverlay.resetTimer();
         levelHandler.getEnemyHandler().addEnemies(levelHandler.getCurrentLevel());
         levelHandler.getObjectHandler().addObjects(levelHandler.getCurrentLevel());
-        game.getCharapterSelect().setAnySelected(false);
     }
 
     public LevelHandler getLevelHandler() {

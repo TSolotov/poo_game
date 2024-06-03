@@ -131,7 +131,7 @@ public class Hero extends Entity {
         if (left) {
             xSpeed -= walkSpeed;
             if (Constants.ORIGINAL_SPRITES)
-                flipX = width - (int) (X_DRAW_OFFSET * Constants.SCALE);
+                flipX = width - (int) (18 * Constants.SCALE);
             else
                 flipX = width - (int) (25 * Constants.SCALE);
 

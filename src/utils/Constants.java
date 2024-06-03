@@ -297,23 +297,10 @@ public class Constants {
         public static final int RESET = 1;
         public static final int MENU = 2;
 
-        public static final int SOUNDON = 3;
-        public static final int SOUNDOFF = 4;
-        public static final int MUSICON = 5;
-        public static final int MUSICOFF = 6;
-        public static final int FULLSCREEN = 7;
-        public static final int WINDOW = 8;
-
         // ! Constantes de los paths
         private static final String contunueButton = "resources/UI/buttons/continue_button_";
         private static final String resetButton = "resources/UI/buttons/reset_button_";
         private static final String menuButton = "resources/UI/buttons/menu_button_";
-        private static final String soundOnButton = "resources/UI/buttons/sound_on_";
-        private static final String soundOffButton = "resources/UI/buttons/sound_off_";
-        private static final String musicOnButton = "resources/UI/buttons/music_on_";
-        private static final String musicOffButton = "resources/UI/buttons/music_off_";
-        private static final String fullScreenButton = "resources/UI/buttons/full_screen_";
-        private static final String windowButton = "resources/UI/buttons/window_";
 
         public static String[] getSpritesInfo(int option) {
             switch (option) {
@@ -323,18 +310,6 @@ public class Constants {
                     return new String[] { resetButton, "2" };
                 case MENU:
                     return new String[] { menuButton, "2" };
-                case SOUNDON:
-                    return new String[] { soundOnButton, "2" };
-                case SOUNDOFF:
-                    return new String[] { soundOffButton, "2" };
-                case MUSICON:
-                    return new String[] { musicOnButton, "2" };
-                case MUSICOFF:
-                    return new String[] { musicOffButton, "2" };
-                case FULLSCREEN:
-                    return new String[] { fullScreenButton, "2" };
-                case WINDOW:
-                    return new String[] { windowButton, "2" };
                 default:
                     System.out.println("Error en la opción");
                     return new String[] { "Null", "0" };

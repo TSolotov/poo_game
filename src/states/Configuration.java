@@ -13,7 +13,6 @@ import ui.TogleButton;
 import utils.LoadSprites;
 import main.GameSystem;
 import utils.Constants;
-import utils.Constants.UIConstants;
 
 import static utils.Constants.FrameConstants.*;
 import static utils.Constants.*;
@@ -22,14 +21,11 @@ public class Configuration extends State implements StateMethods {
     private BufferedImage[] bg_images;
     private FontMetrics metrics;
 
-    private final String[] optionsString = {"Pantalla Completa: ", "Activar Música: ", "Activar Sonidos: "};
-    private TogleButton musicButton, soundButton, screenButton;
+    private TogleButton musicButton, soundButton, screenButton, spritesButton;
 
     public Configuration(GameSystem game) {
         super(game);
         loadBackground();
-
-
         loadButons();
     }
 
@@ -39,20 +35,12 @@ public class Configuration extends State implements StateMethods {
 
     private void loadButons() {
         boolean screenState = Boolean.parseBoolean(game.getEnvFile().getEnvProps().getProperty("FULL_SCREEN"));
-        screenButton = new TogleButton((int) ((150 + 25 + 298) * SCALE),
-                (int) ((214) * SCALE + (87) * 0 * SCALE),
-                UIConstants.getSpritesInfo(UIConstants.WINDOW),
-                UIConstants.getSpritesInfo(UIConstants.FULLSCREEN), screenState);
+        boolean spitesState = Boolean.parseBoolean(game.getEnvFile().getEnvProps().getProperty("ORIGINAL_SPRITES"));
 
-        musicButton = new TogleButton((int) ((150 + 25 + 248) * SCALE),
-                (int) ((214) * SCALE + (87) * 1 * SCALE),
-                UIConstants.getSpritesInfo(UIConstants.MUSICON),
-                UIConstants.getSpritesInfo(UIConstants.MUSICOFF));
-
-        soundButton = new TogleButton((int) ((150 + 25 + 263) * SCALE),
-                (int) ((214) * SCALE + (87) * 2 * SCALE),
-                UIConstants.getSpritesInfo(UIConstants.SOUNDON),
-                UIConstants.getSpritesInfo(UIConstants.SOUNDOFF));
+        screenButton = new TogleButton((int) (100 * SCALE), (int) (200 * SCALE), screenState);
+        musicButton = new TogleButton((int) (100 * SCALE), (int) (275 * SCALE));
+        soundButton = new TogleButton((int) (100 * SCALE), (int) (350 * SCALE));
+        spritesButton = new TogleButton((int) (100 * SCALE), (int) (425 * SCALE), spitesState);
 
     }
 
@@ -63,12 +51,13 @@ public class Configuration extends State implements StateMethods {
         musicButton.update();
         soundButton.update();
         screenButton.update();
+        spritesButton.update();
     }
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(new Color(0, 0, 0, 200));
         g.drawImage(bg_images[0], 0, 0, FRAME_WIDTH, FRAME_HEIGHT, null);
+        g.setColor(new Color(0, 0, 0, 200));
         g.fillRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
         g.setFont(new Font("Roboto", Font.BOLD, (int) (62 * SCALE)));
@@ -77,22 +66,31 @@ public class Configuration extends State implements StateMethods {
         g.drawString("Configuraciones", FRAME_WIDTH / 2 - metrics.stringWidth("Configuraciones") / 2,
                 (int) (100 * SCALE));
 
-        g.setFont(new Font("Roboto", Font.BOLD, (int) (32 * SCALE)));
+        screenButton.draw(g, "Pantalla completa: ");
+        musicButton.draw(g, "Música: ");
+        soundButton.draw(g, "Efectos: ");
+        spritesButton.draw(g, "Sprites originales: ");
+
+        g.setColor(Color.pink);
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (24 * SCALE)));
         metrics = g.getFontMetrics();
+        g.drawString("Presiona ENTER para confirmar los cambios",
+                (FRAME_WIDTH - metrics.stringWidth("Presiona ENTER para confirmar los cambios")) / 2,
+                FRAME_HEIGHT - 50);
 
-        for (int i = 0; i < optionsString.length; i++) {
-            g.drawString(optionsString[i], (int) (150 * SCALE),
-                    (int) (250 * SCALE + (metrics.getHeight() + 50 * SCALE) * i));
-        }
-
-        musicButton.draw(g);
-        soundButton.draw(g);
-        screenButton.draw(g);
+        g.setFont(new Font("Roboto", Font.ITALIC, (int) (12 * SCALE)));
+        metrics = g.getFontMetrics();
+        g.drawString("El juego se cerrará al terminar alceptar las configuraciones",
+                (FRAME_WIDTH - metrics.stringWidth("El juego se cerrará al terminar alceptar las configuraciones")) / 2,
+                FRAME_HEIGHT - 20);
     }
 
     @Override
     public void keyPressed(KeyEvent k) {
         if (k.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            GameState.state = GameState.MENU;
+        } else if (k.getKeyCode() == KeyEvent.VK_ENTER) {
+            apply();
             GameState.state = GameState.MENU;
         }
     }
@@ -110,6 +108,8 @@ public class Configuration extends State implements StateMethods {
             soundButton.setMousePressed(true);
         else if (isMouseIn(e, screenButton))
             screenButton.setMousePressed(true);
+        else if (isMouseIn(e, spritesButton))
+            spritesButton.setMousePressed(true);
     }
 
     @Override
@@ -127,17 +127,16 @@ public class Configuration extends State implements StateMethods {
         } else if (isMouseIn(e, screenButton)) {
             if (screenButton.isMousePressed()) {
                 screenButton.togleState();
-                try {
-                    game.getEnvFile().setEnvVariable("FULL_SCREEN", String.valueOf(screenButton.getState()));
-                    game.setEnvFileChanged(true);
-                } catch (IOException err) {
-                    err.printStackTrace();
-                }
+            }
+        } else if (isMouseIn(e, spritesButton)) {
+            if (spritesButton.isMousePressed()) {
+                spritesButton.togleState();
             }
         }
         musicButton.resetMouseBooleans();
         soundButton.resetMouseBooleans();
         screenButton.resetMouseBooleans();
+        spritesButton.resetMouseBooleans();
     }
 
     @Override
@@ -145,13 +144,15 @@ public class Configuration extends State implements StateMethods {
         soundButton.setMouseOver(false);
         musicButton.setMouseOver(false);
         screenButton.setMouseOver(false);
+        spritesButton.setMouseOver(false);
         if (isMouseIn(e, soundButton))
             soundButton.setMouseOver(true);
         else if (isMouseIn(e, musicButton))
             musicButton.setMouseOver(true);
-
         else if (isMouseIn(e, screenButton))
             screenButton.setMouseOver(true);
+        else if (isMouseIn(e, spritesButton))
+            spritesButton.setMouseOver(true);
     }
 
     // * Chequea que el mouse esté sobre el botón
@@ -159,4 +160,14 @@ public class Configuration extends State implements StateMethods {
         return tb.getButtonBox().contains(e.getX(), e.getY());
     }
 
+    // * Aplicar cambios
+    private void apply() {
+        try {
+            game.getEnvFile().setEnvVariable("FULL_SCREEN", String.valueOf(screenButton.getState()));
+            game.getEnvFile().setEnvVariable("ORIGINAL_SPRITES", String.valueOf(spritesButton.getState()));
+            game.setEnvFileChanged(true);
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+    }
 }

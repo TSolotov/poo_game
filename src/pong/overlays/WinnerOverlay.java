@@ -74,9 +74,11 @@ public class WinnerOverlay {
                 (int) (FRAME_HEIGHT / 2));
 
         g.setColor(Color.WHITE);
-        g.drawString(p1.getUsername() + p1.getGoals() + " - " + p2.getGoals() + p2.getUsername(),
+        g.drawString(p1.getUsername() + " " + p1.getGoals() + " - " + p2.getGoals() + " " + p2.getUsername(),
                 (int) ((FRAME_WIDTH - metrics
-                        .stringWidth(p1.getUsername() + p1.getGoals() + " - " + p2.getGoals() + p2.getUsername())) / 2),
+                        .stringWidth(p1.getUsername() + " " + p1.getGoals() + " - " + p2.getGoals() + " "
+                                + p2.getUsername()))
+                        / 2),
                 (int) ((FRAME_HEIGHT / 2 + 100 * SCALE)));
 
         g.drawString("Pulsa ENTER para aceptar",
