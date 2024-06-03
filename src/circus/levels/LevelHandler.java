@@ -45,11 +45,8 @@ public class LevelHandler {
 
     public void loadNextLevel() {
         currentLevel++;
-
-        if (currentLevel >= getCantLevels()) {
+        if (currentLevel >= getCantLevels())
             currentLevel = 0;
-            // TODO - LevelCompleted overlay
-        }
 
         Level newLevel = levels.get(currentLevel);
         enemyHandler.addEnemies(newLevel);
