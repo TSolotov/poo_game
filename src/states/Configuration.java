@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import ui.CButton;
+import ui.KeyButton;
 import ui.TogleButton;
 import utils.LoadSprites;
 import main.GameSystem;
@@ -22,6 +24,7 @@ public class Configuration extends State implements StateMethods {
     private FontMetrics metrics;
 
     private TogleButton musicButton, soundButton, screenButton, spritesButton;
+    private KeyButton jumpButton, leftButton, rigthButton;
 
     public Configuration(GameSystem game) {
         super(game);
@@ -42,6 +45,10 @@ public class Configuration extends State implements StateMethods {
         soundButton = new TogleButton((int) (100 * SCALE), (int) (350 * SCALE));
         spritesButton = new TogleButton((int) (100 * SCALE), (int) (425 * SCALE), spitesState);
 
+        leftButton = new KeyButton((FRAME_WIDTH - 550), (int) (200 * SCALE), String.valueOf(Constants.LEFT_KEY_CODE));
+        rigthButton = new KeyButton((FRAME_WIDTH - 550), (int) (275 * SCALE), String.valueOf(Constants.RIGTH_KEY_CODE));
+        jumpButton = new KeyButton((FRAME_WIDTH - 550), (int) (350 * SCALE), String.valueOf(Constants.JUMP_KEY_CODE));
+
     }
 
     // * ---------------------------------------
@@ -52,6 +59,9 @@ public class Configuration extends State implements StateMethods {
         soundButton.update();
         screenButton.update();
         spritesButton.update();
+        leftButton.update();
+        rigthButton.update();
+        jumpButton.update();
     }
 
     @Override
@@ -70,6 +80,10 @@ public class Configuration extends State implements StateMethods {
         musicButton.draw(g, "Música: ");
         soundButton.draw(g, "Efectos: ");
         spritesButton.draw(g, "Sprites originales: ");
+
+        leftButton.draw(g, "Izquierda: ");
+        rigthButton.draw(g, "Derecha: ");
+        jumpButton.draw(g, "Saltar: ");
 
         g.setColor(Color.pink);
         g.setFont(new Font("Roboto", Font.BOLD, (int) (24 * SCALE)));
@@ -97,7 +111,20 @@ public class Configuration extends State implements StateMethods {
 
     @Override
     public void keyReleased(KeyEvent k) {
-        // ! Innecesario por ahora
+        if (leftButton.isClicked()) {
+            leftButton.setKeyCode(String.valueOf(k.getKeyCode()));
+            leftButton.setClicked(false);
+            leftButton.setMouseOver(false);
+        } else if (rigthButton.isClicked()) {
+            rigthButton.setKeyCode(String.valueOf(k.getKeyCode()));
+            rigthButton.setClicked(false);
+            rigthButton.setMouseOver(false);
+        } else if (jumpButton.isClicked()) {
+            jumpButton.setKeyCode(String.valueOf(k.getKeyCode()));
+            jumpButton.setClicked(false);
+            jumpButton.setMouseOver(false);
+
+        }
     }
 
     @Override
@@ -110,6 +137,12 @@ public class Configuration extends State implements StateMethods {
             screenButton.setMousePressed(true);
         else if (isMouseIn(e, spritesButton))
             spritesButton.setMousePressed(true);
+        else if (isMouseIn(e, leftButton))
+            leftButton.setMousePressed(true);
+        else if (isMouseIn(e, rigthButton))
+            rigthButton.setMousePressed(true);
+        else if (isMouseIn(e, jumpButton))
+            jumpButton.setMousePressed(true);
     }
 
     @Override
@@ -132,11 +165,31 @@ public class Configuration extends State implements StateMethods {
             if (spritesButton.isMousePressed()) {
                 spritesButton.togleState();
             }
+        } else if (isMouseIn(e, leftButton)) {
+            if (leftButton.isMousePressed()) {
+                leftButton.setClicked(true);
+                // Todo -
+            }
+        } else if (isMouseIn(e, rigthButton)) {
+            if (rigthButton.isMousePressed()) {
+                rigthButton.setClicked(true);
+                // Todo -
+            }
+        } else if (isMouseIn(e, jumpButton)) {
+            if (jumpButton.isMousePressed()) {
+                jumpButton.setClicked(true);
+                // Todo -
+            }
         }
+
         musicButton.resetMouseBooleans();
         soundButton.resetMouseBooleans();
         screenButton.resetMouseBooleans();
         spritesButton.resetMouseBooleans();
+        leftButton.resetMouseBooleans();
+        rigthButton.resetMouseBooleans();
+        jumpButton.resetMouseBooleans();
+
     }
 
     @Override
@@ -145,6 +198,10 @@ public class Configuration extends State implements StateMethods {
         musicButton.setMouseOver(false);
         screenButton.setMouseOver(false);
         spritesButton.setMouseOver(false);
+        leftButton.setMouseOver(false);
+        rigthButton.setMouseOver(false);
+        jumpButton.setMouseOver(false);
+
         if (isMouseIn(e, soundButton))
             soundButton.setMouseOver(true);
         else if (isMouseIn(e, musicButton))
@@ -153,10 +210,16 @@ public class Configuration extends State implements StateMethods {
             screenButton.setMouseOver(true);
         else if (isMouseIn(e, spritesButton))
             spritesButton.setMouseOver(true);
+        else if (isMouseIn(e, leftButton))
+            leftButton.setMouseOver(true);
+        else if (isMouseIn(e, rigthButton))
+            rigthButton.setMouseOver(true);
+        else if (isMouseIn(e, jumpButton))
+            jumpButton.setMouseOver(true);
     }
 
     // * Chequea que el mouse esté sobre el botón
-    public boolean isMouseIn(MouseEvent e, TogleButton tb) {
+    public boolean isMouseIn(MouseEvent e, CButton tb) {
         return tb.getButtonBox().contains(e.getX(), e.getY());
     }
 
@@ -165,6 +228,9 @@ public class Configuration extends State implements StateMethods {
         try {
             game.getEnvFile().setEnvVariable("FULL_SCREEN", String.valueOf(screenButton.getState()));
             game.getEnvFile().setEnvVariable("ORIGINAL_SPRITES", String.valueOf(spritesButton.getState()));
+            game.getEnvFile().setEnvVariable("LEFT_KEY_CODE", leftButton.getKeyCode());
+            game.getEnvFile().setEnvVariable("RIGTH_KEY_CODE", rigthButton.getKeyCode());
+            game.getEnvFile().setEnvVariable("JUMP_KEY_CODE", jumpButton.getKeyCode());
             game.setEnvFileChanged(true);
         } catch (IOException err) {
             err.printStackTrace();

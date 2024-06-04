@@ -54,9 +54,6 @@ public class CircusGame extends State implements StateMethods {
     public CircusGame(GameSystem game) {
         super(game);
         init();
-
-        // LoadSprites.getSpritesBySlices();
-
     }
 
     private void init() {
@@ -110,7 +107,6 @@ public class CircusGame extends State implements StateMethods {
     // ! Métodos heredados
     @Override
     public void update() {
-
         if (pause) {
             pauseOverlay.update();
 
@@ -174,53 +170,35 @@ public class CircusGame extends State implements StateMethods {
             return;
         }
 
-        switch (k.getKeyCode()) {
-            case KeyEvent.VK_A:
-            case KeyEvent.VK_LEFT:
-                if (LevelHandler.getNumberLevel() == 2) {
-                    break;
-                }
-                player.setLeft(true);
-                break;
-            case KeyEvent.VK_D:
-            case KeyEvent.VK_RIGHT:
-                if (LevelHandler.getNumberLevel() == 2) {
-                    break;
-                }
-                player.setRight(true);
-                break;
-            case KeyEvent.VK_SPACE:
-            case KeyEvent.VK_Z:
-                player.setJump(true);
-                break;
-            case KeyEvent.VK_ESCAPE:
-                setPause(true);
-                break;
+        if (k.getKeyCode() == Integer.valueOf(Constants.LEFT_KEY_CODE)) {
+            if (LevelHandler.getNumberLevel() == 2)
+                return;
+            player.setLeft(true);
+        } else if (k.getKeyCode() == Integer.valueOf(Constants.RIGTH_KEY_CODE)) {
+            if (LevelHandler.getNumberLevel() == 2)
+                return;
+            player.setRight(true);
+        } else if (k.getKeyCode() == Integer.valueOf(Constants.JUMP_KEY_CODE)) {
+            player.setJump(true);
+        } else if (k.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            setPause(true);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent k) {
-        switch (k.getKeyCode()) {
-            case KeyEvent.VK_A:
-            case KeyEvent.VK_LEFT:
-                if (LevelHandler.getNumberLevel() == 2) {
-                    break;
-                }
-                player.setLeft(false);
-                break;
-            case KeyEvent.VK_D:
-            case KeyEvent.VK_RIGHT:
-                if (LevelHandler.getNumberLevel() == 2) {
-                    break;
-                }
-                player.setRight(false);
-                break;
-            case KeyEvent.VK_SPACE:
-            case KeyEvent.VK_Z:
-                player.setJump(false);
-                break;
+        if (k.getKeyCode() == Integer.valueOf(Constants.LEFT_KEY_CODE)) {
+            if (LevelHandler.getNumberLevel() == 2)
+                return;
+            player.setLeft(false);
+        } else if (k.getKeyCode() == Integer.valueOf(Constants.RIGTH_KEY_CODE)) {
+            if (LevelHandler.getNumberLevel() == 2)
+                return;
+            player.setRight(false);
+        } else if (k.getKeyCode() == Integer.valueOf(Constants.JUMP_KEY_CODE)) {
+            player.setJump(false);
         }
+
         if (gameOver)
             gameoverOverlay.keyReleased(k);
 

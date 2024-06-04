@@ -9,9 +9,14 @@ import java.util.Properties;
 public class Constants {
     public static float SCALE;
     public static boolean ORIGINAL_SPRITES;
+    public static int LEFT_KEY_CODE, RIGTH_KEY_CODE, JUMP_KEY_CODE;
 
     public Constants(Properties props) {
         ORIGINAL_SPRITES = Boolean.parseBoolean(props.getProperty("ORIGINAL_SPRITES"));
+        LEFT_KEY_CODE = Integer.valueOf(props.getProperty("LEFT_KEY_CODE"));
+        RIGTH_KEY_CODE = Integer.valueOf(props.getProperty("RIGTH_KEY_CODE"));
+        JUMP_KEY_CODE = Integer.valueOf(props.getProperty("JUMP_KEY_CODE"));
+
         if (Boolean.parseBoolean(props.getProperty("FULL_SCREEN"))) {
             SCALE = (float) Toolkit.getDefaultToolkit().getScreenSize().getHeight()
                     / (float) FrameConstants.FRAME_HEIGHT;
