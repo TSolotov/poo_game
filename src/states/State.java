@@ -1,17 +1,30 @@
 package states;
 
 import audio.AudioPlayer;
-import circusLevels.LevelHandler;
-import main.Game;
+import circus.levels.LevelHandler;
+import main.GameSystem;
+import utils.CSVFile;
+
+import java.util.ArrayList;
 
 public class State {
-    protected Game game;
+    protected GameSystem game;
 
-    public State(Game game) {
+    // Creo los CSV
+    protected CSVFile csvCircus, csvPong;
+    protected String fileCSVCircus = "dataCircus.csv", fileCSVPong = "dataPong.csv";
+    protected ArrayList<String[]> allCircusData, allPongData;
+
+    public State(GameSystem game) {
         this.game = game;
+
+        csvCircus = new CSVFile(fileCSVCircus);
+        csvPong = new CSVFile(fileCSVPong);
+        allCircusData = csvCircus.readCSV();
+        allPongData = csvPong.readCSV();
     }
 
-    public Game getGame() {
+    public GameSystem getGame() {
         return game;
     }
 
@@ -21,11 +34,11 @@ public class State {
                 game.getAudioPlayer().stopMusic();
                 game.getAudioPlayer().playMusic(AudioPlayer.MAIN_MENU);
                 break;
-            case CIRCUS_PLAYING:
+            case CIRCUS_GAME:
                 game.getAudioPlayer().stopMusic();
                 game.getAudioPlayer().setMusic(LevelHandler.getNumberLevel());
                 break;
-            case PONG_PLAYING:
+            case PONG_GAME:
                 game.getAudioPlayer().stopMusic();
                 game.getAudioPlayer().playMusic(AudioPlayer.PONG);
             default:
@@ -33,5 +46,21 @@ public class State {
         }
 
         GameState.state = state;
+    }
+
+    public String getFileCSVCircus() {
+        return fileCSVCircus;
+    }
+
+    public String getFileCSVPong() {
+        return fileCSVPong;
+    }
+
+    public CSVFile getCsvCircus() {
+        return csvCircus;
+    }
+
+    public CSVFile getCsvPong() {
+        return csvPong;
     }
 }

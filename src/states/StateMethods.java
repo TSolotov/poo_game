@@ -3,6 +3,7 @@ package states;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public interface StateMethods {
 
@@ -17,7 +18,7 @@ public interface StateMethods {
 
     public void mousePressed(MouseEvent e);
 
-    public void mouseReleased(MouseEvent e);
+    public void mouseReleased(MouseEvent e) throws IOException;
 
     public void mouseMoved(MouseEvent e);
 }

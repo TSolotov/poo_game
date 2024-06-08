@@ -10,10 +10,10 @@ import inputs.MouseInputs;
 import java.awt.*;
 
 public class GamePanel extends JPanel {
-    private Game game;
+    private GameSystem game;
     private MouseInputs mouseInputs;
 
-    public GamePanel(Game game) {
+    public GamePanel(GameSystem game) {
         this.game = game;
 
         this.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
@@ -24,7 +24,7 @@ public class GamePanel extends JPanel {
         addMouseMotionListener(mouseInputs);
     }
 
-    public Game getGame() {
+    public GameSystem getGame() {
         return game;
     }
 

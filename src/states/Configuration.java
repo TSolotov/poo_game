@@ -7,12 +7,14 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-import circusUI.TogleButton;
+import ui.CButton;
+import ui.KeyButton;
+import ui.TogleButton;
 import utils.LoadSprites;
-import main.Game;
+import main.GameSystem;
 import utils.Constants;
-import utils.Constants.UIConstants;
 
 import static utils.Constants.FrameConstants.*;
 import static utils.Constants.*;
@@ -21,10 +23,10 @@ public class Configuration extends State implements StateMethods {
     private BufferedImage[] bg_images;
     private FontMetrics metrics;
 
-    private String[] optionsString = { "Activar Música: ", "Activar Sonidos: " };
-    private TogleButton musicButton, soundButton;
+    private TogleButton musicButton, soundButton, screenButton, spritesButton, originalMusic;
+    private KeyButton jumpButton, leftButton, rigthButton;
 
-    public Configuration(Game game) {
+    public Configuration(GameSystem game) {
         super(game);
         loadBackground();
         loadButons();
@@ -35,15 +37,20 @@ public class Configuration extends State implements StateMethods {
     }
 
     private void loadButons() {
-        musicButton = new TogleButton((int) ((150 + 25 + 248) * SCALE),
-                (int) ((214) * SCALE + (87) * 0 * SCALE),
-                UIConstants.getSpritesInfo(UIConstants.MUSICON),
-                UIConstants.getSpritesInfo(UIConstants.MUSICOFF));
+        boolean screenState = Boolean.parseBoolean(game.getEnvFile().getEnvProps().getProperty("FULL_SCREEN"));
+        boolean spitesState = Boolean.parseBoolean(game.getEnvFile().getEnvProps().getProperty("ORIGINAL_SPRITES"));
+        boolean originalMusicState = Boolean
+                .parseBoolean(game.getEnvFile().getEnvProps().getProperty("ORIGINAL_MUSIC"));
 
-        soundButton = new TogleButton((int) ((150 + 25 + 263) * SCALE),
-                (int) ((214) * SCALE + (87) * 1 * SCALE),
-                UIConstants.getSpritesInfo(UIConstants.SOUNDON),
-                UIConstants.getSpritesInfo(UIConstants.SOUNDOFF));
+        screenButton = new TogleButton((int) (100 * SCALE), (int) (200 * SCALE), screenState);
+        musicButton = new TogleButton((int) (100 * SCALE), (int) (275 * SCALE));
+        soundButton = new TogleButton((int) (100 * SCALE), (int) (350 * SCALE));
+        spritesButton = new TogleButton((int) (100 * SCALE), (int) (425 * SCALE), spitesState);
+        originalMusic = new TogleButton((int) (100 * SCALE), (int) (500 * SCALE), originalMusicState);
+
+        leftButton = new KeyButton((FRAME_WIDTH - 550), (int) (200 * SCALE), String.valueOf(Constants.LEFT_KEY_CODE));
+        rigthButton = new KeyButton((FRAME_WIDTH - 550), (int) (275 * SCALE), String.valueOf(Constants.RIGTH_KEY_CODE));
+        jumpButton = new KeyButton((FRAME_WIDTH - 550), (int) (350 * SCALE), String.valueOf(Constants.JUMP_KEY_CODE));
 
     }
 
@@ -53,12 +60,18 @@ public class Configuration extends State implements StateMethods {
     public void update() {
         musicButton.update();
         soundButton.update();
+        screenButton.update();
+        spritesButton.update();
+        originalMusic.update();
+        leftButton.update();
+        rigthButton.update();
+        jumpButton.update();
     }
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(new Color(0, 0, 0, 200));
         g.drawImage(bg_images[0], 0, 0, FRAME_WIDTH, FRAME_HEIGHT, null);
+        g.setColor(new Color(0, 0, 0, 200));
         g.fillRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
 
         g.setFont(new Font("Roboto", Font.BOLD, (int) (62 * SCALE)));
@@ -67,32 +80,56 @@ public class Configuration extends State implements StateMethods {
         g.drawString("Configuraciones", FRAME_WIDTH / 2 - metrics.stringWidth("Configuraciones") / 2,
                 (int) (100 * SCALE));
 
-        g.setFont(new Font("Roboto", Font.BOLD, (int) (32 * SCALE)));
+        screenButton.draw(g, "Pantalla completa: ");
+        musicButton.draw(g, "Música: ");
+        soundButton.draw(g, "Efectos: ");
+        spritesButton.draw(g, "Sprites originales: ");
+        originalMusic.draw(g, "Musica original: ");
+
+        leftButton.draw(g, "Izquierda: ");
+        rigthButton.draw(g, "Derecha: ");
+        jumpButton.draw(g, "Saltar: ");
+
+        g.setColor(Color.pink);
+        g.setFont(new Font("Roboto", Font.BOLD, (int) (24 * SCALE)));
         metrics = g.getFontMetrics();
+        g.drawString("Presiona ENTER para confirmar los cambios",
+                (FRAME_WIDTH - metrics.stringWidth("Presiona ENTER para confirmar los cambios")) / 2,
+                FRAME_HEIGHT - 50);
 
-        for (int i = 0; i < optionsString.length; i++) {
-            g.drawString(optionsString[i], (int) (150 * SCALE),
-                    (int) (250 * SCALE + (metrics.getHeight() + 50 * SCALE) * i));
-        }
-
-        musicButton.draw(g);
-        soundButton.draw(g);
+        g.setFont(new Font("Roboto", Font.ITALIC, (int) (12 * SCALE)));
+        metrics = g.getFontMetrics();
+        g.drawString("El juego se cerrará al terminar alceptar las configuraciones",
+                (FRAME_WIDTH - metrics.stringWidth("El juego se cerrará al terminar alceptar las configuraciones")) / 2,
+                FRAME_HEIGHT - 20);
     }
 
     @Override
     public void keyPressed(KeyEvent k) {
-        switch (k.getKeyCode()) {
-            case KeyEvent.VK_ESCAPE:
-                GameState.state = GameState.MENU;
-                break;
-            default:
-                break;
+        if (k.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            GameState.state = GameState.MENU;
+        } else if (k.getKeyCode() == KeyEvent.VK_ENTER) {
+            apply();
+            GameState.state = GameState.MENU;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent k) {
-        // ! Innecesario por ahora
+        if (leftButton.isClicked()) {
+            leftButton.setKeyCode(String.valueOf(k.getKeyCode()));
+            leftButton.setClicked(false);
+            leftButton.setMouseOver(false);
+        } else if (rigthButton.isClicked()) {
+            rigthButton.setKeyCode(String.valueOf(k.getKeyCode()));
+            rigthButton.setClicked(false);
+            rigthButton.setMouseOver(false);
+        } else if (jumpButton.isClicked()) {
+            jumpButton.setKeyCode(String.valueOf(k.getKeyCode()));
+            jumpButton.setClicked(false);
+            jumpButton.setMouseOver(false);
+
+        }
     }
 
     @Override
@@ -101,6 +138,18 @@ public class Configuration extends State implements StateMethods {
             musicButton.setMousePressed(true);
         else if (isMouseIn(e, soundButton))
             soundButton.setMousePressed(true);
+        else if (isMouseIn(e, screenButton))
+            screenButton.setMousePressed(true);
+        else if (isMouseIn(e, spritesButton))
+            spritesButton.setMousePressed(true);
+        else if (isMouseIn(e, originalMusic))
+            originalMusic.setMousePressed(true);
+        else if (isMouseIn(e, leftButton))
+            leftButton.setMousePressed(true);
+        else if (isMouseIn(e, rigthButton))
+            rigthButton.setMousePressed(true);
+        else if (isMouseIn(e, jumpButton))
+            jumpButton.setMousePressed(true);
     }
 
     @Override
@@ -115,25 +164,94 @@ public class Configuration extends State implements StateMethods {
                 soundButton.togleState();
                 game.getAudioPlayer().togleSoundsMute();
             }
+        } else if (isMouseIn(e, screenButton)) {
+            if (screenButton.isMousePressed()) {
+                screenButton.togleState();
+            }
+        } else if (isMouseIn(e, spritesButton)) {
+            if (spritesButton.isMousePressed()) {
+                spritesButton.togleState();
+            }
+        } else if (isMouseIn(e, originalMusic)) {
+            if (originalMusic.isMousePressed()) {
+                originalMusic.togleState();
+            }
+        }
+
+        else if (isMouseIn(e, leftButton)) {
+            if (leftButton.isMousePressed()) {
+                leftButton.setClicked(true);
+                // Todo -
+            }
+        } else if (isMouseIn(e, rigthButton)) {
+            if (rigthButton.isMousePressed()) {
+                rigthButton.setClicked(true);
+                // Todo -
+            }
+        } else if (isMouseIn(e, jumpButton)) {
+            if (jumpButton.isMousePressed()) {
+                jumpButton.setClicked(true);
+                // Todo -
+            }
         }
 
         musicButton.resetMouseBooleans();
         soundButton.resetMouseBooleans();
+        screenButton.resetMouseBooleans();
+        spritesButton.resetMouseBooleans();
+        originalMusic.resetMouseBooleans();
+        leftButton.resetMouseBooleans();
+        rigthButton.resetMouseBooleans();
+        jumpButton.resetMouseBooleans();
+
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         soundButton.setMouseOver(false);
         musicButton.setMouseOver(false);
+        screenButton.setMouseOver(false);
+        spritesButton.setMouseOver(false);
+        originalMusic.setMouseOver(false);
+        leftButton.setMouseOver(false);
+        rigthButton.setMouseOver(false);
+        jumpButton.setMouseOver(false);
+
         if (isMouseIn(e, soundButton))
             soundButton.setMouseOver(true);
         else if (isMouseIn(e, musicButton))
             musicButton.setMouseOver(true);
+        else if (isMouseIn(e, screenButton))
+            screenButton.setMouseOver(true);
+        else if (isMouseIn(e, spritesButton))
+            spritesButton.setMouseOver(true);
+        else if (isMouseIn(e, originalMusic))
+            originalMusic.setMouseOver(true);
+        else if (isMouseIn(e, leftButton))
+            leftButton.setMouseOver(true);
+        else if (isMouseIn(e, rigthButton))
+            rigthButton.setMouseOver(true);
+        else if (isMouseIn(e, jumpButton))
+            jumpButton.setMouseOver(true);
     }
 
     // * Chequea que el mouse esté sobre el botón
-    public boolean isMouseIn(MouseEvent e, TogleButton tb) {
+    public boolean isMouseIn(MouseEvent e, CButton tb) {
         return tb.getButtonBox().contains(e.getX(), e.getY());
     }
 
+    // * Aplicar cambios
+    private void apply() {
+        try {
+            game.getEnvFile().setEnvVariable("FULL_SCREEN", String.valueOf(screenButton.getState()));
+            game.getEnvFile().setEnvVariable("ORIGINAL_SPRITES", String.valueOf(spritesButton.getState()));
+            game.getEnvFile().setEnvVariable("ORIGINAL_MUSIC", String.valueOf(originalMusic.getState()));
+            game.getEnvFile().setEnvVariable("LEFT_KEY_CODE", leftButton.getKeyCode());
+            game.getEnvFile().setEnvVariable("RIGTH_KEY_CODE", rigthButton.getKeyCode());
+            game.getEnvFile().setEnvVariable("JUMP_KEY_CODE", jumpButton.getKeyCode());
+            game.setEnvFileChanged(true);
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+    }
 }

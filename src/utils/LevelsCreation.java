@@ -2,7 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 
-import circusLevels.Level;
+import circus.levels.Level;
 
 public class LevelsCreation {
         // * Player spawn point (Importante: Que haya 1 por nivel)
@@ -12,10 +12,9 @@ public class LevelsCreation {
 
         // * Enemy Constants
         public static final int BOMB = 30, CKEN = 31;
-        // * Object Constants - STRP = Solid trampoline
         public static final int FLME = 50, RING = 51, SRNG = 52, TRMP = 53;
 
-        // * Junta todos los levels en un arraylist
+        // * Junta todos los circus.levels en un arraylist
         public static void addAllLevels(ArrayList<Level> levels) {
                 levels.add(level1());
                 levels.add(level2());
@@ -23,7 +22,7 @@ public class LevelsCreation {
 
         }
 
-        // * Matrices que poseen toda la información de los levels
+        // * Matrices que poseen toda la información de los circus.levels
         private static Level level2() {
                 int[][] level2 = {
                                 { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
@@ -98,7 +97,7 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
-                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                { WINN, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
@@ -411,7 +410,7 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
-                                { VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                { WINN, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, FLME, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, FLME, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
@@ -625,7 +624,7 @@ public class LevelsCreation {
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID },
-                                { VOID, VOID, HRSE, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
+                                { WINN, VOID, HRSE, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,
                                                 VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID, VOID,

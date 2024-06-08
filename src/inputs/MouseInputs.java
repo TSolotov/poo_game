@@ -17,8 +17,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     @Override
     public void mousePressed(MouseEvent e) {
         switch (GameState.state) {
-            case CIRCUS_PLAYING:
-                gamePanel.getGame().getPlaying().mousePressed(e);
+            case CIRCUS_GAME:
+                gamePanel.getGame().getCircusGame().mousePressed(e);
                 break;
             case CONFIGURATION:
                 gamePanel.getGame().getConfiguration().mousePressed(e);
@@ -31,8 +31,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         switch (GameState.state) {
-            case CIRCUS_PLAYING:
-                gamePanel.getGame().getPlaying().mouseReleased(e);
+            case CIRCUS_GAME:
+                gamePanel.getGame().getCircusGame().mouseReleased(e);
                 break;
             case CONFIGURATION:
                 gamePanel.getGame().getConfiguration().mouseReleased(e);
@@ -45,8 +45,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     @Override
     public void mouseMoved(MouseEvent e) {
         switch (GameState.state) {
-            case CIRCUS_PLAYING:
-                gamePanel.getGame().getPlaying().mouseMoved(e);
+            case CIRCUS_GAME:
+                gamePanel.getGame().getCircusGame().mouseMoved(e);
                 break;
             case CONFIGURATION:
                 gamePanel.getGame().getConfiguration().mouseMoved(e);

@@ -1,7 +1,6 @@
 package utils;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -28,38 +27,6 @@ public class LoadSprites {
                 e.printStackTrace();
             }
         }
-        return sprites;
-    }
-
-    // * Para recortar sprites todo en uno - Al final se elimina
-    public static BufferedImage[] getSpritesBySlices() {
-        int spriteWidth = 512, spriteHeight = 512;
-
-        BufferedImage[] sprites = getSprites(new String[] { "resources/cut_pictures/trampoline_", "1" });
-
-        try {
-            BufferedImage spriteSheet = sprites[0];
-
-            int columns = spriteSheet.getWidth() / spriteWidth;
-            int rows = spriteSheet.getHeight() / spriteHeight;
-            int i = 0;
-            for (int y = 0; y < rows; y++) {
-                for (int x = 0; x < columns; x++) {
-                    // Crear un nuevo sprite individual
-                    BufferedImage sprite = spriteSheet.getSubimage(
-                            x * spriteWidth, y * spriteHeight, spriteWidth, spriteHeight);
-
-                    // Guardar el sprite individual como una nueva imagen
-                    File output = new File("C:\\Users\\Fabricio\\Desktop\\cut\\" + "tramp_" + i + ".png");
-                    ImageIO.write(sprite, "png", output);
-                    i++;
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         return sprites;
     }
 }

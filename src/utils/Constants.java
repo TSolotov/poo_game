@@ -4,12 +4,21 @@ import static utils.Constants.FrameConstants.FRAME_HEIGHT;
 import static utils.Constants.FrameConstants.FRAME_WIDTH;
 
 import java.awt.Toolkit;
+import java.util.Properties;
 
 public class Constants {
     public static float SCALE;
+    public static boolean ORIGINAL_SPRITES, ORIGINAL_MUSIC;
+    public static int LEFT_KEY_CODE, RIGTH_KEY_CODE, JUMP_KEY_CODE;
 
-    public Constants() {
-        if (EnvConfig.getEnvVariableAsBoolean("FULL_SCREEN")) {
+    public Constants(Properties props) {
+        ORIGINAL_SPRITES = Boolean.parseBoolean(props.getProperty("ORIGINAL_SPRITES"));
+        LEFT_KEY_CODE = Integer.valueOf(props.getProperty("LEFT_KEY_CODE"));
+        RIGTH_KEY_CODE = Integer.valueOf(props.getProperty("RIGTH_KEY_CODE"));
+        JUMP_KEY_CODE = Integer.valueOf(props.getProperty("JUMP_KEY_CODE"));
+        ORIGINAL_MUSIC = Boolean.parseBoolean(props.getProperty("ORIGINAL_MUSIC"));
+
+        if (Boolean.parseBoolean(props.getProperty("FULL_SCREEN"))) {
             SCALE = (float) Toolkit.getDefaultToolkit().getScreenSize().getHeight()
                     / (float) FrameConstants.FRAME_HEIGHT;
             FrameConstants.FRAME_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -23,7 +32,6 @@ public class Constants {
 
     // * Contiene tda la informacion en Menu
     public static class EnemyConstants {
-
         // * Sizes
         public static int BOMB_X_DRAW_OFFSET = (int) ((23 * SCALE * 3 / 2)),
                 BOMB_Y_DRAW_OFFSET = (int) ((22 * SCALE * 3 / 2));
@@ -81,7 +89,6 @@ public class Constants {
                     return new String[] { horseWalkAtlas, "8" };
                 case HORSE_RUN:
                     return new String[] { horseRunAtlas, "5" };
-
                 default:
                     return new String[] { bombRunningAtlas, "6" };
             }
@@ -92,43 +99,72 @@ public class Constants {
     // * Contiene todos los paths e información acerca del player 1
     public static class Player1Constants {
 
-        // * Player sizes
-        public static int X_DRAW_OFFSET = (int) (18 * SCALE * 2),
-                Y_DRAW_OFFSET = (int) (10 * SCALE * 2);
-        public static int SPRITE_WIDTH = (int) (64 * SCALE * 2),
-                SPRITE_HEIGHT = (int) (44 * SCALE * 2);
-        public static int REAL_WIDTH = (int) (18 * SCALE * 2),
-                REAL_HEIGHT = (int) (33 * SCALE * 2);
+        // * Soldier sizes
+        public static int X_DRAW_OFFSET = (int) (18 * SCALE * 2), Y_DRAW_OFFSET = (int) (10 * SCALE * 2);
+        public static int SPRITE_WIDTH = (int) (64 * SCALE * 2), SPRITE_HEIGHT = (int) (44 * SCALE * 2);
+        public static int REAL_WIDTH = (int) (18 * SCALE * 2), REAL_HEIGHT = (int) (33 * SCALE * 2);
 
-        // * Player actions
+        // * Soldier actions
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
         public static final int JUMP = 2;
         public static final int FALLING = 3;
         public static final int DEAD = 4;
 
-        // * Player 1 paths atlas
-        private static final String player1IdleAtlas = "resources/player1/idle/player_idle_";
-        private static final String player1RunningAtlas = "resources/player1/run/player_run_";
-        private static final String player1JumpingAtlas = "resources/player1/jump/player_jump_";
-        private static final String player1FallingAtlas = "resources/player1/falling/player_falling_";
-        private static final String player1DeadAtlas = "resources/player1/dead/player_dead_";
+        // * Soldier 1 paths atlas
+        private static final String soldierIdleAtlas = "resources/player1/idle/player_idle_";
+        private static final String soldierRunningAtlas = "resources/player1/run/player_run_";
+        private static final String soldierJumpingAtlas = "resources/player1/jump/player_jump_";
+        private static final String soldierFallingAtlas = "resources/player1/falling/player_falling_";
+        private static final String soldierDeadAtlas = "resources/player1/dead/player_dead_";
+
+        // * HUMAN sizes
+        public static int HUMAN_X_DRAW_OFFSET = (int) (16 * SCALE * 2), HUMAN_Y_DRAW_OFFSET = (int) (2 * SCALE * 2);
+        public static int HUMAN_SPRITE_WIDTH = (int) (48 * SCALE * 2), HUMAN_SPRITE_HEIGHT = (int) (36 * SCALE * 2);
+        public static int HUMAN_REAL_WIDTH = (int) (18 * SCALE * 2), HUMAN_REAL_HEIGHT = (int) (33 * SCALE * 2);
+
+        // * Soldier 1 paths atlas
+        private static final String humanIdleAtlas = "resources/player1/human_idle/idle_";
+        private static final String humanRunningAtlas = "resources/player1/human_run/run_";
+        private static final String humanJumpingAtlas = "resources/player1/human_jump/jump_";
+        private static final String humanFallingAtlas = "resources/player1/human_falling/falling_";
+        private static final String humanDeadAtlas = "resources/player1/human_dead/dead_";
 
         // * Retorna la info necesaria para que la funcion loadSprites haga su trabajo.
         public static String[] getPlayer1SpritesInfo(int playerAction) {
             switch (playerAction) {
                 case IDLE:
-                    return new String[] { player1IdleAtlas, "6" };
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierIdleAtlas, "6" };
+                    else
+                        return new String[] { humanIdleAtlas, "10" };
+
                 case RUNNING:
-                    return new String[] { player1RunningAtlas, "8" };
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierRunningAtlas, "8" };
+                    else
+                        return new String[] { humanRunningAtlas, "9" };
+
                 case JUMP:
-                    return new String[] { player1JumpingAtlas, "3" };
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierJumpingAtlas, "3" };
+                    else
+                        return new String[] { humanJumpingAtlas, "1" };
+
                 case FALLING:
-                    return new String[] { player1FallingAtlas, "3" };
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierFallingAtlas, "3" };
+                    else
+                        return new String[] { humanFallingAtlas, "1" };
+
                 case DEAD:
-                    return new String[] { player1DeadAtlas, "10" };
+                    if (ORIGINAL_SPRITES)
+                        return new String[] { soldierDeadAtlas, "10" };
+                    else
+                        return new String[] { humanDeadAtlas, "1" };
+
                 default:
-                    return new String[] { player1IdleAtlas, "6" };
+                    return new String[] { soldierIdleAtlas, "6" };
             }
 
         }
@@ -267,23 +303,10 @@ public class Constants {
         public static final int RESET = 1;
         public static final int MENU = 2;
 
-        public static final int SOUNDON = 3;
-        public static final int SOUNDOFF = 4;
-        public static final int MUSICON = 5;
-        public static final int MUSICOFF = 6;
-        public static final int FULLSCREEN = 7;
-        public static final int WINDOW = 8;
-
         // ! Constantes de los paths
         private static final String contunueButton = "resources/UI/buttons/continue_button_";
         private static final String resetButton = "resources/UI/buttons/reset_button_";
         private static final String menuButton = "resources/UI/buttons/menu_button_";
-        private static final String soundOnButton = "resources/UI/buttons/sound_on_";
-        private static final String soundOffButton = "resources/UI/buttons/sound_off_";
-        private static final String musicOnButton = "resources/UI/buttons/music_on_";
-        private static final String musicOffButton = "resources/UI/buttons/music_off_";
-        private static final String fullScreenButton = "resources/UI/buttons/full_screen_";
-        private static final String windowButton = "resources/UI/buttons/window_";
 
         public static String[] getSpritesInfo(int option) {
             switch (option) {
@@ -293,18 +316,6 @@ public class Constants {
                     return new String[] { resetButton, "2" };
                 case MENU:
                     return new String[] { menuButton, "2" };
-                case SOUNDON:
-                    return new String[] { soundOnButton, "2" };
-                case SOUNDOFF:
-                    return new String[] { soundOffButton, "2" };
-                case MUSICON:
-                    return new String[] { musicOnButton, "2" };
-                case MUSICOFF:
-                    return new String[] { musicOffButton, "2" };
-                case FULLSCREEN:
-                    return new String[] { fullScreenButton, "2" };
-                case WINDOW:
-                    return new String[] { windowButton, "2" };
                 default:
                     System.out.println("Error en la opción");
                     return new String[] { "Null", "0" };
