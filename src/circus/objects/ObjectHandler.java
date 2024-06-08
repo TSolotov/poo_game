@@ -70,8 +70,6 @@ public class ObjectHandler {
                     (int) tramp.getHitbox().getY() - ObjectConstants.TRAMPOLINE_Y_DRAW_OFFSET,
                     ObjectConstants.TRAMPOLINE_SPRITE_WIDTH,
                     ObjectConstants.TRAMPOLINE_SPRITE_HEIGHT, null);
-            tramp.drawHitbox(g, xLevelOffset);
-            tramp.drawHitbox2(g, xLevelOffset);
         }
     }
 
@@ -83,8 +81,6 @@ public class ObjectHandler {
                         (int) ring.getHitbox().getY() - ObjectConstants.RING_Y_DRAW_OFFSET,
                         ObjectConstants.RING_SPRITE_WIDTH,
                         ObjectConstants.RING_SPRITE_HEIGHT, null);
-                ring.drawHitbox(g, xLevelOffset);
-                ring.drawHitbox2(g, xLevelOffset);
             }
         }
     }
@@ -97,8 +93,6 @@ public class ObjectHandler {
                         (int) ring.getHitbox().getY() - ObjectConstants.SMALL_RING_Y_DRAW_OFFSET,
                         ObjectConstants.SMALL_RING_SPRITE_WIDTH,
                         ObjectConstants.SMALL_RING_SPRITE_HEIGHT, null);
-                ring.drawHitbox(g, xLevelOffset);
-                ring.drawHitbox2(g, xLevelOffset);
             }
         }
     }
@@ -110,7 +104,6 @@ public class ObjectHandler {
                     (int) flame.getHitbox().getY() - ObjectConstants.FLAME_Y_DRAW_OFFSET,
                     ObjectConstants.FLAME_SPRITE_WIDTH,
                     ObjectConstants.FLAME_SPRITE_HEIGHT, null);
-            flame.drawHitbox(g, xLevelOffset);
 
         }
     }

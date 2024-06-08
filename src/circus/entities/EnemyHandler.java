@@ -75,8 +75,6 @@ public class EnemyHandler {
                         (int) (bomb.getHitbox().getY() - EnemyConstants.BOMB_Y_DRAW_OFFSET),
                         EnemyConstants.BOMB_SPRITE_WIDTH * bomb.flipW(),
                         EnemyConstants.BOMB_SPRITE_HEIGHT, null);
-                bomb.drawHitbox(g, xLevelOffset);
-                bomb.drawJumpBox(g, xLevelOffset);
             }
         }
 
@@ -99,7 +97,6 @@ public class EnemyHandler {
                         (int) (chicken.getHitbox().getY() - EnemyConstants.CHICKEN_Y_DRAW_OFFSET),
                         EnemyConstants.CHICKEN_SPRITE_WIDTH * chicken.flipW(),
                         EnemyConstants.CHICKEN_SPRITE_HEIGHT, null);
-                chicken.drawHitbox(g, xLevelOffset);
             }
         }
 
@@ -121,8 +118,6 @@ public class EnemyHandler {
                 (int) horse.getPosition().y - EnemyConstants.HORSE_Y_DRAW_OFFSET,
                 EnemyConstants.HORSE_SPRITE_WIDTH,
                 EnemyConstants.HORSE_SPRITE_HEIGHT, null);
-
-        horse.drawHitbox(g, xLevelOffset);
     }
 
     public void resetEnemies() {

@@ -1,7 +1,5 @@
 package circus.objects;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
 import circus.entities.Hero;
@@ -73,11 +71,6 @@ public class GameObject {
                     aniIndex = 18;
             }
         }
-    }
-
-    public void drawHitbox(Graphics g, int xLvlOffset) {
-        g.setColor(Color.RED);
-        g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
     // * Getters & Setters

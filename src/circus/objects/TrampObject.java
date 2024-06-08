@@ -2,8 +2,6 @@ package circus.objects;
 
 import static utils.Constants.CircusConstants.TILES_SIZE;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
@@ -56,11 +54,6 @@ public class TrampObject extends GameObject {
         if (!getLastAnimDoit())
             updateAnimationTick(ObjectConstants.TRAMPOLINE);
         checkIntersectHitboxes2(player);
-    }
-
-    public void drawHitbox2(Graphics g, int xLvlOffset) {
-        g.setColor(Color.PINK);
-        g.drawRect((int) hitbox2.x - xLvlOffset, (int) hitbox2.y, (int) hitbox2.width, (int) hitbox2.height);
     }
 
     private boolean isOverTrampoline(Hero player) {

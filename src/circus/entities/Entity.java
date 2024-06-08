@@ -3,8 +3,6 @@ package circus.entities;
 import utils.Constants;
 import utils.LevelsCreation;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
 import static utils.Constants.CircusConstants.TILES_SIZE;
@@ -43,12 +41,6 @@ public abstract class Entity {
     public int getCurrentLives() {
         return currentLives;
     }
-
-    protected void drawHitbox(Graphics g, int xLevelOffset) {
-        g.setColor(Color.CYAN);
-        g.drawRect((int) hitbox.x - xLevelOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
-    }
-
 
     // Colisiones
 
