@@ -12,6 +12,8 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import utils.Constants;
+
 public class AudioPlayer {
     public static int RUN = 0, JUMP = 1, DIE = 2, PAUSE = 3, LVL_COMPLETED = 4, GAME_OVER = 5, BALL_BOUNCE = 6,
             GOAL = 7;
@@ -28,7 +30,12 @@ public class AudioPlayer {
     }
 
     private void loadMusics() {
-        String[] names = { "main_menu", "level1", "level2", "level3", "pong" };
+        String[] names;
+        if (Constants.ORIGINAL_MUSIC)
+            names = new String[] { "main_menu", "stage1", "stage2", "stage3", "pong" };
+        else
+            names = new String[] { "main_menu", "level1", "level2", "level3", "pong" };
+
         musics = new Clip[names.length];
         for (int i = 0; i < names.length; i++) {
             musics[i] = getClip(names[i], true);

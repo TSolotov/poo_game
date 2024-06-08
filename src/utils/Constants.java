@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Constants {
     public static float SCALE;
-    public static boolean ORIGINAL_SPRITES;
+    public static boolean ORIGINAL_SPRITES, ORIGINAL_MUSIC;
     public static int LEFT_KEY_CODE, RIGTH_KEY_CODE, JUMP_KEY_CODE;
 
     public Constants(Properties props) {
@@ -16,6 +16,7 @@ public class Constants {
         LEFT_KEY_CODE = Integer.valueOf(props.getProperty("LEFT_KEY_CODE"));
         RIGTH_KEY_CODE = Integer.valueOf(props.getProperty("RIGTH_KEY_CODE"));
         JUMP_KEY_CODE = Integer.valueOf(props.getProperty("JUMP_KEY_CODE"));
+        ORIGINAL_MUSIC = Boolean.parseBoolean(props.getProperty("ORIGINAL_MUSIC"));
 
         if (Boolean.parseBoolean(props.getProperty("FULL_SCREEN"))) {
             SCALE = (float) Toolkit.getDefaultToolkit().getScreenSize().getHeight()

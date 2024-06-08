@@ -23,7 +23,7 @@ public class Configuration extends State implements StateMethods {
     private BufferedImage[] bg_images;
     private FontMetrics metrics;
 
-    private TogleButton musicButton, soundButton, screenButton, spritesButton;
+    private TogleButton musicButton, soundButton, screenButton, spritesButton, originalMusic;
     private KeyButton jumpButton, leftButton, rigthButton;
 
     public Configuration(GameSystem game) {
@@ -39,11 +39,14 @@ public class Configuration extends State implements StateMethods {
     private void loadButons() {
         boolean screenState = Boolean.parseBoolean(game.getEnvFile().getEnvProps().getProperty("FULL_SCREEN"));
         boolean spitesState = Boolean.parseBoolean(game.getEnvFile().getEnvProps().getProperty("ORIGINAL_SPRITES"));
+        boolean originalMusicState = Boolean
+                .parseBoolean(game.getEnvFile().getEnvProps().getProperty("ORIGINAL_MUSIC"));
 
         screenButton = new TogleButton((int) (100 * SCALE), (int) (200 * SCALE), screenState);
         musicButton = new TogleButton((int) (100 * SCALE), (int) (275 * SCALE));
         soundButton = new TogleButton((int) (100 * SCALE), (int) (350 * SCALE));
         spritesButton = new TogleButton((int) (100 * SCALE), (int) (425 * SCALE), spitesState);
+        originalMusic = new TogleButton((int) (100 * SCALE), (int) (500 * SCALE), originalMusicState);
 
         leftButton = new KeyButton((FRAME_WIDTH - 550), (int) (200 * SCALE), String.valueOf(Constants.LEFT_KEY_CODE));
         rigthButton = new KeyButton((FRAME_WIDTH - 550), (int) (275 * SCALE), String.valueOf(Constants.RIGTH_KEY_CODE));
@@ -59,6 +62,7 @@ public class Configuration extends State implements StateMethods {
         soundButton.update();
         screenButton.update();
         spritesButton.update();
+        originalMusic.update();
         leftButton.update();
         rigthButton.update();
         jumpButton.update();
@@ -80,6 +84,7 @@ public class Configuration extends State implements StateMethods {
         musicButton.draw(g, "Música: ");
         soundButton.draw(g, "Efectos: ");
         spritesButton.draw(g, "Sprites originales: ");
+        originalMusic.draw(g, "Musica original: ");
 
         leftButton.draw(g, "Izquierda: ");
         rigthButton.draw(g, "Derecha: ");
@@ -137,6 +142,8 @@ public class Configuration extends State implements StateMethods {
             screenButton.setMousePressed(true);
         else if (isMouseIn(e, spritesButton))
             spritesButton.setMousePressed(true);
+        else if (isMouseIn(e, originalMusic))
+            originalMusic.setMousePressed(true);
         else if (isMouseIn(e, leftButton))
             leftButton.setMousePressed(true);
         else if (isMouseIn(e, rigthButton))
@@ -165,7 +172,13 @@ public class Configuration extends State implements StateMethods {
             if (spritesButton.isMousePressed()) {
                 spritesButton.togleState();
             }
-        } else if (isMouseIn(e, leftButton)) {
+        } else if (isMouseIn(e, originalMusic)) {
+            if (originalMusic.isMousePressed()) {
+                originalMusic.togleState();
+            }
+        }
+
+        else if (isMouseIn(e, leftButton)) {
             if (leftButton.isMousePressed()) {
                 leftButton.setClicked(true);
                 // Todo -
@@ -186,6 +199,7 @@ public class Configuration extends State implements StateMethods {
         soundButton.resetMouseBooleans();
         screenButton.resetMouseBooleans();
         spritesButton.resetMouseBooleans();
+        originalMusic.resetMouseBooleans();
         leftButton.resetMouseBooleans();
         rigthButton.resetMouseBooleans();
         jumpButton.resetMouseBooleans();
@@ -198,6 +212,7 @@ public class Configuration extends State implements StateMethods {
         musicButton.setMouseOver(false);
         screenButton.setMouseOver(false);
         spritesButton.setMouseOver(false);
+        originalMusic.setMouseOver(false);
         leftButton.setMouseOver(false);
         rigthButton.setMouseOver(false);
         jumpButton.setMouseOver(false);
@@ -210,6 +225,8 @@ public class Configuration extends State implements StateMethods {
             screenButton.setMouseOver(true);
         else if (isMouseIn(e, spritesButton))
             spritesButton.setMouseOver(true);
+        else if (isMouseIn(e, originalMusic))
+            originalMusic.setMouseOver(true);
         else if (isMouseIn(e, leftButton))
             leftButton.setMouseOver(true);
         else if (isMouseIn(e, rigthButton))
@@ -228,6 +245,7 @@ public class Configuration extends State implements StateMethods {
         try {
             game.getEnvFile().setEnvVariable("FULL_SCREEN", String.valueOf(screenButton.getState()));
             game.getEnvFile().setEnvVariable("ORIGINAL_SPRITES", String.valueOf(spritesButton.getState()));
+            game.getEnvFile().setEnvVariable("ORIGINAL_MUSIC", String.valueOf(originalMusic.getState()));
             game.getEnvFile().setEnvVariable("LEFT_KEY_CODE", leftButton.getKeyCode());
             game.getEnvFile().setEnvVariable("RIGTH_KEY_CODE", rigthButton.getKeyCode());
             game.getEnvFile().setEnvVariable("JUMP_KEY_CODE", jumpButton.getKeyCode());
